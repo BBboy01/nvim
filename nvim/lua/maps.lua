@@ -29,6 +29,8 @@ keymap.set('', 'sj', '<C-w>j')
 keymap.set('', 'sl', '<C-w>l')
 -- Close window
 keymap.set('n', 'sw', ':q<CR>')
+-- Save current buffer
+keymap.set('n', '<C-s>', ':w<CR>')
 
 -- Resize window
 keymap.set('n', 's<left>', '<C-w><')
