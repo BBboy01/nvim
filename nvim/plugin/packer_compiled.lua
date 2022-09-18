@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
+  },
   ["colorbuddy.nvim"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
@@ -164,10 +169,20 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
+  ["nvim-lsp-installer"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
+    url = "https://github.com/williamboman/nvim-lsp-installer"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-tree"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-tree",
+    url = "https://github.com/kyazdani42/nvim-tree"
   },
   ["nvim-treesitter"] = {
     loaded = true,
