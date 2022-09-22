@@ -18,10 +18,7 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- New tab
 keymap.set('n', 'te', ':tabedit<Return>', { silent = true })
--- Switch tab
-keymap.set('n', 'th', ':tabp<Return>', { silent = true })
-keymap.set('n', 'tl', ':tabn<Return>', { silent = true })
--- Only keep current tab
+-- Only keep currnt tab
 keymap.set('n', 'to', ':tabo<Return>', { silent = true })
 -- Split window
 keymap.set('n', 'ss', ':split<Return><C-w>w', { silent = true })

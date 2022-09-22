@@ -179,11 +179,6 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
-  ["nvim-tree"] = {
-    loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-tree",
-    url = "https://github.com/kyazdani42/nvim-tree"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -193,6 +188,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
