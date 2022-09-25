@@ -4,21 +4,89 @@ set fish_greeting ""
 
 set -gx TERM xterm-256color
 
-# theme
+# Theme
 set -g theme_color_scheme terminal-dark
 set -g fish_prompt_pwd_dir_length 1
 set -g theme_display_user yes
 set -g theme_hide_hostname no
 set -g theme_hostname always
 
-# aliases
+
+# Aliases
 alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
 alias lla "ll -A"
+
+alias -s md='open -a /Applications/Typora.app' >/dev/null
+
+# Git alias
 alias g git
+# go to project root
+alias grt='cd "$(git rev-parse --show-toplevel)"'
+
+alias gs="git status"
+alias gp="git push"
+alias gpoh="git push -u origin HEAD"
+alias gpf="git push --force"
+alias gpft="git push --follow-tags"
+alias gpdo="git push --delete origin"
+alias gpl="git pull --rebase"
+alias gcl="git clone"
+alias gst="git stash"
+alias gsta="git stash apply"
+alias gstp="git stash pop"
+alias grm='git rm'
+alias gmv='git mv'
+alias gd='git diff'
+
+alias main='git switch main'
+alias master='git switch master'
+alias dev='git switch develop'
+alias gs="git switch"
+alias gsp="git switch -"
+alias gbp="git prune origin"
+
+alias gbD="git branch -D"
+
+alias gfo='git fetch origin'
+
+alias grb="git rebase"
+alias grbom="git rebase origin/master"
+alias grbod="git rebase origin/develop"
+alias grbc="git rebase --continue"
+alias grba="git rebase --abort"
+
+alias gl="git log"
+alias glo="git log --oneline --graph"
+
+alias grsH="git reset HEAD"
+alias grsH1="git reset HEAD~1"
+alias grsh="git reset --hard"
+alias grshod="git reset --hard origin/dev"
+alias grshom="git reset --hard origin/main"
+
+alias ga="git add"
+alias gaa="git add -A"
+
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gca="git commit -a"
+alias gcae="git commit --amend"
+alias gcaen="git commit --amend --no-edit"
+alias gcam="git add -A && git commit -m"
+alias gfrb="git fetch origin && git rebase origin/main"
+alias gsha="git rev-parse HEAD | pbcopy"
+
+alias gxn='git clean -dn'
+alias gx='git clean -df'
+
+alias gop='git open'
+
+
 alias rsync "rsync -lahz"
 alias cbr 'git branch --sort=-committerdate | fzf --header "Checkout Recent Branch" --preview "git diff {1} --color=always | delta" --pointer="" | xargs git switch'
+
 command -qv nvim && alias vim nvim
 
 set -gx EDITOR nvim
