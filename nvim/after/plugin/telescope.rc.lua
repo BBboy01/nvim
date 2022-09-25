@@ -22,6 +22,12 @@ telescope.setup {
       theme = "dropdown",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
+      media_files = {
+        -- filetypes whitelist
+        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+        filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
+        find_cmd = "rg" -- find command (defaults to `fd`)
+      },
       mappings = {
         -- your custom insert mode mappings
         ["i"] = {
@@ -53,13 +59,13 @@ vim.keymap.set('n', '<Leader>r', function()
   builtin.live_grep()
 end)
 vim.keymap.set('n', '\\\\', function()
-  builtin.buffers()
+  builtin.resume()
 end)
 vim.keymap.set('n', '<Leader>t', function()
   builtin.help_tags()
 end)
 vim.keymap.set('n', '<Leader><Leader>', function()
-  builtin.resume()
+  builtin.buffers()
 end)
 vim.keymap.set('n', '<Leader>e', function()
   builtin.diagnostics()
