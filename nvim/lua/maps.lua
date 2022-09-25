@@ -3,7 +3,7 @@ local keymap = vim.keymap
 -- Do not yank
 keymap.set('n', 'x', '"_x')
 
---
+-- Toggle matched highlight status
 keymap.set('n', '<leader>l', ':set hlsearch!<CR>', { noremap = true, silent = true })
 
 -- Increment/decrement
@@ -35,8 +35,8 @@ keymap.set('n', 'sw', ':q<CR>')
 keymap.set('n', '<C-s>', ':w<CR>')
 
 -- Resize window
-keymap.set('n', 's<left>', '<C-w><')
-keymap.set('n', 's<right>', '<C-w>>')
+keymap.set('n', 's<right>', '<C-w><')
+keymap.set('n', 's<left>', '<C-w>>')
 keymap.set('n', 's<up>', '<C-w>+')
 keymap.set('n', 's<down>', '<C-w>-')
 

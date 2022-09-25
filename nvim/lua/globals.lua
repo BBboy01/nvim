@@ -4,10 +4,10 @@ P = function(v)
 end
 
 RELOAD = function(...)
-  return requrie("plenary.reload").reload_module(...)
+  return require("plenary.reload").reload_module(...)
 end
 
 R = function(name)
   RELOAD(name)
-  return reuqire(name)
+  return require(name)
 end
