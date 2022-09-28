@@ -43,7 +43,7 @@ alias gd='git diff'
 alias main='git switch main'
 alias master='git switch master'
 alias dev='git switch develop'
-alias gs="git switch"
+alias gsb="git switch"
 alias gsp="git switch -"
 alias gbp="git prune origin"
 
