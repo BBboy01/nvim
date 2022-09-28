@@ -14,19 +14,29 @@ cmp.setup {
     ['<C-e>'] = cmp.mapping.complete(),
     ['<C-q>'] = cmp.mapping.close(),
     ['<Tab>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = true
     }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
+    { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 3 },
   }),
   formatting = {
-    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
+    format = lspkind.cmp_format({ with_text = false, maxwidth = 50, menu = {
+      buffer = "[buf]",
+      nvim_lua = "[api]",
+      nvim_lsp = "[LSP]",
+      path = "[path]",
+      luasnip = "[snip]",
+    } })
+  },
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
   }
 }
 
