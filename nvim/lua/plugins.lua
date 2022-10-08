@@ -17,14 +17,24 @@ packer.startup(function(use)
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
 
   -- CMP
-  use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
+  use 'neovim/nvim-lspconfig' -- LSP
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim's built-in LSP
+  use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
   use 'hrsh7th/cmp-nvim-lua'
   use 'hrsh7th/cmp-path' -- path completion
-  use 'hrsh7th/nvim-cmp' -- Completion
   use "hrsh7th/cmp-cmdline" -- CMD line completions
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
+      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
+    },
+  }
 
-  use 'neovim/nvim-lspconfig' -- LSP
   use 'williamboman/nvim-lsp-installer' -- Simple to use language server installer
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
   use 'MunifTanjim/prettier.nvim' -- Prettier plugin for Neovim's built-in LSP client
@@ -32,14 +42,12 @@ packer.startup(function(use)
   use 'williamboman/mason-lspconfig.nvim'
 
   use 'glepnir/lspsaga.nvim' -- LSP UIs
-  use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
   use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
-  use 'nvim-treesitter/playground' -- Syntext token tree playground
+  use 'nvim-treesitter/playground' -- Syntax token tree playground
   use { 'yaocccc/nvim-hlchunk', event = 'BufReadPost' } -- Line the scope
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'nvim-telescope/telescope.nvim'
