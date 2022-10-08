@@ -3,8 +3,7 @@ if not status then return end
 
 local types = require("luasnip.util.types")
 
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
-require("luasnip").config.setup({ store_selection_keys = "<A-p>" })
+--[[ require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" }) ]]
 
 vim.cmd([[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]])
 
@@ -36,31 +35,20 @@ local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 
 
+-- Keymaps
 vim.keymap.set({ "i", "s" }, "<C-j>", function()
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
+  if ls.jumpable(1) then
+    ls.jump(1)
   end
 end, { silent = true })
+
 vim.keymap.set({ "i", "s" }, "<C-k>", function()
   if ls.jumpable() then
     ls.jump(-1)
   end
 end, { silent = true })
 
-vim.keymap.set({ "i", "s" }, "<A-y>", "<Esc>o", { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<a-k>", function()
-  if ls.jumpable(1) then
-    ls.jump(1)
-  end
-end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<a-j>", function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  end
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<a-l>", function()
+vim.keymap.set({ "i", "s" }, "<C-l>", function()
   if ls.choice_active() then
     ls.change_choice(1)
   else
@@ -70,18 +58,30 @@ vim.keymap.set({ "i", "s" }, "<a-l>", function()
     print(time)
   end
 end)
-vim.keymap.set({ "i", "s" }, "<a-h>", function()
+vim.keymap.set({ "i", "s" }, "<C-h>", function()
   if ls.choice_active() then
     ls.change_choice(-1)
   end
 end)
 
-ls.add_snippets(nil, {
-  s({ trig = "date" }, {
+
+ls.add_snippets("all", {
+  s("curtime", {
     f(function()
       return string.format(string.gsub(vim.bo.commentstring, "%%s", " %%s"), os.date())
     end, {}),
   }),
+  s("tee",
+    fmt([[ 
+       {} = {} ={}
+      ]],
+      {
+        c(1, { i(1, "i"), i(1, "") }),
+        rep(1),
+        i(3, "dio"),
+      }
+    )
+  )
 })
 
 -- vim.keymap.set("n", "<Leader><CR>", "<cmd>LuaSnipEdit<cr>", { silent = true, noremap = true })
