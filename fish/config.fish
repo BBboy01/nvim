@@ -52,6 +52,7 @@ alias gbD="git branch -D"
 alias gfo='git fetch origin'
 
 alias grb="git rebase"
+alias grbas="git rebase --autosquash"
 alias grbom="git rebase origin/master"
 alias grbod="git rebase origin/develop"
 alias grbc="git rebase --continue"
@@ -70,6 +71,7 @@ alias ga="git add"
 alias gaa="git add -A"
 
 alias gc="git commit -m"
+alias gcf="git commit --fixup"
 alias gca="git commit --amend"
 alias gcan="git commit --amend --no-edit"
 alias gcam="git add -A && git commit -m"
@@ -83,6 +85,7 @@ alias gop='git open'
 
 
 alias rsync "rsync -lahz"
+alias gfu "git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
 # Switch branchs
 alias cbr 'git branch --sort=-committerdate | fzf --header "Checkout Recent Branch" --preview "git diff {1} --color=always | delta" --pointer="" | xargs git switch'
 # Get help docs
