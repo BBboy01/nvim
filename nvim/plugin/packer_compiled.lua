@@ -196,11 +196,6 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/nvim-hlchunk",
     url = "https://github.com/yaocccc/nvim-hlchunk"
   },
-  ["nvim-lsp-installer"] = {
-    loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
-  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
