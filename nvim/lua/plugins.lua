@@ -35,10 +35,9 @@ packer.startup(function(use)
     },
   }
 
-  use 'williamboman/nvim-lsp-installer' -- Simple to use language server installer
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
   use 'MunifTanjim/prettier.nvim' -- Prettier plugin for Neovim's built-in LSP client
-  use 'williamboman/mason.nvim'
+  use 'williamboman/mason.nvim' -- LSP server manager
   use 'williamboman/mason-lspconfig.nvim'
 
   use 'glepnir/lspsaga.nvim' -- LSP UIs
