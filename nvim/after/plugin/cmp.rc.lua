@@ -1,11 +1,14 @@
 local status, cmp = pcall(require, "cmp")
 if (not status) then return end
-local lspkind = require 'lspkind'
+local status2, lspkind = pcall(require, "lspkind")
+if (not status2) then return end
+local status3, luasnip = pcall(require, "luasnip")
+if (not status3) then return end
 
 cmp.setup {
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({

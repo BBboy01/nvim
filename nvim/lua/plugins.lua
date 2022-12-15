@@ -41,10 +41,10 @@ packer.startup(function(use)
   use 'williamboman/mason-lspconfig.nvim'
 
   use 'glepnir/lspsaga.nvim' -- LSP UIs
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-  }
+  use { 
+     'nvim-treesitter/nvim-treesitter', 
+     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end, 
+   } 
   use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
   use 'nvim-treesitter/playground' -- Syntax token tree playground
   use { 'yaocccc/nvim-hlchunk', event = 'BufReadPost' } -- Line the scope
