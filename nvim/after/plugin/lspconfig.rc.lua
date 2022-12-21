@@ -38,14 +38,28 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local servers = { 'html', 'cssls' }
+local servers = {
+  'html',
+  'cssls',
+  'eslint',
+  'jsonls',
+  'emmet_ls',
+  'volar',
+  'vuels',
+  'angularls',
+  'tailwindcss',
+  'bashls',
+  'dockerls',
+  'luau_lsp',
+  'yamlls'
+}
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup({})
 end
 
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
 }
 
