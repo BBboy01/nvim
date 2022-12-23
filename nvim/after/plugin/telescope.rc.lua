@@ -48,28 +48,35 @@ telescope.setup {
 
 telescope.load_extension("file_browser")
 
+vim.keymap.set('n', '<Leader>r', function()
+  builtin.live_grep()
+end, { desc = '[S]earch by [G]rep' })
+
+vim.keymap.set('n', '<Leader>t', function()
+  builtin.help_tags()
+end, { desc = '[S]earch [H]elp' })
+
+vim.keymap.set('n', '\\\\', function()
+  builtin.resume()
+end, { desc = '[ ] Resume buffers' })
+vim.keymap.set('n', '<Leader><Leader>', function()
+  builtin.buffers()
+end, { desc = '[ ] Find existing buffers' })
+
+vim.keymap.set('n', '<Leader>e', function()
+  builtin.diagnostics()
+end, { desc = '[S]earch [D]iagnostics' })
+
 vim.keymap.set('n', '<C-p>',
   function()
     builtin.find_files({
       no_ignore = false,
       hidden = true
     })
-  end)
-vim.keymap.set('n', '<Leader>r', function()
-  builtin.live_grep()
-end)
-vim.keymap.set('n', '\\\\', function()
-  builtin.resume()
-end)
-vim.keymap.set('n', '<Leader>t', function()
-  builtin.help_tags()
-end)
-vim.keymap.set('n', '<Leader><Leader>', function()
-  builtin.buffers()
-end)
-vim.keymap.set('n', '<Leader>e', function()
-  builtin.diagnostics()
-end)
+  end, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<Leader>?', function()
+  builtin.oldfiles()
+end, { desc = '[?] Find recently opened files' })
 vim.keymap.set("n", "sf", function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
@@ -81,4 +88,4 @@ vim.keymap.set("n", "sf", function()
     initial_mode = "normal",
     layout_config = { height = 40 }
   })
-end)
+end, { desc = '[S]earch files from current path' })
