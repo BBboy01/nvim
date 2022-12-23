@@ -85,8 +85,11 @@ _G.packer_plugins = {
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
   ["cmp-buffer"] = {
+    after_files = { "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
+    load_after = {},
     loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    needs_bufread = false,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-cmdline"] = {
@@ -95,8 +98,11 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
+    after_files = { "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua" },
+    load_after = {},
     loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    needs_bufread = false,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-nvim-lua"] = {
@@ -105,13 +111,19 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-nvim-lua"
   },
   ["cmp-path"] = {
+    after_files = { "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-path/after/plugin/cmp_path.lua" },
+    load_after = {},
     loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp-path",
+    needs_bufread = false,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
+    after_files = { "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua" },
+    load_after = {},
     loaded = true,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    needs_bufread = false,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["colorbuddy.nvim"] = {
@@ -212,6 +224,11 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
   ["nvim-ts-autotag"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
@@ -279,6 +296,16 @@ time([[Defining packer_plugins]], false)
 time([[Config for nvim-surround]], true)
 try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
 time([[Config for nvim-surround]], false)
+-- Load plugins in order defined by `after`
+time([[Sequenced loading]], true)
+vim.cmd [[ packadd LuaSnip ]]
+vim.cmd [[ packadd cmp_luasnip ]]
+vim.cmd [[ packadd nvim-cmp ]]
+vim.cmd [[ packadd cmp-buffer ]]
+vim.cmd [[ packadd cmp-path ]]
+vim.cmd [[ packadd nvim-lspconfig ]]
+vim.cmd [[ packadd cmp-nvim-lsp ]]
+time([[Sequenced loading]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads

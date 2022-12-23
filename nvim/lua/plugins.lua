@@ -47,6 +47,7 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
   use 'nvim-treesitter/playground' -- Syntax token tree playground
   use { 'yaocccc/nvim-hlchunk', event = 'BufReadPost' } -- Line the scope

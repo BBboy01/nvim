@@ -58,6 +58,38 @@ ts.setup {
     max_file_lines = nil,
     colors = { "#845EC2", "#4FFBDF", "#2265DC", "#FF8066", "#229900", "#999900", "#FFC75F", "#EE66E8" }, -- table of hex strings
     -- termcolors = {} -- table of colour name strings
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+      },
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = { query = "@class.outer", desc = "Next class start" },
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
+    },
   }
 }
 
