@@ -3,6 +3,8 @@ local keymap = vim.keymap
 -- Do not yank
 keymap.set('n', 'x', '"_x')
 
+keymap.set('x', 'p', '\"_dP')
+
 -- Toggle matched highlight status
 keymap.set('n', '<leader>l', ':set hlsearch!<CR>', { noremap = true, silent = true })
 
