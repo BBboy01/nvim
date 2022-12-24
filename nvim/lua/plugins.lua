@@ -50,7 +50,6 @@ packer.startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
   use 'nvim-treesitter/playground' -- Syntax token tree playground
-  use { 'yaocccc/nvim-hlchunk', event = 'BufReadPost' } -- Line the scope
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'nvim-telescope/telescope.nvim'
   -- use 'kyazdani42/nvim-tree.lua' -- File explore
@@ -58,6 +57,7 @@ packer.startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'
+  use "lukas-reineke/indent-blankline.nvim"
 
   -- Commnet
   use "numToStr/Comment.nvim"
