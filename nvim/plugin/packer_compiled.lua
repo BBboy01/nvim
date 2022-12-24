@@ -141,6 +141,11 @@ _G.packer_plugins = {
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -200,13 +205,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/hyber/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
-  },
-  ["nvim-hlchunk"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/hyber/.local/share/nvim/site/pack/packer/opt/nvim-hlchunk",
-    url = "https://github.com/yaocccc/nvim-hlchunk"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -298,21 +296,14 @@ try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B
 time([[Config for nvim-surround]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
+vim.cmd [[ packadd nvim-lspconfig ]]
+vim.cmd [[ packadd cmp-nvim-lsp ]]
 vim.cmd [[ packadd LuaSnip ]]
 vim.cmd [[ packadd cmp_luasnip ]]
 vim.cmd [[ packadd nvim-cmp ]]
 vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd cmp-path ]]
-vim.cmd [[ packadd nvim-lspconfig ]]
-vim.cmd [[ packadd cmp-nvim-lsp ]]
 time([[Sequenced loading]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufReadPost * ++once lua require("packer.load")({'nvim-hlchunk'}, { event = "BufReadPost *" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
