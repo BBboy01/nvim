@@ -63,7 +63,7 @@ vim.keymap.set('n', '<Leader><Leader>', function()
   builtin.buffers()
 end, { desc = '[ ] Find existing buffers' })
 
-vim.keymap.set('n', '<Leader>e', function()
+vim.keymap.set('n', '<Leader>dl', function()
   builtin.diagnostics()
 end, { desc = '[S]earch [D]iagnostics' })
 

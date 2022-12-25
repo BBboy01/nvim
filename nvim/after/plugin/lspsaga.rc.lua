@@ -8,9 +8,9 @@ saga.init_lsp_saga {
 
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', 'gj', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opts)
-vim.keymap.set('n', 'gk', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opts)
-vim.keymap.set('n', 'ge', '<Cmd>Lspsaga show_line_diagnostics<cr>', opts)
+vim.keymap.set('n', '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', opts)
+vim.keymap.set('n', '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opts)
+vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opts)
 vim.keymap.set('n', 'gh', '<Cmd>Lspsaga hover_doc<cr>', opts)
 vim.keymap.set('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opts)
 vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<cr>', opts)
