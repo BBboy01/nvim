@@ -58,6 +58,7 @@ packer.startup(function(use)
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'
   use "lukas-reineke/indent-blankline.nvim"
+  use "b0o/schemastore.nvim" -- json schemas to use with lspconfig
 
   -- Commnet
   use "numToStr/Comment.nvim"

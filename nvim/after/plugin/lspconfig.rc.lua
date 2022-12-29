@@ -1,5 +1,7 @@
 local status, nvim_lsp = pcall(require, 'lspconfig')
 if (not status) then return end
+local status2, schemastore = pcall(require, 'schemastore')
+if (not status2) then return end
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
@@ -43,7 +45,6 @@ local servers = {
   'html',
   'cssls',
   'eslint',
-  'jsonls',
   'emmet_ls',
   'volar',
   'vuels',
@@ -57,6 +58,17 @@ local servers = {
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup({})
 end
+
+local schemas = schemastore.json.schemas()
+
+nvim_lsp.jsonls.setup {
+  settings = {
+    json = {
+      schemas = schemas,
+      validate = { enable = true }
+    }
+  }
+}
 
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
