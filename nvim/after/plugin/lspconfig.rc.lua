@@ -42,8 +42,7 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-  'html',
-  'cssls',
+  'cssmodules_ls',
   'eslint',
   'emmet_ls',
   'volar',
@@ -59,9 +58,21 @@ for _, server in ipairs(servers) do
   nvim_lsp[server].setup({})
 end
 
-local schemas = schemastore.json.schemas()
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+nvim_lsp.html.setup {
+  capabilities = capabilities,
+}
+
+nvim_lsp.cssls.setup {
+  capabilities = capabilities,
+}
+
+local schemas = schemastore.json.schemas()
 nvim_lsp.jsonls.setup {
+  capabilities = capabilities,
   settings = {
     json = {
       schemas = schemas,
