@@ -10,6 +10,7 @@ lspconfig.setup {
   ensure_installed = {
     "html",
     "cssls",
+    "cssmodules_ls",
     "eslint",
     "jsonls",
     "emmet_ls",
