@@ -4,6 +4,7 @@ if not status then return end
 vim.keymap.set('n', ' e', '<Cmd>NvimTreeToggle<cr>')
 
 ntree.setup {
+  hijack_netrw = false,
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
