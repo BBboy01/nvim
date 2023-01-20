@@ -52,7 +52,7 @@ packer.startup(function(use)
   use 'nvim-treesitter/playground' -- Syntax token tree playground
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'nvim-telescope/telescope.nvim'
-  -- use 'kyazdani42/nvim-tree.lua' -- File explore
+  use 'kyazdani42/nvim-tree.lua' -- File explore
   use 'nvim-telescope/telescope-file-browser.nvim' -- Telescope file explore
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
