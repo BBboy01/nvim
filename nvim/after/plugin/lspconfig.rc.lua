@@ -42,6 +42,7 @@ local servers = {
   'vuels',
   'angularls',
   'tailwindcss',
+  'rust_analyzer',
   'bashls',
   'dockerls',
   'luau_lsp',

@@ -17,6 +17,7 @@ lspconfig.setup {
     "volar",
     "vuels",
     "angularls",
+    "rust_analyzer",
     "tailwindcss",
     "bashls",
     "dockerls",

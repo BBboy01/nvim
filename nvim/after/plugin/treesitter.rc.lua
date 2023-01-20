@@ -22,6 +22,8 @@ ts.setup {
     'fish',
     'yaml',
     'lua',
+    'rust',
+    'toml',
     'json',
     'css',
     'scss',
