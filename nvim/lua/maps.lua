@@ -17,6 +17,8 @@ keymap.set('n', 'dw', 'vb"_d')
 
 -- New tab
 keymap.set('n', 'te', ':tabedit<Return>', { silent = true })
+keymap.set('n', 'tp', ':tabprevious<Return>', { silent = true })
+keymap.set('n', 'tn', ':tabnext<Return>', { silent = true })
 -- Only keep currnt tab
 keymap.set('n', 'to', ':tabo<Return>', { silent = true })
 -- Split window
