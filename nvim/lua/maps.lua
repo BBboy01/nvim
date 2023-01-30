@@ -48,3 +48,4 @@ keymap.set('v', '<', '<gv', { noremap = true, silent = true })
 -- Move selected line/block of text in visual mode
 keymap.set('x', 'K', ':move \'<-2<CR>gv-gv', { noremap = true, silent = true })
 keymap.set('x', 'J', ':move \'>+1<CR>gv-gv', { noremap = true, silent = true })
+
