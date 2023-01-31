@@ -50,7 +50,11 @@ telescope.load_extension("file_browser")
 
 vim.keymap.set('n', '<Leader>r', function()
   builtin.live_grep()
-end, { desc = '[S]earch by [G]rep' })
+end, { desc = '[S]earch from hole project by [G]rep' })
+
+vim.keymap.set('n', '<Leader>s', function()
+  builtin.current_buffer_fuzzy_find({ fuzzy = false, case_mode = "ignore_case" })
+end, { desc = '[S]earch from current buffer by [G]rep' })
 
 vim.keymap.set('n', '<Leader>t', function()
   builtin.help_tags()
