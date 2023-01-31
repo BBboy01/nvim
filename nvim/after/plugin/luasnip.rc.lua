@@ -84,5 +84,3 @@ ls.add_snippets("all", {
   )
 })
 
--- vim.keymap.set("n", "<Leader><CR>", "<cmd>LuaSnipEdit<cr>", { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.rc.lua<CR>")
