@@ -18,7 +18,7 @@ saga.setup {
     -- this option only work in neovim 0.9
     title = true,
     -- border type can be single,double,rounded,solid,shadow.
-    border = 'single',
+    border = 'rounded',
     winblend = 0,
     expand = '',
     collapse = '',
@@ -45,6 +45,22 @@ saga.setup {
     },
     kind = {},
   },
+  finder = {
+    jump_to = 'p',
+    edit = { "o", "<CR>" },
+    vsplit = "v",
+    split = "s",
+    tabe = "t",
+    quit = { "q", "<ESC>" },
+  },
+  definition = {
+    edit = "<C-c>o",
+    vsplit = "<C-c>v",
+    split = "<C-c>s",
+    tabe = "<C-c>t",
+    quit = "q",
+    close = "<Esc>",
+  }
 }
 
 local opts = { noremap = true, silent = true }
@@ -54,7 +70,7 @@ vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opts)
 vim.keymap.set('n', '<leader>o', '<Cmd>Lspsaga outline<cr>', opts)
 vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
-vim.keymap.set({"n", "t"}, "<C-j>", "<cmd>Lspsaga term_toggle<CR>")
+vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<cmd>Lspsaga term_toggle<CR>")
 vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<cr>', opts)
 vim.keymap.set('n', 'gh', '<Cmd>Lspsaga hover_doc<cr>', opts)
 vim.keymap.set('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opts)
