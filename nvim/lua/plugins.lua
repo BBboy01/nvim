@@ -50,7 +50,29 @@ packer.startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
   use 'nvim-treesitter/playground' -- Syntax token tree playground
-  use 'kyazdani42/nvim-web-devicons' -- File icons
+  use 'nvim-tree/nvim-web-devicons' -- File icons
+  use {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        theme = 'hyper',
+        config = {
+          week_header = {
+            enable = true,
+          },
+          shortcut = {
+            {
+              desc = ' Files',
+              group = 'Label',
+              action = 'Telescope find_files',
+              key = 'f',
+            },
+          },
+        },
+      }
+    end,
+  }
   use 'nvim-telescope/telescope.nvim'
   use 'kyazdani42/nvim-tree.lua' -- File explore
   use 'nvim-telescope/telescope-file-browser.nvim' -- Telescope file explore
