@@ -39,16 +39,20 @@ alias gstp="git stash pop"
 alias grm='git rm'
 alias gmv='git mv'
 alias gd='git diff'
+alias gds='git diff --staged'
 
 alias main='git switch main'
 alias master='git switch master'
 alias dev='git switch develop'
 alias gsb="git switch"
 alias gsp="git switch -"
-alias gbp="git prune origin"
+alias gbp="git remote prune origin"
+alias ff="gbp && git pull --ff-only"
 
+alias gb="git branch"
 alias gbD="git branch -D"
 
+alias gf='git fetch'
 alias gfo='git fetch origin'
 
 alias grb="git rebase"
