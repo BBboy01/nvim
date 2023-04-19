@@ -156,6 +156,9 @@ set -gx PATH "$PNPM_HOME" $PATH
 
 source (dirname (status --current-filename))/config-osx.fish
 
+set -gx PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+set -gx PUPPETEER_EXECUTABLE_PATH (which chromium)
+
 set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
 if test -f $LOCAL_CONFIG
   source $LOCAL_CONFIG
