@@ -16,6 +16,7 @@ ts.setup {
     'dockerfile',
     'gitignore',
     'markdown',
+    'markdown_inline',
     'dot',
     'tsx',
     'vue',

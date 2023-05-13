@@ -43,6 +43,7 @@ local servers = {
   'bashls',
   'dockerls',
   'luau_lsp',
+  'angularls',
   'yamlls'
 }
 for _, server in ipairs(servers) do
@@ -73,8 +74,13 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  root_dir = nvim_lsp.util.root_pattern("Cargo.toml", ".git"),
   settings = {
     ['rust-analyzer'] = {
+      checkOnSave = {
+        allTargets = false,
+        command = 'clippy',
+      },
       imports = {
         granularity = {
           group = 'module',
@@ -93,7 +99,7 @@ nvim_lsp.rust_analyzer.setup({
   },
 })
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -121,18 +127,4 @@ nvim_lsp.sumneko_lua.setup {
       },
     }
   }
-}
-
--- TODO: check if exists a node_modules folder here and run npm i otherwise
-local languageServerPath = "."
---[[ local cmd = {"ngserver", "--stdio", "--tsProbeLocations", languageServerPath , "--ngProbeLocations", languageServerPath} ]]
-local cmd = {"node", languageServerPath.."/node_modules/@angular/language-service/index.js", "--stdio", "--tsProbeLocations", languageServerPath, "--ngProbeLocations", languageServerPath}
-
-nvim_lsp.angularls.setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = cmd,
-    on_new_config = function(new_config, new_root_dir)
-        new_config.cmd = cmd
-    end,
 }
