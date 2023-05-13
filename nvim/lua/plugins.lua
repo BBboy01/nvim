@@ -13,8 +13,8 @@ packer.startup(function(use)
     requires = { 'tjdevries/colorbuddy.nvim' }
   }
   use 'nvim-lualine/lualine.nvim' -- Statusline
-  use 'nvim-lua/plenary.nvim' -- Common utilities
-  use 'onsails/lspkind-nvim' -- vscode-like pictograms
+  use 'nvim-lua/plenary.nvim'     -- Common utilities
+  use 'onsails/lspkind-nvim'      -- vscode-like pictograms
 
   -- LSP
   use {
@@ -32,50 +32,30 @@ packer.startup(function(use)
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
       'L3MON4D3/LuaSnip',
-      { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }, -- nvim-cmp source for buffer words
+      { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
+      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },   -- nvim-cmp source for buffer words
       { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
     },
   }
 
-  use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-  use 'MunifTanjim/prettier.nvim' -- Prettier plugin for Neovim's built-in LSP client
+  use 'github/copilot.vim'
 
-  use 'glepnir/lspsaga.nvim' -- LSP UIs
+  use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+  use 'MunifTanjim/prettier.nvim'       -- Prettier plugin for Neovim's built-in LSP client
+
+  use 'glepnir/lspsaga.nvim'            -- LSP UIs
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'p00f/nvim-ts-rainbow' -- Rainbow parentheses
-  use 'nvim-treesitter/playground' -- Syntax token tree playground
-  use 'nvim-tree/nvim-web-devicons' -- File icons
-  use {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-        theme = 'hyper',
-        config = {
-          week_header = {
-            enable = true,
-          },
-          shortcut = {
-            {
-              desc = ' Files',
-              group = 'Label',
-              action = 'Telescope find_files',
-              key = 'f',
-            },
-          },
-        },
-      }
-    end,
-  }
+  use 'p00f/nvim-ts-rainbow'                                                              -- Rainbow parentheses
+  use 'nvim-treesitter/playground'                                                        -- Syntax token tree playground
+  use 'nvim-tree/nvim-web-devicons'                                                       -- File icons
   use 'nvim-telescope/telescope.nvim'
-  use 'kyazdani42/nvim-tree.lua' -- File explore
-  use 'nvim-telescope/telescope-file-browser.nvim' -- Telescope file explore
+  use { 'kyazdani42/nvim-tree.lua', commit = "086bf310bd19a7103ee7d761eb59f89f3dd23e21" } -- File explore
+  use 'nvim-telescope/telescope-file-browser.nvim'                                        -- Telescope file explore
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'

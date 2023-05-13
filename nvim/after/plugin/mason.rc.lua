@@ -24,6 +24,6 @@ lspconfig.setup {
     "luau_lsp",
     "yamlls",
     "tsserver",
-    "sumneko_lua",
+    "lua_ls",
   },
 }
