@@ -5,6 +5,8 @@ keymap.set('n', 'x', '"_x')
 
 keymap.set('x', 'p', '\"_dP')
 
+keymap.set('i', '<C-a>', 'copilot#Accept("")', { expr = true, silent = true })
+
 -- Toggle matched highlight status
 keymap.set('n', '<leader>l', ':set hlsearch!<CR>', { noremap = true, silent = true })
 
@@ -25,7 +27,6 @@ keymap.set('n', 'to', ':tabo<Return>', { silent = true })
 keymap.set('n', 'ss', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', { silent = true })
 -- Move window
-keymap.set('n', '<Space>', '<C-w>w')
 keymap.set('', 'sh', '<C-w>h')
 keymap.set('', 'sk', '<C-w>k')
 keymap.set('', 'sj', '<C-w>j')
@@ -48,4 +49,3 @@ keymap.set('v', '<', '<gv', { noremap = true, silent = true })
 -- Move selected line/block of text in visual mode
 keymap.set('x', 'K', ':move \'<-2<CR>gv-gv', { noremap = true, silent = true })
 keymap.set('x', 'J', ':move \'>+1<CR>gv-gv', { noremap = true, silent = true })
-
