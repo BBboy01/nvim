@@ -16,7 +16,7 @@ lspconfig.setup {
     "emmet_ls",
     "volar",
     "vuels",
-    "angularls",
+    "angularls@15.2.1",
     "rust_analyzer",
     "tailwindcss",
     "bashls",
