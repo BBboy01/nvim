@@ -26,7 +26,6 @@ cmp.setup {
     }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
@@ -38,7 +37,6 @@ cmp.setup {
       maxwidth = 50,
       menu = {
         buffer = "[buf]",
-        nvim_lua = "[api]",
         nvim_lsp = "[LSP]",
         path = "[path]",
         luasnip = "[snip]",
@@ -46,7 +44,6 @@ cmp.setup {
     })
   },
   experimental = {
-    native_menu = false,
     ghost_text = true,
   }
 }
