@@ -1,7 +1,11 @@
-local status, nvim_lsp = pcall(require, 'lspconfig')
+local status, neodev = pcall(require, "neodev")
 if (not status) then return end
-local status2, schemastore = pcall(require, 'schemastore')
+local status2, nvim_lsp = pcall(require, 'lspconfig')
 if (not status2) then return end
+local status3, schemastore = pcall(require, 'schemastore')
+if (not status3) then return end
+
+neodev.setup({})
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
@@ -116,7 +120,6 @@ nvim_lsp.lua_ls.setup {
         library = {
           vim.env.VIMRUNTIME,
         },
-        checkThirdParty = false
       },
       completion = {
         callSnippet = 'Replace',

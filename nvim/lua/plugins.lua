@@ -7,6 +7,7 @@ end
 vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
+  use 'folke/neodev.nvim'
   use 'wbthomason/packer.nvim'
   use {
     'svrana/neosolarized.nvim',
@@ -34,7 +35,7 @@ packer.startup(function(use)
       'L3MON4D3/LuaSnip',
       { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },   -- nvim-cmp source for buffer words
+      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },       -- nvim-cmp source for buffer words
       { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
     },
   }
