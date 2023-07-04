@@ -8,6 +8,7 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'folke/neodev.nvim'
+  use 'folke/flash.nvim'
   use 'wbthomason/packer.nvim'
   use {
     'svrana/neosolarized.nvim',
