@@ -58,7 +58,7 @@ end, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '\\\\', function()
   builtin.resume()
 end, { desc = '[ ] Resume buffers' })
-vim.keymap.set('n', '<Leader><Leader>', function()
+vim.keymap.set('n', '<Leader>b', function()
   builtin.buffers()
 end, { desc = '[ ] Find existing buffers' })
 

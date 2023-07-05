@@ -24,7 +24,7 @@ keymap.set('n', 'tn', ':tabnext<Return>', { silent = true })
 -- Only keep currnt tab
 keymap.set('n', 'to', ':tabo<Return>', { silent = true })
 -- Split window
-keymap.set('n', 'ss', ':split<Return><C-w>w', { silent = true })
+keymap.set('n', 'sh', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', { silent = true })
 -- Move window
 keymap.set('', 'sh', '<C-w>h')
