@@ -1,96 +1,144 @@
-local status, packer = pcall(require, "packer")
-if (not status) then
-  print("Packer is not installed")
-  return
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd [[packadd packer.nvim]]
-
-packer.startup(function(use)
-  use 'folke/neodev.nvim'
-  use 'folke/flash.nvim'
-  use 'wbthomason/packer.nvim'
-  use {
+require("lazy").setup({
+  'folke/neodev.nvim',
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      {
+        "ss",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Flash Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
+  {
     'svrana/neosolarized.nvim',
-    requires = { 'tjdevries/colorbuddy.nvim' }
-  }
-  use 'nvim-lualine/lualine.nvim' -- Statusline
-  use 'nvim-lua/plenary.nvim'     -- Common utilities
-  use 'onsails/lspkind-nvim'      -- vscode-like pictograms
+    dependencies = { 'tjdevries/colorbuddy.nvim' }
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = true,
+  },                       -- Statusline
+  'nvim-lua/plenary.nvim', -- Common utilities
+  'onsails/lspkind-nvim',  -- vscode-like pictograms
 
   -- LSP
-  use {
+  {
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim'
     }
-  }
+  },
 
   -- CMP
-  use {
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    dependencies = {
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
       'L3MON4D3/LuaSnip',
-      { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
-      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },       -- nvim-cmp source for buffer words
-      { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
+      { 'hrsh7th/cmp-nvim-lsp',     dependencies = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
+      { 'hrsh7th/cmp-path',         dependencies = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer',       dependencies = 'nvim-cmp' },       -- nvim-cmp source for buffer words
+      { 'saadparwaiz1/cmp_luasnip', dependencies = 'LuaSnip' },
     },
-  }
+  },
 
-  use 'github/copilot.vim'
+  'github/copilot.vim',
+  'jose-elias-alvarez/null-ls.nvim', -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+  'MunifTanjim/prettier.nvim',       -- Prettier plugin for Neovim's built-in LSP client
 
-  use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-  use 'MunifTanjim/prettier.nvim'       -- Prettier plugin for Neovim's built-in LSP client
-
-  use 'glepnir/lspsaga.nvim'            -- LSP UIs
-  use {
+  'glepnir/lspsaga.nvim',            -- LSP UIs
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-  }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'p00f/nvim-ts-rainbow'                                                              -- Rainbow parentheses
-  use 'nvim-treesitter/playground'                                                        -- Syntax token tree playground
-  use 'nvim-tree/nvim-web-devicons'                                                       -- File icons
-  use 'nvim-telescope/telescope.nvim'
-  use { 'kyazdani42/nvim-tree.lua', commit = "086bf310bd19a7103ee7d761eb59f89f3dd23e21" } -- File explore
-  use 'nvim-telescope/telescope-file-browser.nvim'                                        -- Telescope file explore
-  use 'windwp/nvim-autopairs'
-  use 'windwp/nvim-ts-autotag'
-  use 'norcalli/nvim-colorizer.lua'
-  use "lukas-reineke/indent-blankline.nvim"
-  use "b0o/schemastore.nvim" -- json schemas to use with lspconfig
+    build = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  },
+  'nvim-treesitter/nvim-treesitter-textobjects',
+  'p00f/nvim-ts-rainbow',                                                              -- Rainbow parentheses
+  'nvim-treesitter/playground',                                                        -- Syntax token tree playground
+  'nvim-tree/nvim-web-devicons',                                                       -- File icons
+  'nvim-telescope/telescope.nvim',
+  { 'kyazdani42/nvim-tree.lua', commit = "086bf310bd19a7103ee7d761eb59f89f3dd23e21" }, -- File explore
+  'nvim-telescope/telescope-file-browser.nvim',                                        -- Telescope file explore
+  'windwp/nvim-autopairs',
+  'windwp/nvim-ts-autotag',
+  'norcalli/nvim-colorizer.lua',
+  "lukas-reineke/indent-blankline.nvim",
+  "b0o/schemastore.nvim", -- json schemas to use with lspconfig
 
   -- Commnet
-  use "numToStr/Comment.nvim"
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  "numToStr/Comment.nvim",
+  'JoosepAlviste/nvim-ts-context-commentstring',
 
   -- Surround
-  use({
+  {
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
     config = function()
       require("nvim-surround").setup({
         -- Configuration here, or leave empty to use defaults
       })
     end
-  })
-
+  },
   -- Zen
-  use 'folke/zen-mode.nvim'
-  use 'folke/twilight.nvim'
+  'folke/zen-mode.nvim',
+  'folke/twilight.nvim',
 
-  -- Markdown preview
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
-  use 'akinsho/nvim-bufferline.lua'
+  'akinsho/nvim-bufferline.lua',
 
   -- Git
-  use 'lewis6991/gitsigns.nvim'
-  use 'dinhhuy258/git.nvim' -- For git blame & browse
-end)
+  'lewis6991/gitsigns.nvim',
+  'dinhhuy258/git.nvim', -- For git blame & browse
+})
