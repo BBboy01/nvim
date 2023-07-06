@@ -67,14 +67,14 @@ require("lazy").setup({
   },
   {
     'nvim-lualine/lualine.nvim',
-    lazy = true,
-  },                       -- Statusline
-  'nvim-lua/plenary.nvim', -- Common utilities
-  'onsails/lspkind-nvim',  -- vscode-like pictograms
+    event = "VeryLazy",
+  },                      -- Statusline
+  'onsails/lspkind-nvim', -- vscode-like pictograms
 
   -- LSP
   {
     'neovim/nvim-lspconfig',
+    event = "VeryLazy",
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim'
@@ -87,39 +87,74 @@ require("lazy").setup({
     dependencies = {
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
-      'L3MON4D3/LuaSnip',
       { 'hrsh7th/cmp-nvim-lsp',     dependencies = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
       { 'hrsh7th/cmp-path',         dependencies = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer',       dependencies = 'nvim-cmp' },       -- nvim-cmp source for buffer words
       { 'saadparwaiz1/cmp_luasnip', dependencies = 'LuaSnip' },
     },
   },
+  {
+    'L3MON4D3/LuaSnip',
+    event = 'InsertCharPre',
+  },
 
-  'github/copilot.vim',
-  'jose-elias-alvarez/null-ls.nvim', -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-  'MunifTanjim/prettier.nvim',       -- Prettier plugin for Neovim's built-in LSP client
+  {
+    'github/copilot.vim',
+    event = "VeryLazy",
+  },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    event = "VeryLazy",
+  }, -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+  {
+    'MunifTanjim/prettier.nvim',
+    event = "VeryLazy",
+  }, -- Prettier plugin for Neovim's built-in LSP client
 
-  'glepnir/lspsaga.nvim',            -- LSP UIs
+  {
+    'glepnir/lspsaga.nvim',
+    event = "VeryLazy",
+  }, -- LSP UIs
   {
     'nvim-treesitter/nvim-treesitter',
-    build = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    event = 'BufRead',
+    run = ':TSUpdate',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
   },
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  'p00f/nvim-ts-rainbow',                                                              -- Rainbow parentheses
-  'nvim-treesitter/playground',                                                        -- Syntax token tree playground
-  'nvim-tree/nvim-web-devicons',                                                       -- File icons
-  'nvim-telescope/telescope.nvim',
+  'p00f/nvim-ts-rainbow',        -- Rainbow parentheses
+  'nvim-tree/nvim-web-devicons', -- File icons
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+    },
+  },
   { 'kyazdani42/nvim-tree.lua', commit = "086bf310bd19a7103ee7d761eb59f89f3dd23e21" }, -- File explore
-  'nvim-telescope/telescope-file-browser.nvim',                                        -- Telescope file explore
-  'windwp/nvim-autopairs',
-  'windwp/nvim-ts-autotag',
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'InsertEnter',
+  },
   'norcalli/nvim-colorizer.lua',
   "lukas-reineke/indent-blankline.nvim",
   "b0o/schemastore.nvim", -- json schemas to use with lspconfig
 
   -- Commnet
-  "numToStr/Comment.nvim",
-  'JoosepAlviste/nvim-ts-context-commentstring',
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = "VeryLazy",
+  },
 
   -- Surround
   {
@@ -133,12 +168,24 @@ require("lazy").setup({
     end
   },
   -- Zen
-  'folke/zen-mode.nvim',
-  'folke/twilight.nvim',
+  {
+    'folke/zen-mode.nvim',
+    event = "VeryLazy",
+  },
+  {
+    'folke/twilight.nvim',
+    event = "VeryLazy",
+  },
 
   'akinsho/nvim-bufferline.lua',
 
   -- Git
-  'lewis6991/gitsigns.nvim',
-  'dinhhuy258/git.nvim', -- For git blame & browse
+  {
+    'lewis6991/gitsigns.nvim',
+    event = "VeryLazy",
+  },
+  {
+    'dinhhuy258/git.nvim',
+    event = "VeryLazy",
+  }, -- For git blame & browse
 })

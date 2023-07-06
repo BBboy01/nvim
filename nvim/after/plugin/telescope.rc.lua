@@ -38,10 +38,15 @@ telescope.setup {
         },
       },
     },
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true,
+    }
   },
 }
 
 telescope.load_extension("file_browser")
+telescope.load_extension("fzy_native")
 
 vim.keymap.set('n', '<Leader>r', function()
   builtin.live_grep()
