@@ -50,26 +50,26 @@ telescope.load_extension("fzy_native")
 
 vim.keymap.set('n', '<Leader>r', function()
   builtin.live_grep()
-end, { desc = '[S]earch from hole project by [G]rep' })
+end, { desc = 'Search content from hole project' })
 
 vim.keymap.set('n', '<Leader>s', function()
   builtin.current_buffer_fuzzy_find({ fuzzy = false, case_mode = "ignore_case" })
-end, { desc = '[S]earch from current buffer by [G]rep' })
+end, { desc = 'Search from current buffer' })
 
 vim.keymap.set('n', '<Leader>t', function()
   builtin.help_tags()
-end, { desc = '[S]earch [H]elp' })
+end, { desc = 'Search help' })
 
 vim.keymap.set('n', '\\\\', function()
   builtin.resume()
-end, { desc = '[ ] Resume buffers' })
+end, { desc = 'Resume buffers' })
 vim.keymap.set('n', '<Leader>b', function()
   builtin.buffers()
-end, { desc = '[ ] Find existing buffers' })
+end, { desc = 'Show existing buffers' })
 
 vim.keymap.set('n', '<Leader>dl', function()
   builtin.diagnostics()
-end, { desc = '[S]earch [D]iagnostics' })
+end, { desc = 'Search diagnostics from current project' })
 
 vim.keymap.set('n', '<C-p>',
   function()
@@ -77,10 +77,10 @@ vim.keymap.set('n', '<C-p>',
       no_ignore = false,
       hidden = true
     })
-  end, { desc = '[S]earch [F]iles' })
+  end, { desc = 'Search file from hole project' })
 vim.keymap.set('n', '<Leader>?', function()
   builtin.oldfiles()
-end, { desc = '[?] Find recently opened files' })
+end, { desc = 'Find recently opened files' })
 vim.keymap.set("n", "sf", function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
@@ -92,4 +92,4 @@ vim.keymap.set("n", "sf", function()
     initial_mode = "normal",
     layout_config = { height = 40 }
   })
-end, { desc = '[S]earch files from current path' })
+end, { desc = 'Search files from current path' })
