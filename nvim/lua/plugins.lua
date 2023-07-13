@@ -143,7 +143,7 @@ require("lazy").setup({
     event = 'InsertEnter',
   },
   'norcalli/nvim-colorizer.lua',
-  "lukas-reineke/indent-blankline.nvim",
+  "echasnovski/mini.indentscope",
   "b0o/schemastore.nvim", -- json schemas to use with lspconfig
 
   -- Commnet
