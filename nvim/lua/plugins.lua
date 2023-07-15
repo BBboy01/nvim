@@ -14,13 +14,18 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   'folke/neodev.nvim',
   {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+  },
+  {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.Config
     opts = {},
     keys = {
       {
-        "ss",
+        " s",
         mode = { "n", "x", "o" },
         function()
           require("flash").jump()

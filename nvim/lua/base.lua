@@ -1,43 +1,49 @@
 vim.cmd('autocmd!')
 
-vim.g.mapleader = ';'
-vim.g.maplocalleader = ';'
+local g = vim.g
+local opt = vim.opt
+
+g.mapleader = ';'
+g.maplocalleader = ';'
 
 --[[ vim.g.copilot_no_tab_map = true ]]
 
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+--[[ vim.scriptencoding = 'utf-8' ]]
+vim.b.fileencoding = 'utf-8'
 
-vim.wo.number = true
-vim.opt.signcolumn = 'yes'
+opt.encoding = 'utf-8'
+opt.fileencoding = 'utf-8'
 
-vim.opt.title = true
-vim.opt.spell = true
-vim.opt.autoindent = true
-vim.opt.hlsearch = true
-vim.opt.backup = false
-vim.opt.writebackup = false
-vim.opt.showcmd = true
-vim.opt.cmdheight = 1
-vim.opt.laststatus = 2
-vim.opt.expandtab = true
-vim.opt.scrolloff = 10
-vim.opt.shell = 'fish'
-vim.opt.backupskip = '/tmp/*,/private/tmp/*'
-vim.opt.inccommand = 'split'
-vim.opt.ignorecase = true
-vim.opt.smarttab = true
-vim.opt.breakindent = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.ai = true            -- Auto indent
-vim.opt.si = true            -- Smart indent
-vim.opt.wrap = false         -- No wrap lines
-vim.opt.updatetime = 300     -- Faster completion
-vim.opt.backspace = 'start,eol,indent'
-vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
-vim.opt.wildignore:append { '*/node_modules/*' }
+opt.number = true
+opt.signcolumn = 'yes'
+
+opt.title = true
+opt.spell = true
+opt.autoindent = true
+opt.hlsearch = true
+opt.backup = false
+opt.writebackup = false
+opt.showcmd = true
+opt.showmode = false
+opt.cmdheight = 1
+opt.laststatus = 2
+opt.expandtab = true
+opt.scrolloff = 10
+opt.shell = 'fish'
+opt.backupskip = '/tmp/*,/private/tmp/*'
+opt.inccommand = 'split'
+opt.ignorecase = true
+opt.smarttab = true
+opt.breakindent = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.ai = true            -- Auto indent
+opt.si = true            -- Smart indent
+opt.wrap = false         -- No wrap lines
+opt.updatetime = 300     -- Faster completion
+opt.backspace = 'start,eol,indent'
+opt.path:append { '**' } -- Finding files - Search down into subfolders
+opt.wildignore:append { '*/node_modules/*' }
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
@@ -50,4 +56,4 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   command = "set nopaste"
 })
 
-vim.opt.formatoptions:append { 'r' }
+opt.formatoptions:append { 'r' }
