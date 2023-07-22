@@ -121,12 +121,6 @@ function ssh_proxy
     ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:7890 %h %p" $argv
 end
 
-# NVM
-function nvm    
-  bass source ~/.nvm/nvm.sh ';' nvm $argv
-end
-bass source ~/.nvm/nvm.sh
-
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
