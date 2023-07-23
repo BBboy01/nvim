@@ -1,5 +1,7 @@
-local status, lspkind = pcall(require, "lspkind")
-if (not status) then return end
+local status, lspkind = pcall(require, 'lspkind')
+if not status then
+  return
+end
 
 lspkind.init({
   -- enables text annotations
@@ -18,14 +20,14 @@ lspkind.init({
   --
   -- default: {}
   symbol_map = {
-    Constructor = "",
-    Interface = "",
-    Module = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    EnumMember = "",
-    Event = "",
-    TypeParameter = ""
+    Constructor = '',
+    Interface = '',
+    Module = '',
+    Enum = '',
+    Keyword = '',
+    Snippet = '',
+    EnumMember = '',
+    Event = '',
+    TypeParameter = '',
   },
 })

@@ -1,18 +1,48 @@
-local status, neodev = pcall(require, "neodev")
-if (not status) then return end
+local status, neodev = pcall(require, 'neodev')
+if not status then
+  return
+end
 local status2, nvim_lsp = pcall(require, 'lspconfig')
-if (not status2) then return end
+if not status2 then
+  return
+end
 local status3, schemastore = pcall(require, 'schemastore')
-if (not status3) then return end
+if not status3 then
+  return
+end
 
 neodev.setup({})
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    'gD',
+    '<Cmd>lua vim.lsp.buf.declaration()<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    'gi',
+    '<Cmd>lua vim.lsp.buf.implementation()<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    'gs',
+    '<Cmd>lua vim.lsp.buf.signature_help()<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    '<Leader>f',
+    '<Cmd>lua vim.lsp.buf.format()<CR>',
+    opts
+  )
 end
 
 local on_attach = function(client, bufnr)
@@ -47,7 +77,7 @@ local servers = {
   'dockerls',
   'luau_lsp',
   'angularls',
-  'yamlls'
+  'yamlls',
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup({
@@ -57,27 +87,32 @@ for _, server in ipairs(servers) do
 end
 
 local schemas = schemastore.json.schemas()
-nvim_lsp.jsonls.setup {
+nvim_lsp.jsonls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     json = {
       schemas = schemas,
-      validate = { enable = true }
-    }
-  }
-}
+      validate = { enable = true },
+    },
+  },
+})
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.tsserver.setup({
   on_attach = on_attach,
-  filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
-  cmd = { "typescript-language-server", "--stdio" }
-}
+  filetypes = {
+    'javascript',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
+  cmd = { 'typescript-language-server', '--stdio' },
+})
 
 nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  root_dir = nvim_lsp.util.root_pattern("Cargo.toml", ".git"),
+  root_dir = nvim_lsp.util.root_pattern('Cargo.toml', '.git'),
   settings = {
     ['rust-analyzer'] = {
       checkOnSave = {
@@ -102,7 +137,7 @@ nvim_lsp.rust_analyzer.setup({
   },
 })
 
-nvim_lsp.lua_ls.setup {
+nvim_lsp.lua_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -126,6 +161,6 @@ nvim_lsp.lua_ls.setup {
       telemetry = {
         enable = false,
       },
-    }
-  }
-}
+    },
+  },
+})

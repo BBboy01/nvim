@@ -1,89 +1,89 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
   'folke/neodev.nvim',
   {
-    "danymat/neogen",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    'danymat/neogen',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
     config = true,
   },
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
+    'folke/flash.nvim',
+    event = 'VeryLazy',
     ---@type Flash.Config
     opts = {},
     keys = {
       {
-        " s",
-        mode = { "n", "x", "o" },
+        ' s',
+        mode = { 'n', 'x', 'o' },
         function()
-          require("flash").jump()
+          require('flash').jump()
         end,
-        desc = "Flash",
+        desc = 'Flash',
       },
       {
-        "S",
-        mode = { "n", "o", "x" },
+        'S',
+        mode = { 'n', 'o', 'x' },
         function()
-          require("flash").treesitter()
+          require('flash').treesitter()
         end,
-        desc = "Flash Treesitter",
+        desc = 'Flash Treesitter',
       },
       {
-        "r",
-        mode = "o",
+        'r',
+        mode = 'o',
         function()
-          require("flash").remote()
+          require('flash').remote()
         end,
-        desc = "Remote Flash",
+        desc = 'Remote Flash',
       },
       {
-        "R",
-        mode = { "o", "x" },
+        'R',
+        mode = { 'o', 'x' },
         function()
-          require("flash").treesitter_search()
+          require('flash').treesitter_search()
         end,
-        desc = "Flash Treesitter Search",
+        desc = 'Flash Treesitter Search',
       },
       {
-        "<c-s>",
-        mode = { "c" },
+        '<c-s>',
+        mode = { 'c' },
         function()
-          require("flash").toggle()
+          require('flash').toggle()
         end,
-        desc = "Toggle Flash Search",
+        desc = 'Toggle Flash Search',
       },
     },
   },
   {
     'svrana/neosolarized.nvim',
-    dependencies = { 'tjdevries/colorbuddy.nvim' }
+    dependencies = { 'tjdevries/colorbuddy.nvim' },
   },
   {
     'nvim-lualine/lualine.nvim',
-    event = "VeryLazy",
-  },                      -- Statusline
+    event = 'VeryLazy',
+  }, -- Statusline
   'onsails/lspkind-nvim', -- vscode-like pictograms
 
   -- LSP
   {
     'neovim/nvim-lspconfig',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     dependencies = {
       'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim'
-    }
+      'williamboman/mason-lspconfig.nvim',
+    },
   },
 
   -- CMP
@@ -92,9 +92,9 @@ require("lazy").setup({
     dependencies = {
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
-      { 'hrsh7th/cmp-nvim-lsp',     dependencies = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
-      { 'hrsh7th/cmp-path',         dependencies = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer',       dependencies = 'nvim-cmp' },       -- nvim-cmp source for buffer words
+      { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
+      { 'hrsh7th/cmp-path', dependencies = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer', dependencies = 'nvim-cmp' }, -- nvim-cmp source for buffer words
       { 'saadparwaiz1/cmp_luasnip', dependencies = 'LuaSnip' },
       {
         'L3MON4D3/LuaSnip',
@@ -105,20 +105,20 @@ require("lazy").setup({
 
   {
     'github/copilot.vim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'jose-elias-alvarez/null-ls.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   }, -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
   {
     'MunifTanjim/prettier.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   }, -- Prettier plugin for Neovim's built-in LSP client
 
   {
     'glepnir/lspsaga.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   }, -- LSP UIs
   {
     'nvim-treesitter/nvim-treesitter',
@@ -128,7 +128,7 @@ require("lazy").setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
   },
-  'p00f/nvim-ts-rainbow',        -- Rainbow parentheses
+  'p00f/nvim-ts-rainbow', -- Rainbow parentheses
   'nvim-tree/nvim-web-devicons', -- File icons
   {
     'nvim-telescope/telescope.nvim',
@@ -138,7 +138,10 @@ require("lazy").setup({
       'nvim-telescope/telescope-file-browser.nvim',
     },
   },
-  { 'kyazdani42/nvim-tree.lua', commit = "086bf310bd19a7103ee7d761eb59f89f3dd23e21" }, -- File explore
+  {
+    'kyazdani42/nvim-tree.lua',
+    commit = '086bf310bd19a7103ee7d761eb59f89f3dd23e21',
+  }, -- File explore
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
@@ -152,48 +155,48 @@ require("lazy").setup({
     event = 'BufEnter',
     config = function()
       require('indentmini').setup({
-        char = "|",
+        char = '|',
         exclude = {
-          "erlang",
-          "markdown",
-        }
+          'erlang',
+          'markdown',
+        },
       })
       -- use comment color
-      vim.cmd.highlight("default link IndentLine Comment")
+      vim.cmd.highlight('default link IndentLine Comment')
     end,
   },
   'norcalli/nvim-colorizer.lua',
-  "b0o/schemastore.nvim", -- json schemas to use with lspconfig
+  'b0o/schemastore.nvim', -- json schemas to use with lspconfig
 
   -- Commnet
   {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
+    'numToStr/Comment.nvim',
+    event = 'VeryLazy',
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- Surround
   {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
     config = function()
-      require("nvim-surround").setup({
+      require('nvim-surround').setup({
         -- Configuration here, or leave empty to use defaults
       })
-    end
+    end,
   },
   -- Zen
   {
     'folke/zen-mode.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'folke/twilight.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   'akinsho/nvim-bufferline.lua',
@@ -201,10 +204,10 @@ require("lazy").setup({
   -- Git
   {
     'lewis6991/gitsigns.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'dinhhuy258/git.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   }, -- For git blame & browse
 })

@@ -1,7 +1,9 @@
 local status, ts = pcall(require, 'nvim-treesitter.configs')
-if (not status) then return end
+if not status then
+  return
+end
 
-ts.setup {
+ts.setup({
   highlight = {
     enable = true,
     disable = {},
@@ -28,13 +30,13 @@ ts.setup {
     'json',
     'css',
     'scss',
-    'html'
+    'html',
   },
   autotag = {
     enable = true,
   },
   context_commentstring = {
-    enable = true
+    enable = true,
   },
   playground = {
     enable = true,
@@ -59,7 +61,16 @@ ts.setup {
     disable = {},
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil,
-    colors = { "#845EC2", "#4FFBDF", "#2265DC", "#FF8066", "#229900", "#999900", "#FFC75F", "#EE66E8" }, -- table of hex strings
+    colors = {
+      '#845EC2',
+      '#4FFBDF',
+      '#2265DC',
+      '#FF8066',
+      '#229900',
+      '#999900',
+      '#FFC75F',
+      '#EE66E8',
+    }, -- table of hex strings
     -- termcolors = {} -- table of colour name strings
   },
   textobjects = {
@@ -67,34 +78,38 @@ ts.setup {
       enable = true,
       lookahead = true,
       keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = {
+          query = '@class.inner',
+          desc = 'Select inner part of a class region',
+        },
       },
       move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = { query = "@class.outer", desc = "Next class start" },
+          [']m'] = '@function.outer',
+          [']]'] = { query = '@class.outer', desc = 'Next class start' },
         },
         goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
         },
         goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
         },
         goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
         },
       },
     },
-  }
-}
+  },
+})
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.filetype_to_parsername = { "javascript", "typescript", "typescript.tsx" }
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+parser_config.tsx.filetype_to_parsername =
+  { 'javascript', 'typescript', 'typescript.tsx' }

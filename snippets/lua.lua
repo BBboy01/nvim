@@ -1,5 +1,7 @@
-local status, ls = pcall(require, "luasnip") --{{{
-if not status then return end
+local status, ls = pcall(require, 'luasnip') --{{{
+if not status then
+  return
+end
 
 local s = ls.s --> snippet
 local i = ls.i --> insert node
@@ -10,14 +12,13 @@ local c = ls.choice_node
 local f = ls.function_node
 local sn = ls.snippet_node
 
-local fmt = require("luasnip.extras.fmt").fmt
-local rep = require("luasnip.extras").rep
+local fmt = require('luasnip.extras.fmt').fmt
+local rep = require('luasnip.extras').rep
 
 local snippets, autosnippets = {}, {} --}}}
 
-local group = vim.api.nvim_create_augroup("Lua Snippets", { clear = true })
-local file_pattern = "*.lua"
-
+local group = vim.api.nvim_create_augroup('Lua Snippets', { clear = true })
+local file_pattern = '*.lua'
 
 local function cs(trigger, nodes, opts) --{{{
   local snippet = s(trigger, nodes)
@@ -33,19 +34,19 @@ local function cs(trigger, nodes, opts) --{{{
     end
 
     -- if opts is a string
-    if type(opts) == "string" then
-      if opts == "auto" then
+    if type(opts) == 'string' then
+      if opts == 'auto' then
         target_table = autosnippets
       else
-        table.insert(keymaps, { "i", opts })
+        table.insert(keymaps, { 'i', opts })
       end
     end
 
     -- if opts is a table
-    if opts ~= nil and type(opts) == "table" then
+    if opts ~= nil and type(opts) == 'table' then
       for _, keymap in ipairs(opts) do
-        if type(keymap) == "string" then
-          table.insert(keymaps, { "i", keymap })
+        if type(keymap) == 'string' then
+          table.insert(keymaps, { 'i', keymap })
         else
           table.insert(keymaps, keymap)
         end
@@ -53,9 +54,9 @@ local function cs(trigger, nodes, opts) --{{{
     end
 
     -- set autocmd for each keymap
-    if opts ~= "auto" then
+    if opts ~= 'auto' then
       for _, keymap in ipairs(keymaps) do
-        vim.api.nvim_create_autocmd("BufEnter", {
+        vim.api.nvim_create_autocmd('BufEnter', {
           pattern = pattern,
           group = group,
           callback = function()
@@ -73,14 +74,14 @@ end --}}}
 
 -- Start Refactoring --
 
-cs("CMD", { -- [CMD] multiline vim.cmd{{{
-  t({ "vim.cmd[[", "  " }),
-  i(1, ""),
-  t({ "", "]]" }),
+cs('CMD', { -- [CMD] multiline vim.cmd{{{
+  t({ 'vim.cmd[[', '  ' }),
+  i(1, ''),
+  t({ '', ']]' }),
 }) --}}}
-cs("cmd", fmt("vim.cmd[[{}]]", { i(1, "") })) -- single line vim.cmd
+cs('cmd', fmt('vim.cmd[[{}]]', { i(1, '') })) -- single line vim.cmd
 cs({ -- github import for packer{{{
-  trig = "https://github%.com/([%w-%._]+)/([%w-%._]+)!",
+  trig = 'https://github%.com/([%w-%._]+)/([%w-%._]+)!',
   regTrig = true,
   hidden = true,
 }, {
@@ -88,16 +89,16 @@ cs({ -- github import for packer{{{
   f(function(_, snip)
     return snip.captures[1]
   end),
-  t("/"),
+  t('/'),
   f(function(_, snip)
     return snip.captures[2]
   end),
-  t({ [["]], "" }),
-  i(1, ""),
-}, "auto") --}}}
+  t({ [["]], '' }),
+  i(1, ''),
+}, 'auto') --}}}
 
-cs(-- {regexSnippet} LuaSnippet{{{
-  "regexSnippet",
+cs( -- {regexSnippet} LuaSnippet{{{
+  'regexSnippet',
   fmt(
     [=[
 cs( -- {}
@@ -108,16 +109,16 @@ cs( -- {}
 }}))
       ]=],
     {
-      i(1, "Description"),
-      i(2, ""),
-      i(3, ""),
-      i(4, ""),
+      i(1, 'Description'),
+      i(2, ''),
+      i(3, ''),
+      i(4, ''),
     }
   ),
-  { pattern = "*/snippets/*.lua", "<C-d>" }
+  { pattern = '*/snippets/*.lua', '<C-d>' }
 ) --}}}
-cs(-- [luaSnippet] LuaSnippet{{{
-  "luaSnippet",
+cs( -- [luaSnippet] LuaSnippet{{{
+  'luaSnippet',
   fmt(
     [=[
 cs("{}", fmt( -- {}
@@ -128,71 +129,74 @@ cs("{}", fmt( -- {}
   }}){})
     ]=],
     {
-      i(1, ""),
-      i(2, "Description"),
-      i(3, ""),
-      i(4, ""),
+      i(1, ''),
+      i(2, 'Description'),
+      i(3, ''),
+      i(4, ''),
       c(5, {
-        t(""),
-        fmt([[, "{}"]], { i(1, "keymap") }),
-        fmt([[, {{ pattern = "{}", {} }}]], { i(1, "*/snippets/*.lua"), i(2, "keymap") }),
+        t(''),
+        fmt([[, "{}"]], { i(1, 'keymap') }),
+        fmt(
+          [[, {{ pattern = "{}", {} }}]],
+          { i(1, '*/snippets/*.lua'), i(2, 'keymap') }
+        ),
       }),
     }
   ),
-  { pattern = "*/snippets/*.lua", "jcs" }
+  { pattern = '*/snippets/*.lua', 'jcs' }
 ) --}}}
 
-cs(-- choice_node_snippet luaSnip choice node{{{
-  "choice_node_snippet",
+cs( -- choice_node_snippet luaSnip choice node{{{
+  'choice_node_snippet',
   fmt(
     [[ 
 c({}, {{ {} }}),
-]]   ,
+]],
     {
-      i(1, ""),
-      i(2, ""),
+      i(1, ''),
+      i(2, ''),
     }
   ),
-  { pattern = "*/snippets/*.lua", "jcn" }
+  { pattern = '*/snippets/*.lua', 'jcn' }
 ) --}}}
 
-cs(-- [function] Lua function snippet{{{
-  "function",
+cs( -- [function] Lua function snippet{{{
+  'function',
   fmt(
     [[ 
 function {}({})
   {}
 end
-]]   ,
+]],
     {
-      i(1, ""),
-      i(2, ""),
-      i(3, ""),
+      i(1, ''),
+      i(2, ''),
+      i(3, ''),
     }
   )
 ) --}}}
-cs(-- [local_function] Lua function snippet{{{
-  "local_function",
+cs( -- [local_function] Lua function snippet{{{
+  'local_function',
   fmt(
     [[ 
 local function {}({})
   {}
 end
-]]   ,
+]],
     {
-      i(1, ""),
-      i(2, ""),
-      i(3, ""),
+      i(1, ''),
+      i(2, ''),
+      i(3, ''),
     }
   )
 ) --}}}
-cs(-- [local] Lua local variable snippet{{{
-  "local",
+cs( -- [local] Lua local variable snippet{{{
+  'local',
   fmt(
     [[ 
 local {} = {}
-  ]] ,
-    { i(1, ""), i(2, "") }
+  ]],
+    { i(1, ''), i(2, '') }
   )
 ) --}}}
 

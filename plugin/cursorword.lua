@@ -7,7 +7,11 @@ local function highlight_cursorword()
 end
 
 local function disable_cursorword()
-  if vim.w.cursorword_id ~= 0 and vim.w.cursorword_id and vim.w.cursorword_match ~= 0 then
+  if
+    vim.w.cursorword_id ~= 0
+    and vim.w.cursorword_id
+    and vim.w.cursorword_match ~= 0
+  then
     fn.matchdelete(vim.w.cursorword_id)
     vim.w.cursorword_id = nil
     vim.w.cursorword_match = nil
