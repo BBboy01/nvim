@@ -15,8 +15,9 @@ set -g theme_hostname always
 # Aliases
 alias ls "ls -p -G"
 alias la "ls -A"
-alias ll "ls -l"
-alias lla "ll -A"
+alias ll "exa -l -g --icons"
+alias lla "ll -a"
+
 
 alias -s md='open -a /Applications/Typora.app' >/dev/null
 
@@ -148,7 +149,6 @@ test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell
 set -gx PNPM_HOME $HOME/Library/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
 
-source (dirname (status --current-filename))/config-osx.fish
 
 set -gx PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 set -gx PUPPETEER_EXECUTABLE_PATH (which chromium)
