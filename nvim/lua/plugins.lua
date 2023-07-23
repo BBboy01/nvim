@@ -96,11 +96,11 @@ require("lazy").setup({
       { 'hrsh7th/cmp-path',         dependencies = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer',       dependencies = 'nvim-cmp' },       -- nvim-cmp source for buffer words
       { 'saadparwaiz1/cmp_luasnip', dependencies = 'LuaSnip' },
+      {
+        'L3MON4D3/LuaSnip',
+        event = 'InsertCharPre',
+      },
     },
-  },
-  {
-    'L3MON4D3/LuaSnip',
-    event = 'InsertCharPre',
   },
 
   {
@@ -147,8 +147,22 @@ require("lazy").setup({
     'windwp/nvim-ts-autotag',
     event = 'InsertEnter',
   },
+  {
+    'nvimdev/indentmini.nvim',
+    event = 'BufEnter',
+    config = function()
+      require('indentmini').setup({
+        char = "|",
+        exclude = {
+          "erlang",
+          "markdown",
+        }
+      })
+      -- use comment color
+      vim.cmd.highlight("default link IndentLine Comment")
+    end,
+  },
   'norcalli/nvim-colorizer.lua',
-  "echasnovski/mini.indentscope",
   "b0o/schemastore.nvim", -- json schemas to use with lspconfig
 
   -- Commnet

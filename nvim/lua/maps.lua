@@ -5,8 +5,6 @@ keymap.set('n', 'x', '"_x')
 
 keymap.set('x', 'p', '\"_dP')
 
-keymap.set('i', '<C-a>', [[ copilot#Accept("") ]], { expr = true, silent = true, desc = 'Accept copilot suggestion' })
-
 keymap.set('n', '<leader>l', ':set hlsearch!<CR>',
   {
     noremap = true,

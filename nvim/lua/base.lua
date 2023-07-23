@@ -6,8 +6,6 @@ local opt = vim.opt
 g.mapleader = ';'
 g.maplocalleader = ';'
 
---[[ vim.g.copilot_no_tab_map = true ]]
-
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
 
