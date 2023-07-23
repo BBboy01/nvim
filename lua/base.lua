@@ -51,13 +51,13 @@ opt.smarttab = true
 opt.breakindent = true
 opt.shiftwidth = 2
 opt.tabstop = 2
-opt.ai = true            -- Auto indent
-opt.si = true            -- Smart indent
-opt.wrap = false         -- No wrap lines
-opt.updatetime = 300     -- Faster completion
+opt.ai = true -- Auto indent
+opt.si = true -- Smart indent
+opt.wrap = false -- No wrap lines
+opt.updatetime = 300 -- Faster completion
 opt.backspace = 'start,eol,indent'
-opt.path:append { '**' } -- Finding files - Search down into subfolders
-opt.wildignore:append { '*/node_modules/*' }
+opt.path:append({ '**' }) -- Finding files - Search down into subfolders
+opt.wildignore:append({ '*/node_modules/*' })
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
@@ -65,12 +65,12 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 -- but this doesn't work on iTerm2.
 
 -- Turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
+vim.api.nvim_create_autocmd('InsertLeave', {
   pattern = '*',
-  command = "set nopaste"
+  command = 'set nopaste',
 })
 
-opt.formatoptions:append { 'r' }
+opt.formatoptions:append({ 'r' })
 
 if vim.fn.executable('rg') == 1 then
   opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
@@ -100,7 +100,8 @@ function _G.show_stc()
 
   local function show_break()
     if vim.v.virtnum > 0 then
-      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. '↳'
+      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1)
+        .. '↳'
     elseif vim.v.virtnum < 0 then
       return ''
     else
@@ -109,9 +110,9 @@ function _G.show_stc()
   end
 
   return (sign and sign or fill_space(2))
-      .. '%='
-      .. show_break()
-      .. (gitsign and gitsign or fill_space(2))
+    .. '%='
+    .. show_break()
+    .. (gitsign and gitsign or fill_space(2))
 end
 
 opt.stc = [[%!v:lua.show_stc()]]

@@ -1,11 +1,13 @@
 local status, git = pcall(require, 'git')
-if (not status) then return end
+if not status then
+  return
+end
 
-git.setup {
+git.setup({
   keymaps = {
     -- Open blame window
-    blame = "<leader>gb",
+    blame = '<leader>gb',
     -- Open file/folder in git repository
-    browse = "<leader>go"
-  }
-}
+    browse = '<leader>go',
+  },
+})
