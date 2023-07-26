@@ -8,6 +8,7 @@ local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.rustfmt.with({
       extra_args = { '--edition', '2021' },
     }),
