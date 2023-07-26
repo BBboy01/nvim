@@ -67,7 +67,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local servers = {
   'html',
   'cssls',
-  'cssmodules_ls',
   'eslint',
   'emmet_ls',
   'volar',
@@ -75,9 +74,7 @@ local servers = {
   'tailwindcss',
   'bashls',
   'dockerls',
-  'luau_lsp',
   'angularls',
-  'yamlls',
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup({
@@ -153,6 +150,7 @@ nvim_lsp.lua_ls.setup({
         library = {
           vim.env.VIMRUNTIME,
         },
+        checkThirdParty = false,
       },
       completion = {
         callSnippet = 'Replace',

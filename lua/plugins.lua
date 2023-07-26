@@ -80,10 +80,6 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-    },
   },
 
   -- CMP
