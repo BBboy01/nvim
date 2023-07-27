@@ -122,6 +122,7 @@ require('lazy').setup({
     run = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
   },
   'p00f/nvim-ts-rainbow', -- Rainbow parentheses
@@ -167,10 +168,6 @@ require('lazy').setup({
   -- Commnet
   {
     'numToStr/Comment.nvim',
-    event = 'VeryLazy',
-  },
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
     event = 'VeryLazy',
   },
 

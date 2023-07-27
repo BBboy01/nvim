@@ -12,10 +12,10 @@ local is_mac = has('macunix')
 local is_win = has('win32')
 
 if is_mac then
-  require('macos')
+  vim.opt.clipboard:append({ 'unnamedplus' })
 end
 if is_win then
-  require('windows')
+  vim.opt.clipboard:append({ 'unnamed', 'unnamedplus' })
 end
 
 if vim.g.neovide then
