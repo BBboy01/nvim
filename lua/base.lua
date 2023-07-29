@@ -23,8 +23,8 @@ opt.pumheight = 15
 opt.showcmd = false
 opt.hidden = true
 
-opt.foldlevelstart = 99
-opt.foldmethod = 'marker'
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
 opt.pumblend = 10
