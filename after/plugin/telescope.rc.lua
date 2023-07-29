@@ -39,6 +39,7 @@ telescope.setup({
         ['n'] = {
           ['N'] = fb_actions.create,
           ['h'] = fb_actions.goto_parent_dir,
+          ['H'] = fb_actions.toggle_respect_gitignore,
         },
       },
     },
