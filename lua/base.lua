@@ -23,9 +23,6 @@ opt.pumheight = 15
 opt.showcmd = false
 opt.hidden = true
 
-opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
 opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
 opt.pumblend = 10
 opt.winblend = 10
