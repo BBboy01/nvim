@@ -69,8 +69,8 @@ local servers = {
   'cssls',
   'eslint',
   'emmet_ls',
+  'tsserver',
   'volar',
-  'vuels',
   'tailwindcss',
   'bashls',
   'dockerls',
@@ -93,17 +93,6 @@ nvim_lsp.jsonls.setup({
       validate = { enable = true },
     },
   },
-})
-
-nvim_lsp.tsserver.setup({
-  on_attach = on_attach,
-  filetypes = {
-    'javascript',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx',
-  },
-  cmd = { 'typescript-language-server', '--stdio' },
 })
 
 nvim_lsp.rust_analyzer.setup({
