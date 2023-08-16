@@ -23,7 +23,8 @@ opt.pumheight = 15
 opt.showcmd = false
 opt.hidden = true
 
-opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
+opt.listchars =
+  { tab = '»·', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.pumblend = 10
 opt.winblend = 10
 opt.undofile = true
