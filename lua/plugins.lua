@@ -119,7 +119,7 @@ require('lazy').setup({
   {
     'nvim-treesitter/nvim-treesitter',
     event = 'BufRead',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'JoosepAlviste/nvim-ts-context-commentstring',
