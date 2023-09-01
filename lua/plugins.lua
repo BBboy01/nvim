@@ -100,10 +100,6 @@ require('lazy').setup({
   },
 
   {
-    'github/copilot.vim',
-    event = 'VeryLazy',
-  },
-  {
     'jose-elias-alvarez/null-ls.nvim',
     event = 'VeryLazy',
   }, -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
