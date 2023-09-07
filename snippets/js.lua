@@ -17,8 +17,7 @@ local rep = require('luasnip.extras').rep
 
 local snippets, autosnippets = {}, {} --}}}
 
-local group =
-  vim.api.nvim_create_augroup('Javascript Snippets', { clear = true })
+local group = vim.api.nvim_create_augroup('Javascript Snippets', { clear = true })
 local file_pattern = '*.js'
 
 local function cs(trigger, nodes, opts) --{{{
@@ -78,10 +77,7 @@ end --}}}
 local if_fmt_arg = { --{{{
   i(1, ''),
   c(2, { i(1, 'LHS'), i(1, '10') }),
-  c(
-    3,
-    { i(1, '==='), i(1, '<'), i(1, '>'), i(1, '<='), i(1, '>='), i(1, '!==') }
-  ),
+  c(3, { i(1, '==='), i(1, '<'), i(1, '>'), i(1, '<='), i(1, '>='), i(1, '!==') }),
   i(4, 'RHS'),
   i(5, '//TODO:'),
 }
@@ -120,8 +116,7 @@ function {}({}) {{
   }
 )
 
-local function_snippet =
-  s({ trig = 'f[un]?', regTrig = true, hidden = true }, function_fmt)
+local function_snippet = s({ trig = 'f[un]?', regTrig = true, hidden = true }, function_fmt)
 local function_snippet_func = s({ trig = 'func' }, vim.deepcopy(function_fmt)) --}}}
 
 local short_hand_if_fmt = fmt( --{{{
@@ -140,20 +135,14 @@ if ({}) {}
     i(3, ''),
   }
 )
-local short_hand_if_statement = s(
-  { trig = 'if[>%s](.+)>>(.+)\\', regTrig = true, hidden = true },
-  short_hand_if_fmt
-)
+local short_hand_if_statement = s({ trig = 'if[>%s](.+)>>(.+)\\', regTrig = true, hidden = true }, short_hand_if_fmt)
 
-local short_hand_if_statement_return_shortcut = s(
-  { trig = '(if[>%s].+>>)[r<]', regTrig = true, hidden = true },
-  {
-    f(function(_, snip)
-      return snip.captures[1]
-    end),
-    t('return '),
-  }
-) --}}}
+local short_hand_if_statement_return_shortcut = s({ trig = '(if[>%s].+>>)[r<]', regTrig = true, hidden = true }, {
+  f(function(_, snip)
+    return snip.captures[1]
+  end),
+  t('return '),
+}) --}}}
 table.insert(autosnippets, if_snippet)
 table.insert(autosnippets, short_hand_if_statement)
 table.insert(autosnippets, short_hand_if_statement_return_shortcut)

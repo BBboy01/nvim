@@ -136,10 +136,7 @@ cs("{}", fmt( -- {}
       c(5, {
         t(''),
         fmt([[, "{}"]], { i(1, 'keymap') }),
-        fmt(
-          [[, {{ pattern = "{}", {} }}]],
-          { i(1, '*/snippets/*.lua'), i(2, 'keymap') }
-        ),
+        fmt([[, {{ pattern = "{}", {} }}]], { i(1, '*/snippets/*.lua'), i(2, 'keymap') }),
       }),
     }
   ),

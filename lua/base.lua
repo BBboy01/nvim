@@ -23,8 +23,7 @@ opt.pumheight = 15
 opt.showcmd = false
 opt.hidden = true
 
-opt.listchars =
-  { tab = '»·', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
+opt.listchars = { tab = '»·', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.pumblend = 10
 opt.winblend = 10
 opt.undofile = true
@@ -98,8 +97,7 @@ function _G.show_stc()
 
   local function show_break()
     if vim.v.virtnum > 0 then
-      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1)
-        .. '↳'
+      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. '↳'
     elseif vim.v.virtnum < 0 then
       return ''
     else
@@ -107,10 +105,7 @@ function _G.show_stc()
     end
   end
 
-  return (sign and sign or fill_space(2))
-    .. '%='
-    .. show_break()
-    .. (gitsign and gitsign or fill_space(2))
+  return (sign and sign or fill_space(2)) .. '%=' .. show_break() .. (gitsign and gitsign or fill_space(2))
 end
 
 opt.stc = [[%!v:lua.show_stc()]]

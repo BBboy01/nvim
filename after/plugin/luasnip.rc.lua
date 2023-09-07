@@ -7,9 +7,7 @@ local types = require('luasnip.util.types')
 
 --[[ require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" }) ]]
 
-vim.cmd(
-  [[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]]
-)
+vim.cmd([[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]])
 
 ls.config.set_config({
   history = true, -- Keep around last snippet local to jump back
@@ -70,10 +68,7 @@ end)
 ls.add_snippets('all', {
   s('curtime', {
     f(function()
-      return string.format(
-        string.gsub(vim.bo.commentstring, '%%s', ' %%s'),
-        os.date()
-      )
+      return string.format(string.gsub(vim.bo.commentstring, '%%s', ' %%s'), os.date())
     end, {}),
   }),
   s(
