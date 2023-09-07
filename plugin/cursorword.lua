@@ -7,11 +7,7 @@ local function highlight_cursorword()
 end
 
 local function disable_cursorword()
-  if
-    vim.w.cursorword_id ~= 0
-    and vim.w.cursorword_id
-    and vim.w.cursorword_match ~= 0
-  then
+  if vim.w.cursorword_id ~= 0 and vim.w.cursorword_id and vim.w.cursorword_match ~= 0 then
     fn.matchdelete(vim.w.cursorword_id)
     vim.w.cursorword_id = nil
     vim.w.cursorword_match = nil
@@ -42,12 +38,7 @@ local function matchadd()
     vim.call('matchdelete', vim.w.cursorword_id)
   end
   vim.w.cursorword_match = 0
-  if
-    cursorword == ''
-    or #cursorword > 100
-    or #cursorword < 3
-    or string.find(cursorword, '[\192-\255]+') ~= nil
-  then
+  if cursorword == '' or #cursorword > 100 or #cursorword < 3 or string.find(cursorword, '[\192-\255]+') ~= nil then
     return
   end
   local pattern = [[\<]] .. cursorword .. [[\>]]

@@ -15,34 +15,10 @@ neodev.setup({})
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    'gD',
-    '<Cmd>lua vim.lsp.buf.declaration()<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    'gi',
-    '<Cmd>lua vim.lsp.buf.implementation()<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    'gs',
-    '<Cmd>lua vim.lsp.buf.signature_help()<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<Leader>f',
-    '<Cmd>lua vim.lsp.buf.format()<CR>',
-    opts
-  )
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>f', '<Cmd>lua vim.lsp.buf.format()<CR>', opts)
 end
 
 local on_attach = function(client, bufnr)

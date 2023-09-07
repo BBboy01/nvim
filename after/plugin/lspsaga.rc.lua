@@ -48,12 +48,7 @@ saga.setup({
 })
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set(
-  'n',
-  '<leader>dc',
-  '<Cmd>Lspsaga show_line_diagnostics<cr>',
-  opts
-)
+vim.keymap.set('n', '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', opts)
 vim.keymap.set('n', '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opts)
 vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opts)
 vim.keymap.set('n', '<leader>o', '<Cmd>Lspsaga outline<cr>', opts)
