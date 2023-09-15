@@ -59,13 +59,23 @@ for _, server in ipairs(servers) do
   })
 end
 
-local schemas = schemastore.json.schemas()
 nvim_lsp.jsonls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     json = {
-      schemas = schemas,
+      schemas = schemastore.json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
+nvim_lsp.yamlls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = schemastore.yaml.schemas(),
       validate = { enable = true },
     },
   },
