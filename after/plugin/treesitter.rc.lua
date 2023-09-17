@@ -78,20 +78,21 @@ ts.setup({
       enable = true,
       lookahead = true,
       keymaps = {
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = {
-          query = '@class.inner',
-          desc = 'Select inner part of a class region',
-        },
+        ['ac'] = '@conditional.outer',
+        ['ic'] = '@conditional.inner',
+        ['al'] = '@loop.outer',
+        ['il'] = '@loop.inner',
       },
       move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           [']m'] = '@function.outer',
-          [']]'] = { query = '@class.outer', desc = 'Next class start' },
+          [']]'] = '@function.inner',
         },
         goto_next_end = {
           [']M'] = '@function.outer',
