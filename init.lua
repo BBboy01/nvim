@@ -4,18 +4,16 @@ require('highlights')
 require('maps')
 require('plugins')
 
-local has = function(x)
-  return vim.fn.has(x) == 1
-end
+local os = vim.loop.os_uname().sysname
 
-local is_mac = has('macunix')
-local is_win = has('win32')
-
-if is_mac then
+if os == 'Darwin' then
   vim.opt.clipboard:append({ 'unnamedplus' })
-end
-if is_win then
-  vim.opt.clipboard:append({ 'unnamed', 'unnamedplus' })
+elseif os == 'Linux' then
+  vim.opt.clipboard:append({ 'unnamedplus' })
+elseif os == 'Windows_NT' then
+  vim.opt.clipboard:prepend({ 'unnamed', 'unnamedplus' })
+else
+  error('Init failed: unknown OS')
 end
 
 if vim.g.neovide then
