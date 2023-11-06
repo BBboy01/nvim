@@ -109,7 +109,7 @@ require('lazy').setup({
   }, -- Prettier plugin for Neovim's built-in LSP client
 
   {
-    'glepnir/lspsaga.nvim',
+    'nvimdev/lspsaga.nvim',
     event = 'VeryLazy',
   }, -- LSP UIs
   {
