@@ -125,7 +125,7 @@ nvim_lsp.lua_ls.setup({
         library = {
           vim.env.VIMRUNTIME,
         },
-        checkThirdParty = false,
+        checkThirdParty = 'Disable',
       },
       completion = {
         callSnippet = 'Replace',
