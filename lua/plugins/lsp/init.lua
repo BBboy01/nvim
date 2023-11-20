@@ -3,6 +3,9 @@ local Util = require('util')
 return {
   'neovim/nvim-lspconfig',
   event = 'VeryLazy',
+  dependencies = {
+    { 'folke/neodev.nvim', opts = {} },
+  },
   keys = {
     {
       '<Leader>f',

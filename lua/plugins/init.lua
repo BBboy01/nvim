@@ -1,5 +1,4 @@
 return {
-  'folke/neodev.nvim',
   {
     'danymat/neogen',
     dependencies = 'nvim-treesitter/nvim-treesitter',
