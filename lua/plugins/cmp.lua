@@ -4,20 +4,19 @@ return {
   event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lua',
-    { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-lspconfig' }, -- nvim-cmp source for neovim's built-in LSP
-    { 'hrsh7th/cmp-path', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-buffer', dependencies = 'nvim-cmp' }, -- nvim-cmp source for buffer words
-    { 'saadparwaiz1/cmp_luasnip', dependencies = 'LuaSnip' },
-    {
-      'L3MON4D3/LuaSnip',
-      event = 'InsertCharPre',
-    },
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-buffer',
+    'saadparwaiz1/cmp_luasnip',
   },
   opts = function()
+    vim.api.nvim_set_hl(0, 'CmpGhostText', { link = 'Comment', default = true })
     local cmp = require('cmp')
     local defaults = require('cmp.config.default')()
     return {
+      completion = {
+        completeopt = 'menu,menuone,noinsert',
+      },
       snippet = {
         expand = function(args)
           require('luasnip').lsp_expand(args.body)
@@ -62,9 +61,18 @@ return {
   end,
   ---@param opts cmp.ConfigSchema
   config = function(_, opts)
+    local cmp = require('cmp')
     for _, source in ipairs(opts.sources) do
       source.group_index = source.group_index or 1
     end
-    require('cmp').setup(opts)
+    cmp.setup(opts)
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' },
+      }, {
+        { name = 'cmdline' },
+      }),
+    })
   end,
 }
