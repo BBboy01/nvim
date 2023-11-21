@@ -203,7 +203,6 @@ return {
         capabilities = vim.deepcopy(capabilities),
       }, servers[server] or {})
 
-      vim.print(opts)
       if opts.setup[server] then
         if opts.setup[server](server, server_opts) then
           return

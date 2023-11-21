@@ -48,20 +48,20 @@ return {
   end,
   config = function(_, opts)
     require('lspsaga').setup(opts)
-    local opts = { noremap = true, silent = true }
-    vim.keymap.set('n', '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', opts)
-    vim.keymap.set('n', '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opts)
-    vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opts)
-    vim.keymap.set('n', '<leader>o', '<Cmd>Lspsaga outline<cr>', opts)
+    local opt = { noremap = true, silent = true }
+    vim.keymap.set('n', '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', opt)
+    vim.keymap.set('n', '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opt)
+    vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opt)
+    vim.keymap.set('n', '<leader>o', '<Cmd>Lspsaga outline<cr>', opt)
     vim.keymap.set('n', '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>')
     vim.keymap.set('n', '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>')
     vim.keymap.set({ 'n', 't', 'i' }, '<C-j>', '<cmd>Lspsaga term_toggle<CR>')
-    vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<cr>', opts)
-    vim.keymap.set('n', 'gt', '<Cmd>Lspsaga goto_type_definition<cr>', opts)
-    vim.keymap.set('n', 'gh', '<Cmd>Lspsaga hover_doc<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder<CR>', opts)
-    vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<cr>', opts)
-    vim.keymap.set('n', 'ga', '<Cmd>Lspsaga code_action<cr>', opts)
-    vim.keymap.set('n', '<Leader>n', '<Cmd>Lspsaga rename<cr>', opts)
+    vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<cr>', opt)
+    vim.keymap.set('n', 'gt', '<Cmd>Lspsaga goto_type_definition<cr>', opt)
+    vim.keymap.set('n', 'gh', '<Cmd>Lspsaga hover_doc<cr>', opt)
+    vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder<CR>', opt)
+    vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<cr>', opt)
+    vim.keymap.set('n', 'ga', '<Cmd>Lspsaga code_action<cr>', opt)
+    vim.keymap.set('n', '<Leader>n', '<Cmd>Lspsaga rename<cr>', opt)
   end,
 }
