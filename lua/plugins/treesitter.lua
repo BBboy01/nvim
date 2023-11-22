@@ -3,8 +3,13 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter',
-    event = 'BufRead',
+    version = false,
     build = ':TSUpdate',
+    event = 'BufRead',
+    init = function(plugin)
+      require('lazy.core.loader').add_to_rtp(plugin)
+      require('nvim-treesitter.query_predicates')
+    end,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'windwp/nvim-ts-autotag',
