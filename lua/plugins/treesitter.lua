@@ -15,8 +15,31 @@ return {
       'windwp/nvim-ts-autotag',
       'p00f/nvim-ts-rainbow',
     },
+    ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       ensure_installed = {
+        'bash',
+        'diff',
+        'html',
+        'toml',
+        'javascript',
+        'jsdoc',
+        'json',
+        'jsonc',
+        'lua',
+        'luadoc',
+        'luap',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'query',
+        'regex',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
+        'yaml',
         'astro',
         'cmake',
         'cpp',
@@ -75,19 +98,12 @@ return {
         -- termcolors = {} -- table of colour name strings
       },
       textobjects = {
-        select = {
+        move = {
           enable = true,
-          lookahead = true,
-          keymaps = {
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@conditional.outer',
-            ['ic'] = '@conditional.inner',
-            ['al'] = '@loop.outer',
-            ['il'] = '@loop.inner',
-          },
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer' },
         },
       },
     },
