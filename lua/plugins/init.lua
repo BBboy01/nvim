@@ -11,6 +11,5 @@ return {
       enable_autocmd = false,
     },
   },
-  'nvim-tree/nvim-web-devicons', -- File icons
   'b0o/schemastore.nvim', -- json schemas to use with lspconfig
 }
