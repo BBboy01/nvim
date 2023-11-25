@@ -1,9 +1,18 @@
+local Util = require('util')
+
 return {
   'nvim-telescope/telescope.nvim',
+  cmd = 'Telescope',
+  version = false,
   dependencies = {
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
+      config = function()
+        Util.on_load('telescope.nvim', function()
+          require('telescope').load_extension('fzf')
+        end)
+      end,
     },
     'nvim-telescope/telescope-file-browser.nvim',
   },
@@ -25,7 +34,8 @@ return {
         local builtin = require('telescope.builtin')
         builtin.live_grep()
       end,
-      desc = 'Search for a string in your current working directory and get results live as you type, respects .gitignore',
+      desc =
+      'Search for a string in your current working directory and get results live as you type, respects .gitignore',
     },
     {
       '<Leader>s',

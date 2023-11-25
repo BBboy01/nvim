@@ -18,11 +18,6 @@ keymap.set('n', '-', '<C-x>')
 -- Delete a word backwards
 keymap.set('n', 'dw', 'vb"_d')
 
-keymap.set('n', 'te', ':tabedit<Return>', { silent = true, desc = 'Create a new tab' })
-keymap.set('n', 'tp', ':tabprevious<Return>', { silent = true, desc = 'Switch to previous tab' })
-keymap.set('n', 'tn', ':tabnext<Return>', { silent = true, desc = 'Switch to next tab' })
-keymap.set('n', 'to', ':tabo<Return>', { silent = true, desc = 'Close all tabs but current' })
-
 keymap.set('n', 'si', ':split<Return><C-w>w', { silent = true, desc = 'Horizontally split current buffer' })
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', { silent = true, desc = 'Vertically split current buffer' })
 
