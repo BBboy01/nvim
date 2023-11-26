@@ -22,9 +22,9 @@ return {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     keys = {
-      { 'te', '<Cmd>tabedit<CR>',               desc = 'Create a new tab' },
-      { 'tn', '<Cmd>BufferLineCycleNext<CR>',   desc = 'Next buffer' },
-      { 'tp', '<Cmd>BufferLineCyclePrev<CR>',   desc = 'Prev buffer' },
+      { 'te', '<Cmd>tabedit<CR>', desc = 'Create a new tab' },
+      { 'tn', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { 'tp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
       { 'to', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
     },
     opts = {
@@ -38,7 +38,7 @@ return {
         diagnostics_indicator = function(_, _, diag)
           local icons = require('config').icons.diagnostics
           local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
-              .. (diag.warning and icons.Warn .. diag.warning or '')
+            .. (diag.warning and icons.Warn .. diag.warning or '')
           return vim.trim(ret)
         end,
       },
@@ -76,7 +76,7 @@ return {
             {
               'filename',
               file_status = true, -- displays file status (readonly status, modified status)
-              path = 0,           -- 0 = just filename, 1 = relative path, 2 = absolute path
+              path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
             },
           },
           lualine_x = {
@@ -104,7 +104,7 @@ return {
             {
               'filename',
               file_status = true, -- displays file status (readonly status, modified status)
-              path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
+              path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
             },
           },
           lualine_x = { 'location' },
