@@ -63,10 +63,11 @@ vim.opt.wildoptions = 'pum'
 vim.opt.pumblend = 5
 vim.opt.background = 'dark'
 
+vim.opt.mouse = ''
+
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
--- but this doesn't work on iTerm2.
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd('InsertLeave', {
@@ -80,42 +81,6 @@ if vim.fn.executable('rg') == 1 then
   opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
-
-local function get_signs()
-  local buf = vim.api.nvim_get_current_buf()
-  return vim.tbl_map(function(sign)
-    return vim.fn.sign_getdefined(sign.name)[1]
-  end, vim.fn.sign_getplaced(buf, { group = '*', lnum = vim.v.lnum })[1].signs)
-end
-
-local function fill_space(count)
-  return '%#StcFill#' .. (' '):rep(count) .. '%*'
-end
-
-function _G.show_stc()
-  local sign, gitsign
-  for _, s in ipairs(get_signs()) do
-    if s.name:find('GitSign') then
-      gitsign = '%#' .. s.texthl .. '#' .. s.text .. '%*'
-    else
-      sign = '%#' .. s.texthl .. '#' .. s.text .. '%*'
-    end
-  end
-
-  local function show_break()
-    if vim.v.virtnum > 0 then
-      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. '↳'
-    elseif vim.v.virtnum < 0 then
-      return ''
-    else
-      return vim.v.lnum
-    end
-  end
-
-  return (sign and sign or fill_space(2)) .. '%=' .. show_break() .. (gitsign and gitsign or fill_space(2))
-end
-
-opt.stc = [[%!v:lua.show_stc()]]
 
 vim.opt.clipboard:append({ 'unnamedplus' })
 vim.g.skip_ts_context_commentstring_module = true
