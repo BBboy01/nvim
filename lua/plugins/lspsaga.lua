@@ -1,6 +1,6 @@
 return {
   'nvimdev/lspsaga.nvim',
-  event = 'VeryLazy',
+  event = 'LspAttach',
   opts = function()
     return {
       ui = {
