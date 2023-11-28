@@ -1,5 +1,3 @@
-vim.loader.enable()
-
 local M = {
   icons = {
     diagnostics = {
