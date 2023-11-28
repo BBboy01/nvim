@@ -9,6 +9,7 @@ return {
     config = function(_, opts)
       require('solarized-osaka').setup(opts)
       vim.cmd('colorscheme solarized-osaka')
+      vim.cmd.highlight('default link IndentLine Comment')
     end,
   },
 }
