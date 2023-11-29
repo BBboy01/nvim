@@ -87,6 +87,14 @@ return {
           local builtin = require('telescope.builtin')
           builtin.diagnostics({ bufnr = 0 })
         end,
+        desc = 'Lists Diagnostics for current buffer',
+      },
+      {
+        '<Leader>da',
+        function()
+          local builtin = require('telescope.builtin')
+          builtin.diagnostics()
+        end,
         desc = 'Lists Diagnostics for all open buffers or a specific buffer',
       },
       {
@@ -156,10 +164,6 @@ return {
         winblend = 0,
         mappings = {
           i = {
-            ['<c-t>'] = open_with_trouble,
-            ['<a-t>'] = open_selected_with_trouble,
-            ['<a-i>'] = find_files_no_ignore,
-            ['<a-h>'] = find_files_with_hidden,
             ['<C-Down>'] = actions.cycle_history_next,
             ['<C-Up>'] = actions.cycle_history_prev,
             ['<C-f>'] = actions.preview_scrolling_down,
