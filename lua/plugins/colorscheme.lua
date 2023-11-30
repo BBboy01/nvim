@@ -3,6 +3,7 @@ return {
     'craftzdog/solarized-osaka.nvim',
     lazy = false,
     priority = 1000,
+    ---@type Config
     opts = {
       transparent = true,
     },

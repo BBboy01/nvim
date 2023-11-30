@@ -108,6 +108,10 @@ return {
       },
     },
     config = function(_, opts)
+      vim.o.foldmethod = 'expr'
+      vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+      vim.o.foldenable = false
+      vim.o.foldlevel = 99
       require('nvim-treesitter.configs').setup(opts)
 
       -- MDX
