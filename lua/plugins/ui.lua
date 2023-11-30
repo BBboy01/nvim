@@ -27,10 +27,10 @@ return {
       { 'tp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
       { 'to', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
     },
+    ---@type bufferline.UserConfig
     opts = {
       options = {
         mode = 'tabs',
-        -- separator_style = "slant",
         show_buffer_close_icons = false,
         show_close_icon = false,
         diagnostics = 'nvim_lsp',
