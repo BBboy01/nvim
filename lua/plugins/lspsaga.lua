@@ -1,67 +1,46 @@
 return {
   'nvimdev/lspsaga.nvim',
   event = 'LspAttach',
-  opts = function()
-    return {
-      ui = {
-        title = true,
-        border = 'rounded',
-        winblend = 0,
-        expand = '',
-        collapse = '',
-        code_action = '💡',
-        preview = ' ',
-        diagnostic = '🐞',
-        incoming = ' ',
-        outgoing = ' ',
-        colors = {
-          red = '#e95678',
-          magenta = '#b33076',
-          orange = '#FF8700',
-          yellow = '#f7bb3b',
-          green = '#afd700',
-          cyan = '#36d0e0',
-          blue = '#61afef',
-          purple = '#CBA6F7',
-          white = '#d1d4cf',
-          black = '#073642',
-        },
-        kind = {},
-      },
-      finder = {
-        jump_to = 'p',
-        edit = { 'o', '<CR>' },
-        vsplit = 'v',
-        split = 's',
-        tabe = 't',
-        quit = { 'q', '<ESC>' },
-      },
-      definition = {
-        edit = '<C-c>o',
-        vsplit = '<C-c>v',
-        split = '<C-c>s',
-        tabe = '<C-c>t',
-        quit = 'q',
-        close = '<Esc>',
-      },
-    }
-  end,
-  config = function(_, opts)
-    require('lspsaga').setup(opts)
-    local opt = { noremap = true, silent = true }
-    vim.keymap.set('n', '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', opt)
-    vim.keymap.set('n', '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', opt)
-    vim.keymap.set('n', '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', opt)
-    vim.keymap.set('n', '<leader>o', '<Cmd>Lspsaga outline<cr>', opt)
-    vim.keymap.set('n', '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>')
-    vim.keymap.set('n', '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>')
-    vim.keymap.set({ 'n', 't', 'i' }, '<C-j>', '<cmd>Lspsaga term_toggle<CR>')
-    vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<cr>', opt)
-    vim.keymap.set('n', 'gt', '<Cmd>Lspsaga goto_type_definition<cr>', opt)
-    vim.keymap.set('n', 'gh', '<Cmd>Lspsaga hover_doc<cr>', opt)
-    vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder<CR>', opt)
-    vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<cr>', opt)
-    vim.keymap.set('n', 'ga', '<Cmd>Lspsaga code_action<cr>', opt)
-    vim.keymap.set('n', '<Leader>n', '<Cmd>Lspsaga rename<cr>', opt)
-  end,
+  keys = {
+    { '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<cr>', desc = 'Show current line diagnostic' },
+    { '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<cr>', desc = 'Next diagnostic at current buffer' },
+    { '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<cr>', desc = 'Prev diagnostic at current buffer' },
+    { '<leader>o', '<Cmd>Lspsaga outline<cr>', desc = 'Show outline of current buffer' },
+    { '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>', desc = 'Show incoming calls' },
+    { '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>', desc = 'Show outgoing calls' },
+    {
+      '<C-j>',
+      '<cmd>Lspsaga term_toggle<CR>',
+      desc = 'Toggle float term',
+      mode = { 'n', 't', 'i' },
+    },
+    { 'gd', '<Cmd>Lspsaga goto_definition<cr>', desc = 'Goto cursorword definition' },
+    { 'gt', '<Cmd>Lspsaga goto_type_definition<cr>', desc = 'Goto cursorword type definition' },
+    { 'gh', '<Cmd>Lspsaga hover_doc<cr>', desc = 'Show cursorword doc' },
+    { 'gr', '<cmd>Lspsaga finder<CR>', desc = 'Show cursorword finder' },
+    { 'gp', '<Cmd>Lspsaga peek_definition<cr>', desc = 'Peek cursorword definition' },
+    { 'ga', '<Cmd>Lspsaga code_action<cr>', desc = 'Show code action' },
+    { '<Leader>n', '<Cmd>Lspsaga rename<cr>', desc = 'Rename cursorword' },
+  },
+  opts = {
+    outline = {
+      layout = 'float',
+    },
+    finder = {
+      jump_to = 'p',
+      edit = { 'o', '<CR>' },
+      vsplit = 'v',
+      split = 's',
+      tabe = 't',
+      quit = { 'q', '<ESC>' },
+    },
+    definition = {
+      edit = '<C-c>o',
+      vsplit = '<C-c>v',
+      split = '<C-c>s',
+      tabe = '<C-c>t',
+      quit = 'q',
+      close = '<Esc>',
+    },
+  },
 }
