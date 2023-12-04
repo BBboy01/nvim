@@ -30,8 +30,6 @@ opt.undofile = true
 
 opt.magic = true
 opt.title = true
-opt.spell = true
-opt.spelloptions = 'camel'
 opt.autoindent = true
 opt.hlsearch = true
 opt.backup = false
