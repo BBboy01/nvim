@@ -50,7 +50,6 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'PlenaryTestPopup',
     'help',
-    'lspinfo',
     'man',
     'notify',
     'qf',
