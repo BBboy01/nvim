@@ -76,7 +76,7 @@ return {
           focus_language = 'f',
           unfocus_language = 'F',
           update = 'R',
-          goto_node = '<cr>',
+          goto_node = '<CR>',
           show_help = '?',
         },
       },
