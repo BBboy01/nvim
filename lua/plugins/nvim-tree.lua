@@ -43,6 +43,6 @@ return {
     },
   },
   keys = {
-    { ' e', '<Cmd>NvimTreeToggle<cr>', 'Toggle file struct tree' },
+    { '<Space>e', '<Cmd>NvimTreeToggle<CR>', 'Toggle file struct tree' },
   },
 }
