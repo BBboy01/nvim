@@ -1,8 +1,11 @@
+local terminal = require('util.terminal')
+local root = require('util.root')
 local keymap = vim.keymap
 
 keymap.set('n', 'x', '"_x')
 
-keymap.set('n', '<leader>l', ':set hlsearch!<CR>', {
+keymap.set({ 'i', 'n' }, '<Esc>', '<Cmd>noh<CR><Esc>', { desc = 'Escape and clear hlsearch' })
+keymap.set('n', '<leader>l', '<Cmd>set hlsearch!<CR>', {
   noremap = true,
   silent = true,
   desc = 'Toggle matched highlight status',
@@ -16,10 +19,10 @@ keymap.set('n', '-', '<C-x>')
 keymap.set('n', 'dw', 'vb"_d')
 
 -- Move Lines
-keymap.set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move up' })
-keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move down' })
-keymap.set('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move down' })
-keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move up' })
+keymap.set('n', '<A-k>', '<Cmd>m .-2<cr>==', { desc = 'Move up' })
+keymap.set('n', '<A-j>', '<Cmd>m .+1<cr>==', { desc = 'Move down' })
+keymap.set('i', '<A-j>', '<esc><Cmd>m .+1<cr>==gi', { desc = 'Move down' })
+keymap.set('i', '<A-k>', '<esc><Cmd>m .-2<cr>==gi', { desc = 'Move up' })
 keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
 keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
 
