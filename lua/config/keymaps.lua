@@ -1,5 +1,3 @@
-local terminal = require('util.terminal')
-local root = require('util.root')
 local keymap = vim.keymap
 
 keymap.set('n', 'x', '"_x')
