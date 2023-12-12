@@ -41,7 +41,7 @@ keymap.set('n', 's<up>', '<C-w>+', { desc = 'Increase window height' })
 keymap.set('n', 's<down>', '<C-w>-', { desc = 'Decrease window height' })
 
 -- Save & Close buffer
-keymap.set('n', 'sw', '<Cmd>qw<CR>', { desc = 'Save and Close current buffer' })
+keymap.set('n', 'sw', '<Cmd>wq<CR>', { desc = 'Save and Close current buffer' })
 keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<Cmd>w<CR><Esc>', { desc = 'Save current buffer' })
 
 -- Add undo break-points
