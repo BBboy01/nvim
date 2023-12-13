@@ -9,6 +9,12 @@ keymap.set('n', '<leader>l', '<Cmd>set hlsearch!<CR>', {
   desc = 'Toggle matched highlight status',
 })
 
+-- better up/down
+keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 -- Increment/decrement
 keymap.set('n', '+', '<C-a>')
 keymap.set('n', '-', '<C-x>')
@@ -43,6 +49,9 @@ keymap.set('n', 's<down>', '<C-w>-', { desc = 'Decrease window height' })
 -- Save & Close buffer
 keymap.set('n', 'sw', '<Cmd>wq<CR>', { desc = 'Save and Close current buffer' })
 keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<Cmd>w<CR><Esc>', { desc = 'Save current buffer' })
+
+-- quit
+keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
 -- Add undo break-points
 keymap.set('i', ',', ',<c-g>u')
