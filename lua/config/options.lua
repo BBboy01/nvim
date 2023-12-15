@@ -11,8 +11,8 @@ opt.completeopt = 'menu,menuone,noselect'
 opt.laststatus = 3 -- Global statusline
 opt.list = true -- Show some invisible characters (tabs...
 
-opt.pumheight = 15
-opt.pumblend = 10
+opt.pumheight = 15 -- Maximum number of entries in a popup
+opt.pumblend = 10 -- Popup blend
 
 opt.listchars = { tab = '»·', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.undofile = true
@@ -40,12 +40,10 @@ opt.termguicolors = true -- True color support
 
 opt.mouse = '' -- Disable mouse action
 
-opt.formatoptions:append({ 'r' })
+opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 
-if vim.fn.executable('rg') == 1 then
-  opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-  opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
-end
+opt.formatoptions = 'jcroqlnt' -- tcqj
+opt.clipboard = 'unnamedplus' -- Sync with system clipboard
 
-vim.opt.clipboard:append({ 'unnamedplus' })
 vim.g.skip_ts_context_commentstring_module = true
