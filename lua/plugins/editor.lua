@@ -344,13 +344,14 @@ return {
       },
     },
     init = function()
-      vim.o.foldcolumn = '1'
-      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-      vim.o.foldmethod = 'expr'
-      vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.o.foldenable = false
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
+      local opt = vim.opt
+      opt.foldcolumn = '1'
+      opt.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
+      opt.foldmethod = 'expr'
+      opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      opt.foldenable = false
+      opt.foldlevel = 99
+      opt.foldlevelstart = 99
     end,
   },
 }
