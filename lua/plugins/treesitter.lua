@@ -12,8 +12,6 @@ return {
     end,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'windwp/nvim-ts-autotag',
-      'p00f/nvim-ts-rainbow',
     },
     ---@type TSConfig
     ---@diagnostic disable-next-line: missing-fields
@@ -53,9 +51,6 @@ return {
         'svelte',
         'gitignore',
       },
-      autotag = {
-        enable = true,
-      },
       -- https://github.com/nvim-treesitter/playground#query-linter
       query_linter = {
         enable = true,
@@ -79,23 +74,6 @@ return {
           goto_node = '<CR>',
           show_help = '?',
         },
-      },
-      rainbow = {
-        enable = true,
-        disable = {},
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil,
-        colors = {
-          '#845EC2',
-          '#4FFBDF',
-          '#2265DC',
-          '#FF8066',
-          '#229900',
-          '#999900',
-          '#FFC75F',
-          '#EE66E8',
-        }, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
       },
       textobjects = {
         move = {
