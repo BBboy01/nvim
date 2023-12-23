@@ -115,6 +115,9 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            format = {
+              enable = false,
+            },
             diagnostics = {
               enable = true,
             },
