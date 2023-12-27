@@ -16,7 +16,7 @@ function M.get_clients(opts)
     if opts and opts.method then
       ---@param client lsp.Client
       ret = vim.tbl_filter(function(client)
-        return client.supports_method(opts.method, { bufnr = opts.bufnr })
+        return client.supports_method(opts.method)
       end, ret)
     end
   end
@@ -56,7 +56,7 @@ function M.on_rename(from, to)
   end
 end
 
----@return _.lspconfig.options
+---@return lspconfig.Config
 function M.get_config(server)
   local configs = require('lspconfig.configs')
   return rawget(configs, server)
@@ -75,13 +75,12 @@ function M.disable(server, cond)
   end)
 end
 
----@param opts? LazyFormatter| {filter?: (string|lsp.Client.filter)}
+---@param opts? {filter?: (string|lsp.Client.filter)}
 function M.formatter(opts)
   opts = opts or {}
   local filter = opts.filter or {}
   filter = type(filter) == 'string' and { name = filter } or filter
   ---@cast filter lsp.Client.filter
-  ---@type LazyFormatter
   local ret = {
     name = 'LSP',
     primary = true,
@@ -102,7 +101,7 @@ function M.formatter(opts)
       end, ret)
     end,
   }
-  return Util.merge(ret, opts) --[[@as LazyFormatter]]
+  return Util.merge(ret, opts)
 end
 
 ---@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter
