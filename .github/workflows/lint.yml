@@ -1,18 +1,12 @@
-name: ci
+name: Format
 
-on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 permissions:
   contents: read
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
