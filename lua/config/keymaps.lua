@@ -9,6 +9,8 @@ keymap.set('n', '<leader>l', '<Cmd>set hlsearch!<CR>', {
   desc = 'Toggle matched highlight status',
 })
 
+keymap.set({ 'i', 'x', 'n', 's' }, '<C-c>', '<Esc>')
+
 -- better up/down
 keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
