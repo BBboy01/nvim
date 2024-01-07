@@ -9,6 +9,9 @@ keymap.set('n', '<leader>l', '<Cmd>set hlsearch!<CR>', {
   desc = 'Toggle matched highlight status',
 })
 
+-- paste but not yank
+keymap.set('x', 'p', [["_dP]])
+
 keymap.set({ 'i', 'x', 'n', 's' }, '<C-c>', '<Esc>')
 
 -- better up/down
