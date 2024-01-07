@@ -137,16 +137,13 @@ return {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-q>'] = cmp.mapping.close(),
-          ['<Tab>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          }),
+          ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-        }, {
           { name = 'buffer', keyword_length = 3 },
         }),
         formatting = {
@@ -177,7 +174,6 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = 'path' },
-        }, {
           { name = 'cmdline' },
         }),
       })
