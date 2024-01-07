@@ -37,6 +37,7 @@
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "promise-async": { "branch": "main", "commit": "94f6f03c6c1e2aab551aacdf0c1e597a7269abb6" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "18d1350ec3897e7282b4cbf78ef6f50191ae78f8" },
   "schemastore.nvim": { "branch": "main", "commit": "7ccffe69a8c24fcd8637788955e13d7fd8aa2f46" },
   "solarized-osaka.nvim": { "branch": "main", "commit": "2391e4f4c04f0f286428ffe65faa944ef215de8a" },
   "statuscol.nvim": { "branch": "main", "commit": "3b629754420919575a9e5758027d6e1831dbf2aa" },
