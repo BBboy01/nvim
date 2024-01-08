@@ -56,6 +56,26 @@ return {
     end,
   },
 
+  {
+    'lewis6991/gitsigns.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { '<leader>gb', '<Cmd>Gitsigns blame_line<CR>', 'Blame current line' },
+      { '<leader>g-', '<Cmd>Gitsigns prev_hunk<CR>', 'Prev hunk' },
+      { '<leader>g=', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
+    },
+    opts = {
+      signs = {
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '┃' },
+      },
+    },
+  },
+
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
