@@ -249,21 +249,6 @@ return {
     end,
   },
 
-  {
-    'lewis6991/gitsigns.nvim',
-    event = 'VeryLazy',
-    opts = {
-      signs = {
-        add = { text = '┃' },
-        change = { text = '┃' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked = { text = '┃' },
-      },
-    },
-  },
-
   -- Automatically highlights other instances of the word under your cursor.
   -- This works with LSP, Treesitter, and regexp matching to find the other
   -- instances.
