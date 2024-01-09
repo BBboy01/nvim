@@ -289,58 +289,6 @@ return {
     },
   },
 
-  -- fold ui
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = {
-      'kevinhwang91/promise-async',
-      {
-        'luukvbaal/statuscol.nvim',
-        config = function()
-          local builtin = require('statuscol.builtin')
-          require('statuscol').setup({
-            relculright = true,
-            segments = {
-              { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-              { text = { '%s' }, click = 'v:lua.ScSa' },
-              { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
-            },
-          })
-        end,
-      },
-    },
-    event = 'BufReadPost',
-    opts = {
-      provider_selector = function()
-        return { 'treesitter', 'indent' }
-      end,
-    },
-    keys = {
-      {
-        'zR',
-        function()
-          require('ufo').openAllFolds()
-        end,
-      },
-      {
-        'zM',
-        function()
-          require('ufo').closeAllFolds()
-        end,
-      },
-    },
-    init = function()
-      local opt = vim.opt
-      opt.foldcolumn = '1'
-      opt.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
-      opt.foldmethod = 'expr'
-      opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      opt.foldenable = false
-      opt.foldlevel = 99
-      opt.foldlevelstart = 99
-    end,
-  },
-
   -- nvim-tree
   {
     'kyazdani42/nvim-tree.lua',
