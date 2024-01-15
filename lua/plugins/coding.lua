@@ -87,27 +87,6 @@ return {
     },
   },
 
-  -- ai
-  {
-    'echasnovski/mini.ai',
-    event = 'VeryLazy',
-    opts = function()
-      local ai = require('mini.ai')
-      return {
-        n_lines = 500,
-        custom_textobjects = {
-          o = ai.gen_spec.treesitter({
-            a = { '@block.outer', '@conditional.outer', '@loop.outer' },
-            i = { '@block.inner', '@conditional.inner', '@loop.inner' },
-          }, {}),
-          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
-          t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' },
-        },
-      }
-    end,
-  },
-
   {
     'hrsh7th/nvim-cmp',
     version = false,
@@ -178,5 +157,124 @@ return {
         }),
       })
     end,
+  },
+
+  -- treesitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    version = false,
+    build = ':TSUpdate',
+    event = 'BufRead',
+    init = function(plugin)
+      require('lazy.core.loader').add_to_rtp(plugin)
+      require('nvim-treesitter.query_predicates')
+    end,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
+    opts = {
+      ensure_installed = {
+        'bash',
+        'diff',
+        'html',
+        'toml',
+        'javascript',
+        'jsdoc',
+        'json',
+        'jsonc',
+        'lua',
+        'luadoc',
+        'luap',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'query',
+        'regex',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
+        'yaml',
+        'astro',
+        'cmake',
+        'cpp',
+        'css',
+        'scss',
+        'fish',
+        'dockerfile',
+        'dot',
+        'go',
+        'rust',
+        'svelte',
+        'gitignore',
+      },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer' },
+        },
+        select = {
+          enable = true,
+          keymaps = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = { query = '@class.inner' },
+          },
+        },
+      },
+      highlight = {
+        enable = true,
+        disable = function(_, buf)
+          return vim.api.nvim_buf_line_count(buf) > 3000
+        end,
+      },
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
+      -- MDX
+      vim.filetype.add({
+        extension = {
+          mdx = 'mdx',
+        },
+      })
+      vim.treesitter.language.register('markdown', 'mdx')
+    end,
+  },
+
+  {
+    'laytan/cloak.nvim',
+    opts = {
+      enabled = true,
+      cloak_character = '*',
+      -- The applied highlight group (colors) on the cloaking, see `:h highlight`.
+      highlight_group = 'Comment',
+      -- Applies the length of the replacement characters for all matched
+      -- patterns, defaults to the length of the matched pattern.
+      cloak_length = nil, -- Provide a number if you want to hide the true length of the value.
+      -- Wether it should try every pattern to find the best fit or stop after the first.
+      try_all_patterns = true,
+      patterns = {
+        {
+          -- Match any file starting with '.env'.
+          -- This can be a table to match multiple file patterns.
+          file_pattern = '.env*',
+          -- Match an equals sign and any character after it.
+          -- This can also be a table of patterns to cloak,
+          -- example: cloak_pattern = { ':.+', '-.+' } for yaml files.
+          cloak_pattern = '=.+',
+          -- A function, table or string to generate the replacement.
+          -- The actual replacement will contain the 'cloak_character'
+          -- where it doesn't cover the original text.
+          -- If left emtpy the legacy behavior of keeping the first character is retained.
+          replace = nil,
+        },
+      },
+    },
   },
 }
