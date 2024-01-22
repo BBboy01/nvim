@@ -71,6 +71,7 @@ return {
         function()
           local builtin = require('telescope.builtin')
           builtin.live_grep({
+            only_sort_text = true,
             additional_args = { '--hidden' },
           })
         end,
