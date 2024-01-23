@@ -60,9 +60,22 @@ return {
     'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<leader>gb', '<Cmd>Gitsigns blame_line<CR>', 'Blame current line' },
-      { '<leader>g-', '<Cmd>Gitsigns prev_hunk<CR>', 'Prev hunk' },
-      { '<leader>g=', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
+      {
+        '<leader>gb',
+        function()
+          require('gitsigns').blame_line({ full = true })
+        end,
+        'Blame current line',
+      },
+      { '<leader>g[', '<Cmd>Gitsigns prev_hunk<CR>', 'Prev hunk' },
+      { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
+      { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', 'Preview hunk' },
+      { '<leader>gd', '<Cmd>Gitsigns diff_this<CR>', 'Diff this' },
+      { '<leader>gs', '<Cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', { mode = { 'n', 'v' } } },
+      { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', { mode = { 'n', 'v' } } },
+      { '<leader>gu', '<Cmd>Gitsigns undo_stage_hunk<CR>', 'Undo stage hunk' },
+      { '<leader>gS', '<Cmd>Gitsigns stage_buffer<CR>', 'Stage buffer' },
+      { '<leader>gR', '<Cmd>Gitsigns reset_buffer<CR>', 'Undo stage buffer' },
     },
     opts = {
       signs = {
