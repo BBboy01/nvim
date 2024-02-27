@@ -49,3 +49,4 @@ opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with 
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 
 vim.g.skip_ts_context_commentstring_module = true
+vim.g.nonels_supress_issue58 = true
