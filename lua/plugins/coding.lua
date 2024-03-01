@@ -237,6 +237,7 @@ return {
   {
     'nvimtools/none-ls.nvim',
     event = 'VeryLazy',
+    commit = '2236d2bf621b64ccbceebc452137b25ecc7f6228',
     config = function()
       local null_ls = require('null-ls')
       null_ls.setup({
