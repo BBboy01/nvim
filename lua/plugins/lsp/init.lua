@@ -122,16 +122,6 @@ return {
             diagnostics = {
               enable = true,
             },
-            runtime = {
-              version = 'LuaJIT',
-              path = vim.split(package.path, ';'),
-            },
-            workspace = {
-              library = {
-                vim.env.VIMRUNTIME,
-              },
-              checkThirdParty = 'Disable',
-            },
             completion = {
               callSnippet = 'Replace',
               keywordSnippet = 'Disable',
