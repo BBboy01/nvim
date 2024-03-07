@@ -45,7 +45,6 @@ opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 
 opt.formatoptions = 'jcroqlnt' -- tcqj
 opt.clipboard = 'unnamedplus' -- Sync with system clipboard
-opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 
 vim.g.skip_ts_context_commentstring_module = true
