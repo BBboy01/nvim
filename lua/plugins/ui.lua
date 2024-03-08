@@ -155,6 +155,7 @@ return {
     'nvimdev/indentmini.nvim',
     event = 'BufEnter',
     config = function()
+      vim.api.nvim_set_hl(0, 'IndentLine', { link = 'Comment' })
       require('indentmini').setup({
         char = '|',
       })
