@@ -91,61 +91,250 @@ return {
 
   -- statusline
   {
-    'nvim-lualine/lualine.nvim',
+    'glepnir/galaxyline.nvim',
     event = 'VeryLazy',
-    opts = function()
-      return {
-        options = {
-          icons_enabled = true,
-          theme = 'solarized_dark',
-          section_separators = { left = '', right = '' },
-          component_separators = { left = '', right = '' },
-          disabled_filetypes = {},
+    config = function()
+      local gls = require('galaxyline').section
+      local icon = require('config')
+      local devicons = require('nvim-web-devicons')
+
+      local colors = {
+        line_bg = '#353644',
+        fg = '#8FBCBB',
+        fg_green = '#65a380',
+        yellow = '#fabd2f',
+        cyan = '#008080',
+        darkblue = '#081633',
+        green = '#afd700',
+        orange = '#FF8800',
+        purple = '#5d4d7a',
+        magenta = '#c678dd',
+        blue = '#51afef',
+        red = '#ec5f67',
+      }
+
+      local function get_current_file_name()
+        local file = vim.fn.expand('%:f')
+        if vim.fn.empty(file) == 1 then
+          return ''
+        end
+        if vim.bo.modifiable then
+          if vim.bo.modified then
+            return file .. ' ' .. '' .. ' '
+          end
+        end
+        return file .. '   '
+      end
+      local function trailing_whitespace()
+        local trail = vim.fn.search('\\s$', 'nw')
+        if trail ~= 0 then
+          return ' '
+        else
+          return nil
+        end
+      end
+
+      local buffer_not_empty = function()
+        if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
+          return true
+        end
+        return false
+      end
+      local checkwidth = function()
+        local squeeze_width = vim.fn.winwidth(0) / 2
+        if squeeze_width > 40 then
+          return true
+        end
+        return false
+      end
+
+      gls.left[1] = {
+        FirstElement = {
+          provider = function()
+            return ' '
+          end,
+          highlight = { colors.blue },
         },
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
-          lualine_c = {
-            {
-              'filename',
-              file_status = true, -- displays file status (readonly status, modified status)
-              path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
-            },
-          },
-          lualine_x = {
-            {
-              'diagnostics',
-              sources = { 'nvim_diagnostic' },
-              symbols = {
-                error = ' ',
-                warn = ' ',
-                info = ' ',
-                hint = ' ',
-              },
-            },
-            'encoding',
-            'filetype',
-            'filesize',
-          },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' },
+      }
+      gls.left[2] = {
+        ViMode = {
+          separator = ' ',
+          provider = function()
+            -- auto change color() according the vim mode
+            local alias = {
+              n = 'NORMAL',
+              i = 'INSERT',
+              c = 'COMMAND',
+              V = 'VISUAL',
+              [''] = 'VISUAL',
+              v = 'VISUAL',
+              ['r?'] = ':CONFIRM',
+              rm = '--MORE',
+              R = 'REPLACE',
+              Rv = 'VIRTUAL',
+              s = 'SELECT',
+              S = 'SELECT',
+              ['r'] = 'HIT-ENTER',
+              [''] = 'SELECT',
+              t = 'TERMINAL',
+              ['!'] = 'SHELL',
+            }
+            local mode_color = {
+              n = colors.green,
+              i = colors.blue,
+              v = colors.magenta,
+              [''] = colors.blue,
+              V = colors.blue,
+              no = colors.magenta,
+              s = colors.orange,
+              S = colors.orange,
+              [''] = colors.orange,
+              ic = colors.yellow,
+              cv = colors.red,
+              ce = colors.red,
+              ['!'] = colors.green,
+              t = colors.green,
+              c = colors.purple,
+              ['r?'] = colors.red,
+              ['r'] = colors.red,
+              rm = colors.red,
+              R = colors.yellow,
+              Rv = colors.magenta,
+            }
+            local vim_mode = vim.fn.mode()
+            vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim_mode])
+            return alias[vim_mode] .. ' '
+          end,
+          highlight = { colors.red, 'bold' },
         },
-        inactive_sections = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
-            {
-              'filename',
-              file_status = true, -- displays file status (readonly status, modified status)
-              path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-            },
-          },
-          lualine_x = { 'location' },
-          lualine_y = {},
-          lualine_z = {},
+      }
+
+      gls.left[3] = {
+        GitIcon = {
+          provider = function()
+            return ' ' .. devicons.get_icon('git') .. ' '
+          end,
+          condition = require('galaxyline.provider_vcs').check_git_workspace,
+          highlight = { colors.yellow },
         },
-        tabline = {},
-        extensions = { 'fugitive' },
+      }
+      gls.left[4] = {
+        GitBranch = {
+          separator = '   ',
+          provider = 'GitBranch',
+          condition = require('galaxyline.provider_vcs').check_git_workspace,
+          highlight = { colors.yellow, 'bold' },
+        },
+      }
+
+      gls.left[5] = {
+        FileIcon = {
+          provider = 'FileIcon',
+          condition = buffer_not_empty,
+          highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color },
+        },
+      }
+      gls.left[6] = {
+        FileName = {
+          separator = ' ',
+          provider = { get_current_file_name, 'FileSize', 'FileEncode' },
+          condition = buffer_not_empty,
+          highlight = { colors.fg, 'bold' },
+        },
+      }
+
+      gls.left[7] = {
+        TrailingWhiteSpace = {
+          provider = trailing_whitespace,
+          icon = '   ',
+          highlight = { colors.yellow },
+        },
+      }
+
+      gls.left[8] = {
+        DiffAdd = {
+          provider = 'DiffAdd',
+          condition = checkwidth,
+          icon = '   ',
+          highlight = { colors.green },
+        },
+      }
+      gls.left[9] = {
+        DiffModified = {
+          provider = 'DiffModified',
+          condition = checkwidth,
+          icon = '   ',
+          highlight = { colors.orange },
+        },
+      }
+      gls.left[10] = {
+        DiffRemove = {
+          provider = 'DiffRemove',
+          condition = checkwidth,
+          icon = '   ',
+          highlight = { colors.red },
+        },
+      }
+
+      gls.left[11] = {
+        DiagnosticError = {
+          provider = 'DiagnosticError',
+          icon = icon.icons.diagnostics.Error,
+          highlight = { colors.red },
+        },
+      }
+      gls.left[12] = {
+        DiagnosticWarn = {
+          provider = 'DiagnosticWarn',
+          icon = icon.icons.diagnostics.Warn,
+          highlight = { colors.yellow },
+        },
+      }
+      gls.left[13] = {
+        DiagnosticHint = {
+          provider = 'DiagnosticHint',
+          icon = icon.icons.diagnostics.Hint,
+          highlight = { colors.cyan },
+        },
+      }
+      gls.left[14] = {
+        DiagnosticInfo = {
+          provider = 'DiagnosticInfo',
+          icon = icon.icons.diagnostics.Info,
+          highlight = { colors.blue },
+        },
+      }
+
+      gls.right[1] = {
+        LineInfo = {
+          provider = 'LineColumn',
+          separator_highlight = { colors.blue },
+          highlight = { colors.fg },
+        },
+      }
+      gls.right[2] = {
+        PerCent = {
+          separator = ' | ',
+          provider = 'LinePercent',
+          separator_highlight = {},
+          highlight = { colors.cyan, 'bold' },
+        },
+      }
+      gls.right[3] = {
+        LSPClient = {
+          separator = ' | ',
+          provider = 'GetLspClient',
+          separator_highlight = {},
+          highlight = { colors.cyan, 'bold' },
+        },
+      }
+      gls.right[4] = {
+        LastElement = {
+          provider = function()
+            return ' '
+          end,
+          highlight = { colors.blue },
+        },
       }
     end,
   },
