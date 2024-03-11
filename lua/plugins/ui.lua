@@ -325,7 +325,7 @@ return {
           separator = ' | ',
           provider = 'GetLspClient',
           separator_highlight = {},
-          highlight = { colors.cyan, 'bold' },
+          highlight = { colors.purple, 'bold' },
         },
       }
       gls.right[4] = {
