@@ -97,21 +97,7 @@ return {
       local gls = require('galaxyline').section
       local icon = require('config')
       local devicons = require('nvim-web-devicons')
-
-      local colors = {
-        line_bg = '#353644',
-        fg = '#8FBCBB',
-        fg_green = '#65a380',
-        yellow = '#fabd2f',
-        cyan = '#008080',
-        darkblue = '#081633',
-        green = '#afd700',
-        orange = '#FF8800',
-        purple = '#5d4d7a',
-        magenta = '#c678dd',
-        blue = '#51afef',
-        red = '#ec5f67',
-      }
+      local colors = require('solarized-osaka.colors').default
 
       local function get_current_file_name()
         local file = vim.fn.expand('%:f')
@@ -194,7 +180,7 @@ return {
               ce = colors.red,
               ['!'] = colors.green,
               t = colors.green,
-              c = colors.purple,
+              c = colors.violet,
               ['r?'] = colors.red,
               ['r'] = colors.red,
               rm = colors.red,
@@ -325,7 +311,7 @@ return {
           separator = ' | ',
           provider = 'GetLspClient',
           separator_highlight = {},
-          highlight = { colors.purple, 'bold' },
+          highlight = { colors.violet, 'bold' },
         },
       }
       gls.right[4] = {
@@ -342,6 +328,7 @@ return {
   -- indent guides
   {
     'nvimdev/indentmini.nvim',
+    enabled = false,
     event = 'BufEnter',
     config = function()
       vim.api.nvim_set_hl(0, 'IndentLine', { link = 'Comment' })
