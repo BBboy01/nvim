@@ -325,19 +325,6 @@ return {
     end,
   },
 
-  -- indent guides
-  {
-    'nvimdev/indentmini.nvim',
-    enabled = false,
-    event = 'BufEnter',
-    config = function()
-      vim.api.nvim_set_hl(0, 'IndentLine', { link = 'Comment' })
-      require('indentmini').setup({
-        char = '|',
-      })
-    end,
-  },
-
   -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
   {
     'folke/noice.nvim',
