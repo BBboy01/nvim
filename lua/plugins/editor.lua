@@ -21,11 +21,11 @@ return {
           hex_color = hipatterns.gen_highlighter.hex_color(),
           -- Highlight hsl color call (`hsl(0, 0, 0)`) using that color
           hsl_color = {
-            pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
+            pattern = 'hsl%(%d+,? %d+%%?,? %d+%%?%)',
             group = function(_, match)
               local utils = require('solarized-osaka.hsl')
               --- @type string, string, string
-              local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
+              local nh, ns, nl = match:match('hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)')
               --- @type number?, number?, number?
               local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
               --- @type string
