@@ -10,12 +10,13 @@ opt.signcolumn = 'yes' -- Always show the signcolumn
 opt.completeopt = 'menu,menuone,noselect'
 opt.laststatus = 3 -- Global statusline
 opt.list = true -- Show some invisible characters (tabs...
+opt.showmode = false -- Don't show the mode, since it's already in status line
 
 opt.pumheight = 15 -- Maximum number of entries in a popup
 opt.pumblend = 10 -- Popup blend
 
-opt.listchars = { tab = '»·', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
-opt.undofile = true
+opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
+opt.undofile = true -- Save undo history
 
 opt.backup = false
 opt.writebackup = false
