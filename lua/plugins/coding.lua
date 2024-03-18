@@ -254,11 +254,6 @@ return {
       local null_ls = require('null-ls')
       null_ls.setup({
         sources = {
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.rustfmt.with({
-            extra_args = { '--edition', '2021' },
-          }),
           null_ls.builtins.diagnostics.eslint_d.with({
             diagnostics_format = '[eslint] #{m}\n(#{c})',
           }),
@@ -266,6 +261,36 @@ return {
         },
       })
     end,
+  },
+
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      notify_on_error = false,
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        go = { 'gofmt' },
+        rust = { 'rustfmt' },
+        toml = { 'dprint' },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        vue = { 'prettier' },
+        css = { 'prettier' },
+        scss = { 'prettier' },
+        less = { 'prettier' },
+        html = { 'prettier' },
+        json = { 'prettier' },
+        jsonc = { 'prettier' },
+        yaml = { 'prettier' },
+        markdown = { 'prettier' },
+        ['markdown.mdx'] = { 'prettier' },
+        graphql = { 'prettier' },
+        handlebars = { 'prettier' },
+        -- ["*"] = { "cspell" },
+      },
+    },
   },
 
   {
