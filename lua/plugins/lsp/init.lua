@@ -9,7 +9,9 @@ return {
   keys = {
     {
       '<Leader>f',
-      '<Cmd>lua vim.lsp.buf.format()<CR>',
+      function()
+        require('conform').format()
+      end,
       desc = 'Format current buffer',
     },
   },
