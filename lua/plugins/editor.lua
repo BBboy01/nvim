@@ -240,6 +240,98 @@ return {
     end,
   },
 
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    keys = function()
+      local harpoon = require('harpoon')
+      local conf = require('telescope.config').values
+
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+        require('telescope.pickers')
+          .new({}, {
+            prompt_title = 'Harpoon',
+            finder = require('telescope.finders').new_table({
+              results = file_paths,
+            }),
+            previewer = conf.file_previewer({}),
+            sorter = conf.generic_sorter({}),
+          })
+          :find()
+      end
+
+      return {
+        {
+          '<A-1>',
+          function()
+            harpoon:list():select(1)
+          end,
+          desc = 'Harpoon buffer 1',
+        },
+        {
+          '<A-2>',
+          function()
+            harpoon:list():select(2)
+          end,
+          desc = 'Harpoon buffer 2',
+        },
+        {
+          '<A-3>',
+          function()
+            harpoon:list():select(3)
+          end,
+          desc = 'Harpoon buffer 3',
+        },
+        {
+          '<A-4>',
+          function()
+            harpoon:list():select(4)
+          end,
+          desc = 'Harpoon buffer 4',
+        },
+        {
+          '<A-n>',
+          function()
+            harpoon:list():next()
+          end,
+          desc = 'Harpoon next buffer',
+        },
+        {
+          '<A-p>',
+          function()
+            harpoon:list():prev()
+          end,
+          desc = 'Harpoon prev buffer',
+        },
+        {
+          '<A-a>',
+          function()
+            harpoon:list():append()
+          end,
+          desc = 'Harpoon add current buffer',
+        },
+        {
+          '<leader>h',
+          function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = 'Harpoon list',
+        },
+        {
+          '<leader>H',
+          function()
+            toggle_telescope(harpoon:list())
+          end,
+          desc = 'Harpoon list telescope',
+        },
+      }
+    end,
+  },
+
   -- Automatically highlights other instances of the word under your cursor.
   -- This works with LSP, Treesitter, and regexp matching to find the other
   -- instances.
