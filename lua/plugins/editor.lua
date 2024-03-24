@@ -215,21 +215,8 @@ return {
           -- disables netrw and use telescope-file-browser in its place
           hijack_netrw = true,
           mappings = {
-            -- your custom insert mode mappings
             ['n'] = {
-              -- your custom normal mode mappings
               ['N'] = fb_actions.create,
-              ['h'] = fb_actions.goto_parent_dir,
-              ['<C-u>'] = function(prompt_bufnr)
-                for _ = 1, 10 do
-                  actions.move_selection_previous(prompt_bufnr)
-                end
-              end,
-              ['<C-d>'] = function(prompt_bufnr)
-                for _ = 1, 10 do
-                  actions.move_selection_next(prompt_bufnr)
-                end
-              end,
             },
           },
         },
