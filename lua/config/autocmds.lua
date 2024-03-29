@@ -1,10 +1,8 @@
-local function augroup(name)
-  return vim.api.nvim_create_augroup('User_' .. name, { clear = true })
-end
+local group = vim.api.nvim_create_augroup('hyber', {})
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
-  group = augroup('checktime'),
+  group = group,
   callback = function()
     if vim.o.buftype ~= 'nofile' then
       vim.cmd('checktime')
@@ -14,7 +12,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
-  group = augroup('highlight_yank'),
+  group = group,
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -22,7 +20,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
-  group = augroup('resize_splits'),
+  group = group,
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd('tabdo wincmd =')
@@ -32,7 +30,7 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd('BufReadPost', {
-  group = augroup('last_loc'),
+  group = group,
   callback = function(event)
     local exclude = { 'gitcommit' }
     local buf = event.buf
@@ -50,7 +48,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
-  group = augroup('close_with_q'),
+  group = group,
   pattern = {
     'PlenaryTestPopup',
     'help',
@@ -74,7 +72,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd('FileType', {
-  group = augroup('wrap_spell'),
+  group = group,
   pattern = { 'gitcommit', 'markdown' },
   callback = function()
     vim.opt_local.wrap = true
@@ -84,16 +82,27 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = augroup('json_conceal'),
+  group = group,
   pattern = { 'json', 'jsonc', 'json5' },
   callback = function()
     vim.opt_local.conceallevel = 0
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  group = group,
+  pattern = 'go',
+  desc = 'Set indent for go',
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.expandtab = false
+  end,
+})
+
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-  group = augroup('auto_create_dir'),
+  group = group,
   callback = function(event)
     if event.match:match('^%w%w+://') then
       return
@@ -105,6 +114,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd('InsertLeave', {
-  group = augroup('disable_paste_mode'),
+  group = group,
   command = 'set nopaste',
 })
