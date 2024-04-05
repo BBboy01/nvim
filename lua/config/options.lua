@@ -7,7 +7,6 @@ local opt = vim.opt
 
 opt.number = true -- Print line number
 opt.signcolumn = 'yes' -- Always show the signcolumn
-opt.completeopt = 'menu,menuone,noselect'
 opt.laststatus = 3 -- Global statusline
 opt.list = true -- Show some invisible characters (tabs...
 opt.showmode = false -- Don't show the mode, since it's already in status line
