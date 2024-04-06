@@ -29,6 +29,7 @@ return {
               --- @type number?, number?, number?
               local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
               --- @type string
+              ---@diagnostic disable-next-line: param-type-mismatch
               local hex_color = utils.hslToHex(h, s, l)
               return hipatterns.compute_hex_color_group(hex_color, 'bg')
             end,
@@ -396,6 +397,16 @@ return {
             },
           },
         },
+      },
+      actions = {
+        open_file = {
+          window_picker = {
+            enable = false,
+          },
+        },
+      },
+      git = {
+        ignore = false,
       },
       diagnostics = {
         enable = true,

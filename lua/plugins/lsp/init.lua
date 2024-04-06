@@ -6,15 +6,6 @@ return {
   dependencies = {
     { 'folke/neodev.nvim', opts = {} },
   },
-  keys = {
-    {
-      '<Leader>f',
-      function()
-        require('conform').format()
-      end,
-      desc = 'Format current buffer',
-    },
-  },
   ---@class PluginLspOpts
   opts = {
     inlay_hints = { enabled = true },
