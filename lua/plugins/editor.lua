@@ -360,6 +360,13 @@ return {
     },
   },
 
+  {
+    'szw/vim-maximizer',
+    keys = {
+      { '<leader>m', '<Cmd>MaximizerToggle<CR>', desc = 'Maximize/minimize a split' },
+    },
+  },
+
   -- nvim-tree
   {
     'kyazdani42/nvim-tree.lua',
