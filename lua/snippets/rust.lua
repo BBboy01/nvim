@@ -1,7 +1,7 @@
 local a = s(
   {
-    trig = "a",
-    dsrc = "assert",
+    trig = 'a',
+    dsrc = 'assert',
   },
   fmta([[assert!(<ends>)]], {
     ends = i(0),
@@ -10,8 +10,8 @@ local a = s(
 
 local ae = s(
   {
-    trig = "ae",
-    dsrc = "assert_eq",
+    trig = 'ae',
+    dsrc = 'assert_eq',
   },
   fmta([[assert_eq!(<left>, <right>)]], {
     left = i(1),
@@ -21,8 +21,8 @@ local ae = s(
 
 local bfn = s(
   {
-    trig = "bfn",
-    dsrc = "bench function",
+    trig = 'bfn',
+    dsrc = 'bench function',
   },
   fmta(
     [[
@@ -40,8 +40,8 @@ local bfn = s(
 
 local closure = s(
   {
-    trig = "closure",
-    dsrc = "closure",
+    trig = 'closure',
+    dsrc = 'closure',
   },
   fmta([[|<param>| <param_copy>]], {
     param = i(1),
@@ -52,19 +52,19 @@ local closure = s(
 -- TODO: Only in struct
 local f = s(
   {
-    trig = "f",
-    dsrc = "field",
+    trig = 'f',
+    dsrc = 'field',
   },
   fmta([[<ident>: <type>]], {
-    ident = i(1, "foo"),
-    type = i(2, "u32"),
+    ident = i(1, 'foo'),
+    type = i(2, 'u32'),
   })
 )
 
 local fmt = s(
   {
-    trig = "fmt",
-    dsrc = "format!",
+    trig = 'fmt',
+    dsrc = 'format!',
   },
   fmta([[format!(<ends>)]], {
     ends = i(0),
@@ -73,8 +73,8 @@ local fmt = s(
 
 local fors = s(
   {
-    trig = "for",
-    dsrc = "iterate (for ... in ...)",
+    trig = 'for',
+    dsrc = 'iterate (for ... in ...)',
   },
   fmta(
     [[
@@ -92,8 +92,8 @@ local fors = s(
 
 local fori = s(
   {
-    trig = "fori",
-    dsrc = "iterate over range (for ... in range)",
+    trig = 'fori',
+    dsrc = 'iterate over range (for ... in range)',
   },
   fmta(
     [[
@@ -103,7 +103,7 @@ local fori = s(
     ]],
     {
       index = i(3),
-      start = i(1, "0"),
+      start = i(1, '0'),
       stop = i(2),
       ends = i(0),
     }
@@ -112,8 +112,8 @@ local fori = s(
 
 local ifl = s(
   {
-    trig = "ifl",
-    dsrc = "if let ... statement",
+    trig = 'ifl',
+    dsrc = 'if let ... statement',
   },
   fmta(
     [[
@@ -131,8 +131,8 @@ local ifl = s(
 
 local ifls = s(
   {
-    trig = "ifl",
-    dsrc = "if let Some(...) statement",
+    trig = 'ifl',
+    dsrc = 'if let Some(...) statement',
   },
   fmta(
     [[
@@ -150,8 +150,8 @@ local ifls = s(
 
 local impl = s(
   {
-    trig = "impl",
-    dsrc = "impl Foo {} declaration",
+    trig = 'impl',
+    dsrc = 'impl Foo {} declaration',
   },
   fmta(
     [[
@@ -168,8 +168,8 @@ local impl = s(
 
 local implt = s(
   {
-    trig = "implt",
-    dsrc = "impl Foo for Bar {} declaration",
+    trig = 'implt',
+    dsrc = 'impl Foo for Bar {} declaration',
   },
   fmta(
     [[
@@ -187,8 +187,8 @@ local implt = s(
 
 local iter = s(
   {
-    trig = "iter",
-    dsrc = "iterate (for ... in ...)",
+    trig = 'iter',
+    dsrc = 'iterate (for ... in ...)',
   },
   fmta(
     [[
@@ -206,8 +206,8 @@ local iter = s(
 
 local loop = s(
   {
-    trig = "loop",
-    dsrc = "infinite loop",
+    trig = 'loop',
+    dsrc = 'infinite loop',
   },
   fmta(
     [[
@@ -223,8 +223,8 @@ local loop = s(
 
 local macro = s(
   {
-    trig = "macro",
-    dsrc = "macro_rules! declaration",
+    trig = 'macro',
+    dsrc = 'macro_rules! declaration',
   },
   fmta(
     [[
@@ -239,15 +239,15 @@ local macro = s(
       ends = i(0),
     },
     {
-      delimiters = "69",
+      delimiters = '69',
     }
   )
 )
 
 local main = s(
   {
-    trig = "main",
-    dsrc = "main function",
+    trig = 'main',
+    dsrc = 'main function',
   },
   fmta(
     [[
@@ -263,8 +263,8 @@ local main = s(
 
 local p = s(
   {
-    trig = "p",
-    dsrc = "println!",
+    trig = 'p',
+    dsrc = 'println!',
   },
   fmta([[println!(<ends>)]], {
     ends = i(0),
@@ -273,8 +273,8 @@ local p = s(
 
 local pd = s(
   {
-    trig = "pd",
-    dsrc = "debug eprintln! value",
+    trig = 'pd',
+    dsrc = 'debug eprintln! value',
   },
   fmta([[eprintln!("<expression_copy> = {:?}", <expression>)]], {
     expression = i(1),
@@ -285,19 +285,19 @@ local pd = s(
 -- TODO: Only in struct
 local pf = s(
   {
-    trig = "pf",
-    dsrc = "pub field",
+    trig = 'pf',
+    dsrc = 'pub field',
   },
   fmta([[pub <ident>: <type>]], {
-    ident = i(1, "foo"),
-    type = i(2, "u32"),
+    ident = i(1, 'foo'),
+    type = i(2, 'u32'),
   })
 )
 
 local ppd = s(
   {
-    trig = "ppd",
-    dsrc = "debug pretty eprintln! value",
+    trig = 'ppd',
+    dsrc = 'debug pretty eprintln! value',
   },
   fmta([[eprintln!("<expression_copy> = {:#?}", <expression>)]], {
     expression = i(1),
@@ -307,8 +307,8 @@ local ppd = s(
 
 local pr = s(
   {
-    trig = "pr",
-    dsrc = "print!",
+    trig = 'pr',
+    dsrc = 'print!',
   },
   fmta([[print!(<ends>)]], {
     ends = i(0),
@@ -317,8 +317,8 @@ local pr = s(
 
 local tfn = s(
   {
-    trig = "tfn",
-    dsrc = "test function",
+    trig = 'tfn',
+    dsrc = 'test function',
   },
   fmta(
     [[
@@ -336,8 +336,8 @@ local tfn = s(
 
 local tmod = s(
   {
-    trig = "tmod",
-    dsrc = "test module",
+    trig = 'tmod',
+    dsrc = 'test module',
   },
   fmta(
     [[
@@ -357,8 +357,8 @@ local tmod = s(
 
 local whiles = s(
   {
-    trig = "while",
-    dsrc = "while loop",
+    trig = 'while',
+    dsrc = 'while loop',
   },
   fmta(
     [[
@@ -375,8 +375,8 @@ local whiles = s(
 
 local whilel = s(
   {
-    trig = "whilel",
-    dsrc = "while let ... loop",
+    trig = 'whilel',
+    dsrc = 'while let ... loop',
   },
   fmta(
     [[
@@ -394,8 +394,8 @@ local whilel = s(
 
 local whilels = s(
   {
-    trig = "whilels",
-    dsrc = "while let Some(...) loop",
+    trig = 'whilels',
+    dsrc = 'while let Some(...) loop',
   },
   fmta(
     [[
@@ -413,8 +413,8 @@ local whilels = s(
 
 local wrt = s(
   {
-    trig = "wrt",
-    dsrc = "write! to buffer",
+    trig = 'wrt',
+    dsrc = 'write! to buffer',
   },
   fmta([[write!(<buffer>, "<ends>")]], {
     buffer = i(1),
@@ -424,8 +424,8 @@ local wrt = s(
 
 local wrtn = s(
   {
-    trig = "wrtn",
-    dsrc = "writeln! to buffer",
+    trig = 'wrtn',
+    dsrc = 'writeln! to buffer',
   },
   fmta([[writeln!(<buffer>, "<ends>")]], {
     buffer = i(1),

@@ -1,7 +1,7 @@
 local closure = s(
   {
-    trig = "closure",
-    desc = "function() end",
+    trig = 'closure',
+    desc = 'function() end',
   },
   fmta([[function(<params>) <ends> end]], {
     params = i(1),
@@ -11,8 +11,8 @@ local closure = s(
 
 local elseifs = s(
   {
-    trig = "elseif",
-    desc = "elseif expr then",
+    trig = 'elseif',
+    desc = 'elseif expr then',
   },
   fmta(
     [[
@@ -20,7 +20,7 @@ local elseifs = s(
       <ends>
     ]],
     {
-      var = i(1, "true"),
+      var = i(1, 'true'),
       ends = i(0),
     }
   )
@@ -28,8 +28,8 @@ local elseifs = s(
 
 local fors = s(
   {
-    trig = "for",
-    desc = "for i = 1, 10 do end",
+    trig = 'for',
+    desc = 'for i = 1, 10 do end',
   },
   fmta(
     [[
@@ -38,8 +38,8 @@ local fors = s(
     end
     ]],
     {
-      var = i(1, "i"),
-      expr = i(2, "10"),
+      var = i(1, 'i'),
+      expr = i(2, '10'),
       ends = i(0),
     }
   )
@@ -47,8 +47,8 @@ local fors = s(
 
 local fori = s(
   {
-    trig = "fori",
-    desc = "for i, v in ipairs(expr) do end",
+    trig = 'fori',
+    desc = 'for i, v in ipairs(expr) do end',
   },
   fmta(
     [[
@@ -57,8 +57,8 @@ local fori = s(
     end
     ]],
     {
-      var1 = i(1, "i"),
-      var2 = i(2, "v"),
+      var1 = i(1, 'i'),
+      var2 = i(2, 'v'),
       expr = i(3),
       ends = i(0),
     }
@@ -67,8 +67,8 @@ local fori = s(
 
 local forp = s(
   {
-    trig = "forp",
-    desc = "for k, v in pairs(expr) do end",
+    trig = 'forp',
+    desc = 'for k, v in pairs(expr) do end',
   },
   fmta(
     [[
@@ -77,8 +77,8 @@ local forp = s(
     end
     ]],
     {
-      var1 = i(1, "k"),
-      var2 = i(2, "v"),
+      var1 = i(1, 'k'),
+      var2 = i(2, 'v'),
       expr = i(3),
       ends = i(0),
     }
@@ -87,8 +87,8 @@ local forp = s(
 
 local func = s(
   {
-    trig = "func",
-    desc = "function functionName() end",
+    trig = 'func',
+    desc = 'function functionName() end',
   },
   fmta(
     [[
@@ -97,7 +97,7 @@ local func = s(
     end
     ]],
     {
-      fn = i(1, "funcName"),
+      fn = i(1, 'funcName'),
       params = i(2),
       ends = i(0),
     }
@@ -106,8 +106,8 @@ local func = s(
 
 local ifs = s(
   {
-    trig = "if",
-    desc = "if expr then end",
+    trig = 'if',
+    desc = 'if expr then end',
   },
   fmta(
     [[
@@ -116,7 +116,7 @@ local ifs = s(
     end
     ]],
     {
-      var = i(1, "true"),
+      var = i(1, 'true'),
       ends = i(0),
     }
   )
@@ -124,8 +124,8 @@ local ifs = s(
 
 local ifelse = s(
   {
-    trig = "ifelse",
-    desc = "if expr then else end",
+    trig = 'ifelse',
+    desc = 'if expr then else end',
   },
   fmta(
     [[
@@ -135,7 +135,7 @@ local ifelse = s(
     end
     ]],
     {
-      var = i(1, "true"),
+      var = i(1, 'true'),
       ends = i(0),
     }
   )
@@ -143,8 +143,8 @@ local ifelse = s(
 
 local lfunc = s(
   {
-    trig = "lfunc",
-    desc = "local function functionName() end",
+    trig = 'lfunc',
+    desc = 'local function functionName() end',
   },
   fmta(
     [[
@@ -153,7 +153,7 @@ local lfunc = s(
     end
     ]],
     {
-      fn = i(1, "funcName"),
+      fn = i(1, 'funcName'),
       params = i(2),
       ends = i(0),
     }
@@ -163,8 +163,8 @@ local lfunc = s(
 -- TODO: Only in function and query params
 local paramsig = s(
   {
-    trig = "paramsig",
-    desc = "param signature",
+    trig = 'paramsig',
+    desc = 'param signature',
   },
   fmta([[<params>]], {
     params = i(1),
