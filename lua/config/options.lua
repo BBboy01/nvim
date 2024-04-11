@@ -16,6 +16,7 @@ opt.pumblend = 10 -- Popup blend
 
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
 opt.undofile = true -- Save undo history
+opt.swapfile = false
 
 opt.backup = false
 opt.writebackup = false

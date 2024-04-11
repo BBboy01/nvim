@@ -4,14 +4,26 @@ return {
     lazy = true,
     dependencies = {
       'rafamadriz/friendly-snippets',
-      config = function()
-        require('luasnip.loaders.from_vscode').lazy_load()
-      end,
     },
     opts = {
       history = true,
       delete_check_events = 'TextChanged',
     },
+    config = function(ops)
+      local snip = require('luasnip')
+
+      snip.setup(ops)
+
+      snip.filetype_extend('javascriptreact', { 'javascript' })
+      snip.filetype_extend('typescript', { 'javascript' })
+      snip.filetype_extend('typescriptreact', { 'javascript' })
+      snip.filetype_extend('typescriptreact', { 'javascriptreact' })
+
+      require('luasnip.loaders.from_lua').lazy_load({
+        paths = { vim.fn.stdpath('config') .. '/lua/snippets' },
+      })
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
   },
 
   -- auto pairs
