@@ -99,7 +99,7 @@ return {
       return {
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         completion = {
@@ -254,6 +254,14 @@ return {
       })
       vim.treesitter.language.register('markdown', 'mdx')
     end,
+  },
+
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = { 'LazyGit' },
+    keys = {
+      { ' g', '<cmd>LazyGit<cr>', desc = 'Open lazy git' },
+    },
   },
 
   {
