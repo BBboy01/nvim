@@ -252,35 +252,7 @@ return {
           :find()
       end
 
-      return {
-        {
-          '<A-1>',
-          function()
-            harpoon:list():select(1)
-          end,
-          desc = 'Harpoon buffer 1',
-        },
-        {
-          '<A-2>',
-          function()
-            harpoon:list():select(2)
-          end,
-          desc = 'Harpoon buffer 2',
-        },
-        {
-          '<A-3>',
-          function()
-            harpoon:list():select(3)
-          end,
-          desc = 'Harpoon buffer 3',
-        },
-        {
-          '<A-4>',
-          function()
-            harpoon:list():select(4)
-          end,
-          desc = 'Harpoon buffer 4',
-        },
+      local keys = {
         {
           '<A-n>',
           function()
@@ -298,7 +270,7 @@ return {
         {
           '<A-a>',
           function()
-            harpoon:list():append()
+            harpoon:list():add()
           end,
           desc = 'Harpoon add current buffer',
         },
@@ -317,6 +289,17 @@ return {
           desc = 'Harpoon list telescope',
         },
       }
+
+      for i = 1, 5 do
+        table.insert(keys, {
+          '<leader>' .. i,
+          function()
+            require('harpoon'):list():select(i)
+          end,
+          desc = 'Harpoon to File ' .. i,
+        })
+      end
+      return keys
     end,
   },
 
