@@ -1,4 +1,4 @@
-local Util = require('util')
+local config = require('config')
 
 return {
   'neovim/nvim-lspconfig',
@@ -8,7 +8,13 @@ return {
   },
   ---@class PluginLspOpts
   opts = {
-    inlay_hints = { enabled = true },
+    capabilities = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+    ---@type vim.diagnostic.Opts
     diagnostics = {
       underline = true,
       update_in_insert = false,
@@ -21,6 +27,14 @@ return {
         -- prefix = "icons",
       },
       severity_sort = true,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
+          [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
+          [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
+          [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
+        },
+      },
     },
     servers = {
       html = {},
@@ -29,7 +43,11 @@ return {
       volar = {},
       bashls = {},
       dockerls = {},
-      angularls = {},
+      angularls = {
+        root_dir = function(...)
+          return require('lspconfig.util').root_pattern('.git')(...)
+        end,
+      },
       gopls = {},
       tailwindcss = {
         root_dir = function(...)
@@ -130,60 +148,40 @@ return {
   },
   ---@param opts PluginLspOpts
   config = function(_, opts)
-    -- setup autoformat
-    -- Util.format.register(Util.lsp.formatter())
-
     local register_capability = vim.lsp.handlers['client/registerCapability']
 
     ---@diagnostic disable-next-line: duplicate-set-field
     vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
       local ret = register_capability(err, res, ctx)
-      local client_id = ctx.client_id
       ---@type lsp.Client
-      local client = vim.lsp.get_client_by_id(client_id)
+      local client = vim.lsp.get_client_by_id(ctx.client_id)
       local buffer = vim.api.nvim_get_current_buf()
       require('plugins.lsp.keymaps').on_attach(client, buffer)
       return ret
     end
 
-    -- diagnostics
-    for name, icon in pairs(require('config').icons.diagnostics) do
-      name = 'DiagnosticSign' .. name
-      vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
-    end
-
-    local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-
-    if opts.inlay_hints.enabled and inlay_hint then
-      Util.lsp.on_attach(function(client, buffer)
-        if client.supports_method('textDocument/inlayHint') then
-          inlay_hint(buffer, true)
-        end
-      end)
-    end
-
-    if type(opts.diagnostics.virtual_text) == 'table' and opts.diagnostics.virtual_text.prefix == 'icons' then
-      opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10.0') == 0 and '●'
-        or function(diagnostic)
-          local icons = require('config').icons.diagnostics
-          for d, icon in pairs(icons) do
-            if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-              return icon
-            end
-          end
-        end
+    -- diagnostics signs
+    if vim.fn.has("nvim-0.10.0") == 0 then
+      for severity, icon in pairs(opts.diagnostics.signs.text) do
+        local name = vim.diagnostic.severity[severity]:lower():gsub("^%l", string.upper)
+        name = "DiagnosticSign" .. name
+        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      end
     end
 
     vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
     local servers = opts.servers
-    local has_cmp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+    local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+    if not ok then
+      vim.notify('Could not load nvim-cmp')
+      return
+    end
     local capabilities = vim.tbl_deep_extend(
       'force',
       {},
-      vim.lsp.protocol.make_client_capabilities(),
-      has_cmp and cmp_nvim_lsp.default_capabilities() or {},
-      opts.capabilities or {}
+      cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      opts.capabilities
     )
 
     local function setup(server)
