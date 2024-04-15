@@ -2,6 +2,18 @@ local Util = require('util')
 
 return {
   {
+    'brenoprata10/nvim-highlight-colors',
+    event = 'BufReadPre',
+    opts = {
+      ---@type 'background'|'foreground'|'virtual'
+      render = 'background',
+      virtual_symbol = '■',
+      enable_named_colors = true,
+      enable_tailwind = false,
+    },
+  },
+
+  {
     'echasnovski/mini.hipatterns',
     event = 'BufReadPre',
     opts = {
