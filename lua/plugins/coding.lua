@@ -68,6 +68,8 @@ return {
         delete = 'sd', -- Delete surrounding
         replace = 'sr', -- Replace surrounding
         update_n_lines = 'sn', -- Update `n_lines`
+        highlight = '', -- remove this internal keymap
+        find = '', -- remove this internal keymap
       },
     },
   },
