@@ -66,13 +66,13 @@ return {
         end,
       },
       'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
     },
     keys = {
       {
         '<C-p>',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.find_files({
+          require('telescope.builtin').find_files({
             no_ignore = false,
             hidden = true,
           })
@@ -82,88 +82,74 @@ return {
       {
         '<Leader>r',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.live_grep({
-            only_sort_text = true,
-            additional_args = { '--hidden' },
-          })
+          require('telescope').extensions.live_grep_args.live_grep_args()
         end,
         desc = 'Search for a string in your current working directory and get results live as you type, respects .gitignore',
       },
       {
         '<Leader>s',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.current_buffer_fuzzy_find({ fuzzy = false, case_mode = 'ignore_case' })
+          require('telescope.builtin').current_buffer_fuzzy_find({ fuzzy = false, case_mode = 'ignore_case' })
         end,
         desc = 'Search from current buffer',
       },
       {
         '<Leader>b',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.buffers()
+          require('telescope.builtin').builtin.buffers()
         end,
         desc = 'Lists open buffers',
       },
       {
         '<Leader>t',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.help_tags()
+          require('telescope.builtin').help_tags()
         end,
         desc = 'Lists available help tags and opens a new window with the relevant help info on <cr>',
       },
       {
         '\\\\',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.resume()
+          require('telescope.builtin').resume()
         end,
         desc = 'Resume the previous telescope picker',
       },
       {
         '<Leader>dl',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.diagnostics({ bufnr = 0 })
+          require('telescope.builtin').diagnostics({ bufnr = 0 })
         end,
         desc = 'Lists Diagnostics for current buffer',
       },
       {
         '<Leader>da',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.diagnostics()
+          require('telescope.builtin').diagnostics()
         end,
         desc = 'Lists Diagnostics for all open buffers or a specific buffer',
       },
       {
         '<Leader>?',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.oldfiles()
+          require('telescope.builtin').oldfiles()
         end,
         desc = 'Lists recently opened files',
       },
       {
         'ss',
         function()
-          local builtin = require('telescope.builtin')
-          builtin.treesitter()
+          require('telescope.builtin').treesitter()
         end,
         desc = 'Lists Function names, variables, from Treesitter',
       },
       {
         'sf',
         function()
-          local telescope = require('telescope')
-
           local function telescope_buffer_dir()
             return vim.fn.expand('%:p:h')
           end
 
-          telescope.extensions.file_browser.file_browser({
+          require('telescope').extensions.file_browser.file_browser({
             path = '%:p:h',
             cwd = telescope_buffer_dir(),
             respect_gitignore = false,
@@ -180,6 +166,7 @@ return {
     config = function(_, opts)
       local telescope = require('telescope')
       local actions = require('telescope.actions')
+      local lga_actions = require('telescope-live-grep-args.actions')
       local fb_actions = require('telescope').extensions.file_browser.actions
 
       opts.defaults = {
@@ -233,10 +220,21 @@ return {
             },
           },
         },
+        live_grep_args = {
+          auto_quoting = true, -- enable/disable auto-quoting
+          -- define mappings, e.g.
+          mappings = { -- extend mappings
+            i = {
+              ['<C-k>'] = lga_actions.quote_prompt(),
+              ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+            },
+          },
+        },
       }
       telescope.setup(opts)
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('file_browser')
+      require('telescope').load_extension('live_grep_args')
     end,
   },
 
