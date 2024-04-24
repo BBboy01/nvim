@@ -252,10 +252,16 @@ return {
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
-      -- MDX
       vim.filetype.add({
         extension = {
           mdx = 'mdx',
+        },
+        filename = {
+          ['.env'] = 'dotenv',
+        },
+        pattern = {
+          ['.*/kitty/.+%.conf'] = 'bash',
+          ['%.env%.[%w_.-]+'] = 'dotenv',
         },
       })
       vim.treesitter.language.register('markdown', 'mdx')
