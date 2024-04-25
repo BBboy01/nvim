@@ -1,6 +1,8 @@
 local Util = require('util')
 
 return {
+  'LunarVim/bigfile.nvim',
+
   {
     'brenoprata10/nvim-highlight-colors',
     event = 'BufReadPre',
