@@ -106,6 +106,8 @@ return {
             checkOnSave = {
               allTargets = false,
               command = 'clippy',
+              extraArgs = { '--no-deps' },
+              allFeatures = true,
             },
             imports = {
               granularity = {
@@ -117,6 +119,7 @@ return {
               buildScripts = {
                 enable = true,
               },
+              allFeatures = true,
             },
             procMacro = {
               enable = true,
