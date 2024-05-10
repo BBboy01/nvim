@@ -27,14 +27,6 @@ keymap.set('n', '-', '<C-x>')
 -- Delete a word backwards
 keymap.set('n', 'dw', 'vb"_d')
 
--- Move Lines
-keymap.set('n', '<A-k>', '<Cmd>m .-2<cr>==', { desc = 'Move up' })
-keymap.set('n', '<A-j>', '<Cmd>m .+1<cr>==', { desc = 'Move down' })
-keymap.set('i', '<A-j>', '<esc><Cmd>m .+1<cr>==gi', { desc = 'Move down' })
-keymap.set('i', '<A-k>', '<esc><Cmd>m .-2<cr>==gi', { desc = 'Move up' })
-keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
-keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
-
 -- Split window
 keymap.set('n', 'si', '<Cmd>split<Return><C-w>w', { desc = 'Horizontally split current buffer' })
 keymap.set('n', 'sv', '<Cmd>vsplit<Return><C-w>w', { desc = 'Vertically split current buffer' })
@@ -46,10 +38,10 @@ keymap.set('', 'sj', '<C-w>j', { desc = 'Move focus to lower window', remap = tr
 keymap.set('', 'sl', '<C-w>l', { desc = 'Move focus to right window', remap = true })
 
 -- Resize window
-keymap.set('n', 's<right>', '<C-w><', { desc = 'Decrease window width' })
-keymap.set('n', 's<left>', '<C-w>>', { desc = 'Increase window width' })
-keymap.set('n', 's<up>', '<C-w>+', { desc = 'Increase window height' })
-keymap.set('n', 's<down>', '<C-w>-', { desc = 'Decrease window height' })
+keymap.set('n', '<A-h>', '<C-w><', { desc = 'Decrease window width' })
+keymap.set('n', '<A-l>', '<C-w>>', { desc = 'Increase window width' })
+keymap.set('n', '<A-k>', '<C-w>+', { desc = 'Increase window height' })
+keymap.set('n', '<A-j>', '<C-w>-', { desc = 'Decrease window height' })
 
 -- Save & Close buffer
 keymap.set('n', 'sw', '<Cmd>wq<CR>', { desc = 'Save and Close current buffer' })
