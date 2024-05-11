@@ -52,7 +52,7 @@ return {
       { '<leader>g[', '<Cmd>Gitsigns prev_hunk<CR>', 'Prev hunk' },
       { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
       { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', 'Preview hunk' },
-      { '<leader>gd', '<Cmd>Gitsigns diff_this<CR>', 'Diff this' },
+      { '<leader>gd', '<Cmd>Gitsigns diffthis<CR>', 'Diff this' },
       { '<leader>gs', '<Cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', { mode = { 'n', 'v' } } },
       { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', { mode = { 'n', 'v' } } },
       { '<leader>gu', '<Cmd>Gitsigns undo_stage_hunk<CR>', 'Undo stage hunk' },
