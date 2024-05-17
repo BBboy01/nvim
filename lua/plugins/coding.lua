@@ -97,6 +97,15 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
+      {
+        'saecki/crates.nvim',
+        event = { 'BufRead Cargo.toml' },
+        opts = {
+          completion = {
+            cmp = { enabled = true },
+          },
+        },
+      },
     },
     opts = function()
       local cmp = require('cmp')
@@ -135,6 +144,7 @@ return {
           end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
+          { name = 'crates' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
