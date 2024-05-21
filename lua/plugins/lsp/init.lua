@@ -3,9 +3,6 @@ local config = require('config')
 return {
   'neovim/nvim-lspconfig',
   event = 'VeryLazy',
-  dependencies = {
-    { 'folke/neodev.nvim', opts = {} },
-  },
   ---@class PluginLspOpts
   opts = {
     capabilities = {
@@ -128,6 +125,26 @@ return {
         },
       },
       lua_ls = {
+        on_init = function(client)
+          local path = client.workspace_folders[1].name
+          if vim.loop.fs_stat(path .. '/.lazy-lock.json') or vim.loop.fs_stat(path .. '/.lazy-lock.json') then
+            return
+          end
+
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              version = 'LuaJIT',
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                '${3rd}/luv/library',
+                '${3rd}/busted/library',
+              },
+            },
+          })
+        end,
         settings = {
           Lua = {
             format = {

@@ -22,7 +22,6 @@
   "mini.hipatterns": { "branch": "main", "commit": "088bbfef23e17934080f125751a94a2758ba7fdf" },
   "mini.pairs": { "branch": "main", "commit": "5c975d8f68dc1e11bf4b20ced71e7987ed782513" },
   "mini.surround": { "branch": "main", "commit": "c52aa751daf62d4a9e6ee24c4a91882ef6842f99" },
-  "neodev.nvim": { "branch": "main", "commit": "ce9a2e8eaba5649b553529c5498acb43a6c317cd" },
   "neogen": { "branch": "main", "commit": "6de0add4805165317ab7d3d36b5cef48b1b865f3" },
   "noice.nvim": { "branch": "main", "commit": "9f6f6ba74f8bfbf7e43d6302cf86b070362f6203" },
   "none-ls.nvim": { "branch": "main", "commit": "2236d2bf621b64ccbceebc452137b25ecc7f6228" },
