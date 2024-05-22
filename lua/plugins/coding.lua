@@ -26,21 +26,6 @@ return {
     end,
   },
 
-  -- auto pairs
-  {
-    'echasnovski/mini.pairs',
-    event = 'VeryLazy',
-    opts = {
-      mappings = {
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`].', register = { cr = false } },
-      },
-    },
-  },
-
-  -- Fast and feature-rich surround actions. For text that includes
-  -- surrounding characters like brackets or quotes, this allows you
-  -- to select the text inside, change or modify the surrounding characters,
-  -- and more.
   {
     'echasnovski/mini.surround',
     keys = function(_, keys)
