@@ -80,6 +80,7 @@ return {
       },
     },
     opts = function()
+      vim.api.nvim_set_hl(0, 'CmpGhostText', { link = 'Comment', default = true })
       local cmp = require('cmp')
       local defaults = require('cmp.config.default')()
       local luasnip = require('luasnip')
@@ -139,7 +140,7 @@ return {
         sorting = defaults.sorting,
       }
     end,
-    ---@param opts cmp.ConfigSchema
+    --@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
     config = function(_, opts)
       local cmp = require('cmp')
       for _, source in ipairs(opts.sources) do
@@ -166,6 +167,7 @@ return {
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')
     end,
+    cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
