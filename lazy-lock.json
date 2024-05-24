@@ -18,7 +18,6 @@
   "lazy.nvim": { "branch": "main", "commit": "8f19915175395680808de529e4220da8dafc0759" },
   "lazygit.nvim": { "branch": "main", "commit": "ad3e1ea592f9d13e86e0d4e850224d9d78069508" },
   "lspsaga.nvim": { "branch": "main", "commit": "e050ff4c95b9bb0ed18acb43d897e7902cdd607f" },
-  "mini.hipatterns": { "branch": "main", "commit": "088bbfef23e17934080f125751a94a2758ba7fdf" },
   "mini.surround": { "branch": "main", "commit": "c52aa751daf62d4a9e6ee24c4a91882ef6842f99" },
   "neogen": { "branch": "main", "commit": "6de0add4805165317ab7d3d36b5cef48b1b865f3" },
   "noice.nvim": { "branch": "main", "commit": "f119045f38792ad5311e5f9be7a879e4c1a95fe0" },
