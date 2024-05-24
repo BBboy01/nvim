@@ -7,50 +7,8 @@ return {
     'brenoprata10/nvim-highlight-colors',
     event = 'BufReadPre',
     opts = {
-      ---@type 'background'|'foreground'|'virtual'
-      render = 'background',
-      virtual_symbol = '■',
-      enable_named_colors = true,
-      enable_tailwind = false,
+      enable_tailwind = true,
     },
-  },
-
-  {
-    'echasnovski/mini.hipatterns',
-    event = 'BufReadPre',
-    opts = {
-      highlighters = {
-        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-        fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-        hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-        todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-        note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-      },
-    },
-    config = function(_, opts)
-      local hipatterns = require('mini.hipatterns')
-      hipatterns.setup(vim.tbl_deep_extend('force', opts, {
-        highlighters = {
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-          -- Highlight hsl color call (`hsl(0, 0, 0)`) using that color
-          hsl_color = {
-            pattern = 'hsl%(%d+,? %d+%%?,? %d+%%?%)',
-            group = function(_, match)
-              local utils = require('solarized-osaka.hsl')
-              --- @type string, string, string
-              local nh, ns, nl = match:match('hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)')
-              --- @type number?, number?, number?
-              local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
-              --- @type string
-              ---@diagnostic disable-next-line: param-type-mismatch
-              local hex_color = utils.hslToHex(h, s, l)
-              return hipatterns.compute_hex_color_group(hex_color, 'bg')
-            end,
-          },
-        },
-      }))
-    end,
   },
 
   {
