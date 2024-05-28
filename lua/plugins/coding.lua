@@ -268,59 +268,45 @@ return {
   },
 
   {
-    'nvimtools/none-ls.nvim',
-    event = 'VeryLazy',
-    commit = '2236d2bf621b64ccbceebc452137b25ecc7f6228',
-    config = function()
-      local null_ls = require('null-ls')
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.diagnostics.eslint.with({
-            diagnostics_format = '[eslint] #{m}\n(#{c})',
-          }),
-          null_ls.builtins.diagnostics.fish,
-        },
-      })
-    end,
-  },
-
-  {
-    'stevearc/conform.nvim',
+    'nvimdev/guard.nvim',
+    dependencies = {
+      'nvimdev/guard-collection',
+    },
     keys = {
       {
         '<Leader>f',
-        function()
-          require('conform').format()
-        end,
+        '<cmd>GuardFmt<cr>',
         desc = 'Format current buffer',
       },
     },
-    opts = {
-      notify_on_error = false,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        go = { 'gofmt' },
-        rust = { 'rustfmt' },
-        toml = { 'dprint' },
-        javascript = { 'prettier' },
-        javascriptreact = { 'prettier' },
-        typescript = { 'prettier' },
-        typescriptreact = { 'prettier' },
-        vue = { 'prettier' },
-        css = { 'prettier' },
-        scss = { 'prettier' },
-        less = { 'prettier' },
-        html = { 'prettier' },
-        json = { 'prettier' },
-        jsonc = { 'prettier' },
-        yaml = { 'prettier' },
-        markdown = { 'prettier' },
-        ['markdown.mdx'] = { 'prettier' },
-        graphql = { 'prettier' },
-        handlebars = { 'prettier' },
-        -- ["*"] = { "cspell" },
-      },
-    },
+    config = function()
+      local ft = require('guard.filetype')
+      local formatter = require('guard-collection.formatter')
+      local linter = require('guard-collection.linter')
+
+      ft('lua'):fmt(formatter.stylua):lint(linter.selene)
+
+      ft('go'):fmt(formatter.gofmt):lint(linter.golangci_lint)
+
+      ft('sh'):fmt(formatter.shfmt):lint(linter.shellcheck)
+
+      ft('fish'):fmt(formatter.fish_indent)
+
+      ft('rust'):fmt(formatter.rustfmt)
+
+      ft('toml'):fmt(formatter.dprint)
+
+      ft('typescript,javascript,typescriptreact,javascriptreact,vue'):fmt(formatter.prettier):lint(linter.eslint)
+
+      ft('css,scss'):fmt(formatter.prettier):lint(linter.stylelint)
+
+      ft('html,markdown,json,jsonc,yaml'):fmt(formatter.prettier)
+
+      require('guard').setup({
+        fmt_on_save = false,
+        lsp_as_default_formatter = true,
+      })
+    end,
   },
 
   {
