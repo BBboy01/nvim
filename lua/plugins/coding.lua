@@ -282,7 +282,7 @@ return {
       local formatter = require('guard-collection.formatter')
       local linter = require('guard-collection.linter')
 
-      ft('lua'):fmt(formatter.stylua):lint(linter.selene)
+      ft('lua'):fmt(formatter.stylua)
 
       ft('go'):fmt(formatter.gofmt):lint(linter.golangci_lint)
 
@@ -302,6 +302,7 @@ return {
 
       require('guard').setup({
         fmt_on_save = false,
+        save_on_fmt = false,
         lsp_as_default_formatter = true,
       })
     end,
