@@ -68,6 +68,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
       'saadparwaiz1/cmp_luasnip',
       {
         'saecki/crates.nvim',
@@ -80,9 +81,7 @@ return {
       },
     },
     opts = function()
-      vim.api.nvim_set_hl(0, 'CmpGhostText', { link = 'Comment', default = true })
       local cmp = require('cmp')
-      local defaults = require('cmp.config.default')()
       local luasnip = require('luasnip')
       return {
         snippet = {
@@ -119,9 +118,10 @@ return {
         sources = cmp.config.sources({
           { name = 'crates' },
           { name = 'nvim_lsp' },
+          { name = 'buffer', keyword_length = 3 },
+          { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'buffer', keyword_length = 3 },
         }),
         formatting = {
           format = function(_, item)
@@ -133,11 +133,8 @@ return {
           end,
         },
         experimental = {
-          ghost_text = {
-            hl_group = 'CmpGhostText',
-          },
+          ghost_text = true,
         },
-        sorting = defaults.sorting,
       }
     end,
     --@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
