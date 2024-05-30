@@ -1,188 +1,307 @@
 local config = require('config')
 
 return {
-  'neovim/nvim-lspconfig',
-  event = 'VeryLazy',
-  ---@class PluginLspOpts
-  opts = {
-    capabilities = {
-      workspace = {
-        fileOperations = {
-          didRename = true,
-          willRename = true,
-        },
-      },
+  {
+    'neovim/nvim-lspconfig',
+    event = 'BufReadPre',
+    dependencies = {
+      'mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
     },
-    ---@type vim.diagnostic.Opts
-    diagnostics = {
-      underline = true,
-      update_in_insert = false,
-      virtual_text = {
-        spacing = 4,
-        source = 'if_many',
-      },
-      severity_sort = true,
-      signs = {
-        text = {
-          [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
-          [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
-          [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
-          [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
-        },
-      },
-    },
-    servers = {
-      html = {},
-      cssls = {},
-      emmet_ls = {},
-      volar = {},
-      bashls = {},
-      dockerls = {},
-      angularls = {
-        root_dir = function(...)
-          return require('lspconfig.util').root_pattern('nx.json', 'angular.json')(...)
-        end,
-      },
-      gopls = {},
-      tailwindcss = {},
-      tsserver = {},
-      jsonls = {
-        on_new_config = function(new_config)
-          new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-          vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
-        end,
-        settings = {
-          json = {
-            validate = { enable = true },
-          },
-        },
-      },
-      yamlls = {
-        on_new_config = function(new_config)
-          new_config.settings.yaml.schemas =
-            vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, require('schemastore').yaml.schemas())
-        end,
-        settings = {
-          redhat = { telemetry = { enabled = false } },
-          yaml = {
-            keyOrdering = false,
-            format = {
-              enable = true,
-            },
-            validate = true,
-            schemaStore = {
-              -- Must disable built-in schemaStore support to use
-              -- schemas from SchemaStore.nvim plugin
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = '',
+    ---@class PluginLspOpts
+    opts = function()
+      local vue_typescript_plugin = require('mason-registry').get_package('vue-language-server'):get_install_path()
+        .. '/node_modules/@vue/language-server'
+        .. '/node_modules/@vue/typescript-plugin'
+
+      return {
+        capabilities = {
+          workspace = {
+            fileOperations = {
+              didRename = true,
+              willRename = true,
             },
           },
         },
-      },
-      rust_analyzer = {
-        settings = {
-          ['rust-analyzer'] = {
-            checkOnSave = {
-              allTargets = false,
-              command = 'clippy',
-              extraArgs = { '--no-deps' },
-              allFeatures = true,
+        ---@type vim.diagnostic.Opts
+        diagnostics = {
+          underline = true,
+          update_in_insert = false,
+          virtual_text = {
+            spacing = 4,
+            source = 'if_many',
+          },
+          severity_sort = true,
+          signs = {
+            text = {
+              [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
+              [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
+              [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
+              [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
             },
-            imports = {
-              granularity = {
-                group = 'module',
+          },
+        },
+        servers = {
+          html = {},
+          cssls = {},
+          eslint = {},
+          stylelint_lsp = {},
+          emmet_language_server = {},
+          css_variables = {},
+          volar = {},
+          bashls = {},
+          dockerls = {},
+          angularls = {
+            root_dir = function(...)
+              return require('lspconfig.util').root_pattern('nx.json', 'angular.json')(...)
+            end,
+          },
+          gopls = {},
+          golangci_lint_ls = {},
+          tailwindcss = {},
+          tsserver = {},
+          vtsls = {
+            settings = {
+              vtsls = {
+                tsserver = {
+                  globalPlugins = {
+                    -- Use typescript language server along with vue typescript plugin
+                    vue = {
+                      name = '@vue/typescript-plugin',
+                      location = vue_typescript_plugin,
+                      languages = { 'vue' },
+                    },
+                  },
+                },
               },
-              prefix = 'self',
             },
-            cargo = {
-              buildScripts = {
-                enable = true,
+            filetypes = {
+              'javascript',
+              'javascriptreact',
+              'javascript.jsx',
+              'typescript',
+              'typescriptreact',
+              'typescript.tsx',
+              'vue',
+            },
+          },
+          pylsp = {},
+          sqls = {},
+          gitlab_ci_ls = {},
+          jsonls = {
+            on_new_config = function(new_config)
+              new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+              vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
+            end,
+            settings = {
+              json = {
+                validate = { enable = true },
               },
-              allFeatures = true,
             },
-            procMacro = {
-              enable = true,
+          },
+          yamlls = {
+            on_new_config = function(new_config)
+              new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+                'force',
+                new_config.settings.yaml.schemas or {},
+                require('schemastore').yaml.schemas()
+              )
+            end,
+            settings = {
+              redhat = { telemetry = { enabled = false } },
+              yaml = {
+                keyOrdering = false,
+                format = {
+                  enable = true,
+                },
+                validate = true,
+                schemaStore = {
+                  -- Must disable built-in schemaStore support to use
+                  -- schemas from SchemaStore.nvim plugin
+                  enable = false,
+                  -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                  url = '',
+                },
+              },
+            },
+          },
+          rust_analyzer = {
+            settings = {
+              ['rust-analyzer'] = {
+                checkOnSave = {
+                  allTargets = false,
+                  command = 'clippy',
+                  extraArgs = { '--no-deps' },
+                  allFeatures = true,
+                },
+                imports = {
+                  granularity = {
+                    group = 'module',
+                  },
+                  prefix = 'self',
+                },
+                cargo = {
+                  buildScripts = {
+                    enable = true,
+                  },
+                  allFeatures = true,
+                },
+                procMacro = {
+                  enable = true,
+                },
+              },
+            },
+          },
+          lua_ls = {
+            on_init = function(client)
+              local path = client.workspace_folders[1].name
+              if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
+                return
+              end
+              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                runtime = {
+                  version = 'LuaJIT',
+                  path = vim.split(package.path, ';'),
+                },
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
+                    vim.fn.stdpath('data') .. '/lazy',
+                    '${3rd}/luv/library',
+                    '${3rd}/busted/library',
+                  },
+                },
+              })
+            end,
+            settings = {
+              Lua = {
+                format = {
+                  enable = false,
+                },
+                diagnostics = {
+                  globals = { 'vim' },
+                },
+                completion = {
+                  callSnippet = 'Replace',
+                  keywordSnippet = 'Disable',
+                },
+                doc = {
+                  privateName = { '^_' },
+                },
+              },
             },
           },
         },
-      },
-      lua_ls = {
-        on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
-            return
+      }
+    end,
+    ---@param opts PluginLspOpts
+    config = function(_, opts)
+      -- setup keymaps
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local buffer = args.buf ---@type number
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client then
+            return require('plugins.lsp.keymaps').on_attach(client, buffer)
           end
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              version = 'LuaJIT',
-              path = vim.split(package.path, ';'),
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                vim.fn.stdpath('data') .. '/lazy',
-                '${3rd}/luv/library',
-                '${3rd}/busted/library',
-              },
-            },
-          })
         end,
-        settings = {
-          Lua = {
-            format = {
-              enable = false,
-            },
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            completion = {
-              callSnippet = 'Replace',
-              keywordSnippet = 'Disable',
-            },
-            doc = {
-              privateName = { '^_' },
-            },
-          },
-        },
+      })
+
+      -- setup diagnostics signs
+      opts.diagnostics.virtual_text.prefix = function(diagnostic)
+        local icons = opts.diagnostics.signs.text or {}
+        return icons[diagnostic.severity]
+      end
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+      -- setup lsp by mason-lspconfig
+      local servers = opts.servers
+      local capabilities = vim.tbl_deep_extend(
+        'force',
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require('cmp_nvim_lsp').default_capabilities(),
+        opts.capabilities
+      )
+
+      local function setup(server)
+        local server_opts = vim.tbl_deep_extend('force', {
+          capabilities = vim.deepcopy(capabilities),
+        }, servers[server] or {})
+        require('lspconfig')[server].setup(server_opts)
+      end
+
+      local ensure_installed = {} ---@type string[]
+      for server, server_opts in pairs(servers) do
+        if server_opts.enabled ~= false then
+          ensure_installed[#ensure_installed + 1] = server
+        end
+      end
+      require('mason-lspconfig').setup({
+        ensure_installed = ensure_installed,
+        handlers = { setup },
+      })
+    end,
+  },
+
+  {
+    'williamboman/mason.nvim',
+    cmd = 'Mason',
+    build = ':MasonUpdate',
+    opts = {
+      ensure_installed = {
+        'lua-language-server',
+        'rust-analyzer',
+        'gopls',
+        'golangci-lint-langserver',
+        'angular-language-server',
+        'bash-language-server',
+        'python-lsp-server',
+        'sqls',
+        'gitlab-ci-ls',
+        'yaml-language-server',
+        'typescript-language-server',
+        'vue-language-server',
+        'vtsls',
+        'tailwindcss-language-server',
+        'docker-compose-language-service',
+        'dockerfile-language-server',
+        'stylelint-lsp',
+        'emmet-language-server',
+        'eslint-lsp',
+        'json-lsp',
+        'html-lsp',
+        'css-lsp',
+        'css-variables-language-server',
       },
     },
-  },
-  ---@param opts PluginLspOpts
-  config = function(_, opts)
-    -- setup keymaps
-    vim.api.nvim_create_autocmd('LspAttach', {
-      callback = function(args)
-        local buffer = args.buf ---@type number
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client then
-          return require('plugins.lsp.keymaps').on_attach(client, buffer)
+    ---@param opts MasonSettings | {ensure_installed: string[]}
+    config = function(_, opts)
+      require('mason').setup(opts)
+      local mr = require('mason-registry')
+      mr:on('package:install:success', function()
+        vim.defer_fn(function()
+          -- trigger FileType event to possibly load this newly installed LSP server
+          require('lazy.core.handler.event').trigger({
+            event = 'FileType',
+            buf = vim.api.nvim_get_current_buf(),
+          })
+        end, 100)
+      end)
+      local function ensure_installed()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
         end
-      end,
-    })
-
-    -- setup diagnostics signs
-    opts.diagnostics.virtual_text.prefix = function(diagnostic)
-      local icons = opts.diagnostics.signs.text or {}
-      return icons[diagnostic.severity]
-    end
-    vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-
-    local servers = opts.servers
-    local capabilities = vim.tbl_deep_extend(
-      'force',
-      {},
-      vim.lsp.protocol.make_client_capabilities(),
-      require('cmp_nvim_lsp').default_capabilities(),
-      opts.capabilities
-    )
-
-    -- setup servers
-    for server, server_opts in pairs(servers) do
-      require('lspconfig')[server].setup(vim.tbl_deep_extend('force', {
-        capabilities = vim.deepcopy(capabilities),
-      }, server_opts))
-    end
-  end,
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
+    end,
+  },
 }
