@@ -127,13 +127,14 @@ return {
       lua_ls = {
         on_init = function(client)
           local path = client.workspace_folders[1].name
-          if vim.loop.fs_stat(path .. '/.lazy-lock.json') or vim.loop.fs_stat(path .. '/.lazy-lock.json') then
+          if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
             return
           end
 
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
               version = 'LuaJIT',
+              path = vim.split(package.path, ';'),
             },
             workspace = {
               checkThirdParty = false,
@@ -152,14 +153,14 @@ return {
               enable = false,
             },
             diagnostics = {
-              enable = true,
+              globals = { 'vim' },
             },
             completion = {
               callSnippet = 'Replace',
               keywordSnippet = 'Disable',
             },
-            telemetry = {
-              enable = false,
+            doc = {
+              privateName = { '^_' },
             },
           },
         },
