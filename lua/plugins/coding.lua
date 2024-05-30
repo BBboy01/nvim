@@ -252,7 +252,7 @@ return {
   -- Automatically add closing tags for HTML and JSX
   {
     'windwp/nvim-ts-autotag',
-    event = { 'BufReadPre', 'BufReadPre' },
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
   },
 
@@ -266,6 +266,7 @@ return {
 
   {
     'nvimdev/guard.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvimdev/guard-collection',
     },
