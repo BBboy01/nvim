@@ -6,7 +6,9 @@ return {
   {
     'brenoprata10/nvim-highlight-colors',
     event = 'BufReadPre',
-    opts = {},
+    opts = {
+      exclude = { 'lazy', 'mason' },
+    },
   },
 
   {
