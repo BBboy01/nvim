@@ -8,194 +8,165 @@ return {
       'mason.nvim',
       'williamboman/mason-lspconfig.nvim',
     },
-    ---@class PluginLspOpts
-    opts = function()
-      local vue_typescript_plugin = require('mason-registry').get_package('vue-language-server'):get_install_path()
-        .. '/node_modules/@vue/language-server'
-        .. '/node_modules/@vue/typescript-plugin'
-
-      return {
-        capabilities = {
-          workspace = {
-            fileOperations = {
-              didRename = true,
-              willRename = true,
+    opts = {
+      ---@type lsp.ClientCapabilities
+      capabilities = {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
+      },
+      ---@type vim.diagnostic.Opts
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = 'if_many',
+        },
+        severity_sort = true,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
+            [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
+            [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
+            [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
+          },
+        },
+      },
+      ---@type table<string, lspconfig.Config>
+      servers = {
+        html = {},
+        cssls = {},
+        eslint = {},
+        stylelint_lsp = {},
+        emmet_language_server = {},
+        css_variables = {},
+        bashls = {},
+        dockerls = {},
+        docker_compose_language_service = {},
+        angularls = {
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          root_dir = function(...)
+            return require('lspconfig.util').root_pattern('nx.json', 'angular.json')(...)
+          end,
+        },
+        gopls = {},
+        golangci_lint_ls = {},
+        tailwindcss = {},
+        tsserver = {},
+        pylsp = {},
+        sqls = {},
+        nginx_language_server = { enabled = false },
+        gitlab_ci_ls = {},
+        jsonls = {
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
+          end,
+          settings = {
+            json = {
+              validate = { enable = true },
             },
           },
         },
-        ---@type vim.diagnostic.Opts
-        diagnostics = {
-          underline = true,
-          update_in_insert = false,
-          virtual_text = {
-            spacing = 4,
-            source = 'if_many',
-          },
-          severity_sort = true,
-          signs = {
-            text = {
-              [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
-              [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
-              [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
-              [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
+        yamlls = {
+          on_new_config = function(new_config)
+            new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+              'force',
+              new_config.settings.yaml.schemas or {},
+              require('schemastore').yaml.schemas()
+            )
+          end,
+          settings = {
+            redhat = { telemetry = { enabled = false } },
+            yaml = {
+              keyOrdering = false,
+              format = {
+                enable = true,
+              },
+              validate = true,
+              schemaStore = {
+                -- Must disable built-in schemaStore support to use
+                -- schemas from SchemaStore.nvim plugin
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = '',
+              },
             },
           },
         },
-        servers = {
-          html = {},
-          cssls = {},
-          eslint = {},
-          stylelint_lsp = {},
-          emmet_language_server = {},
-          css_variables = {},
-          volar = {},
-          bashls = {},
-          dockerls = {},
-          angularls = {
-            root_dir = function(...)
-              return require('lspconfig.util').root_pattern('nx.json', 'angular.json')(...)
-            end,
-          },
-          gopls = {},
-          golangci_lint_ls = {},
-          tailwindcss = {},
-          tsserver = {},
-          vtsls = {
-            settings = {
-              vtsls = {
-                tsserver = {
-                  globalPlugins = {
-                    -- Use typescript language server along with vue typescript plugin
-                    vue = {
-                      name = '@vue/typescript-plugin',
-                      location = vue_typescript_plugin,
-                      languages = { 'vue' },
-                    },
-                  },
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                allTargets = false,
+                command = 'clippy',
+                extraArgs = { '--no-deps' },
+                allFeatures = true,
+              },
+              imports = {
+                granularity = {
+                  group = 'module',
                 },
+                prefix = 'self',
               },
-            },
-            filetypes = {
-              'javascript',
-              'javascriptreact',
-              'javascript.jsx',
-              'typescript',
-              'typescriptreact',
-              'typescript.tsx',
-              'vue',
-            },
-          },
-          pylsp = {},
-          sqls = {},
-          gitlab_ci_ls = {},
-          jsonls = {
-            on_new_config = function(new_config)
-              new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-              vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
-            end,
-            settings = {
-              json = {
-                validate = { enable = true },
-              },
-            },
-          },
-          yamlls = {
-            on_new_config = function(new_config)
-              new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-                'force',
-                new_config.settings.yaml.schemas or {},
-                require('schemastore').yaml.schemas()
-              )
-            end,
-            settings = {
-              redhat = { telemetry = { enabled = false } },
-              yaml = {
-                keyOrdering = false,
-                format = {
+              cargo = {
+                buildScripts = {
                   enable = true,
                 },
-                validate = true,
-                schemaStore = {
-                  -- Must disable built-in schemaStore support to use
-                  -- schemas from SchemaStore.nvim plugin
-                  enable = false,
-                  -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                  url = '',
-                },
+                allFeatures = true,
               },
-            },
-          },
-          rust_analyzer = {
-            settings = {
-              ['rust-analyzer'] = {
-                checkOnSave = {
-                  allTargets = false,
-                  command = 'clippy',
-                  extraArgs = { '--no-deps' },
-                  allFeatures = true,
-                },
-                imports = {
-                  granularity = {
-                    group = 'module',
-                  },
-                  prefix = 'self',
-                },
-                cargo = {
-                  buildScripts = {
-                    enable = true,
-                  },
-                  allFeatures = true,
-                },
-                procMacro = {
-                  enable = true,
-                },
-              },
-            },
-          },
-          lua_ls = {
-            on_init = function(client)
-              local path = client.workspace_folders[1].name
-              if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
-                return
-              end
-              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-                runtime = {
-                  version = 'LuaJIT',
-                  path = vim.split(package.path, ';'),
-                },
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                    vim.fn.stdpath('data') .. '/lazy',
-                    '${3rd}/luv/library',
-                    '${3rd}/busted/library',
-                  },
-                },
-              })
-            end,
-            settings = {
-              Lua = {
-                format = {
-                  enable = false,
-                },
-                diagnostics = {
-                  globals = { 'vim' },
-                },
-                completion = {
-                  callSnippet = 'Replace',
-                  keywordSnippet = 'Disable',
-                },
-                doc = {
-                  privateName = { '^_' },
-                },
+              procMacro = {
+                enable = true,
               },
             },
           },
         },
-      }
-    end,
-    ---@param opts PluginLspOpts
+        lua_ls = {
+          on_init = function(client)
+            local path = client.workspace_folders[1].name
+            if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
+              return
+            end
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+              runtime = {
+                version = 'LuaJIT',
+                path = vim.split(package.path, ';'),
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  vim.fn.stdpath('data') .. '/lazy',
+                  '${3rd}/luv/library',
+                  '${3rd}/busted/library',
+                },
+              },
+            })
+          end,
+          settings = {
+            Lua = {
+              format = {
+                enable = false,
+              },
+              diagnostics = {
+                globals = { 'vim' },
+              },
+              completion = {
+                callSnippet = 'Replace',
+                keywordSnippet = 'Disable',
+              },
+              doc = {
+                privateName = { '^_' },
+              },
+            },
+          },
+        },
+      },
+    },
     config = function(_, opts)
       -- setup keymaps
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -210,8 +181,7 @@ return {
 
       -- setup diagnostics signs
       opts.diagnostics.virtual_text.prefix = function(diagnostic)
-        local icons = opts.diagnostics.signs.text or {}
-        return icons[diagnostic.severity]
+        return opts.diagnostics.signs.text[diagnostic.severity]
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
@@ -262,11 +232,10 @@ return {
         'gitlab-ci-ls',
         'yaml-language-server',
         'typescript-language-server',
-        'vue-language-server',
-        'vtsls',
         'tailwindcss-language-server',
         'docker-compose-language-service',
         'dockerfile-language-server',
+        'nginx-language-server',
         'stylelint-lsp',
         'emmet-language-server',
         'eslint-lsp',
