@@ -41,7 +41,16 @@ return {
         html = {},
         cssls = {},
         eslint = {},
-        stylelint_lsp = {},
+        stylelint_lsp = {
+          filetypes = {
+            'css',
+            'less',
+            'scss',
+            'sugarss',
+            'vue',
+            'wxss',
+          },
+        },
         emmet_language_server = {},
         css_variables = {},
         bashls = {},
@@ -127,28 +136,23 @@ return {
         },
         lua_ls = {
           on_init = function(client)
-            local path = client.workspace_folders[1].name
-            if not vim.loop.fs_stat(path .. '/lazy-lock.json') then
+            if not vim.loop.fs_stat(client.workspace_folders[1].name .. '/lazy-lock.json') then
               return
             end
-            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+          end,
+          settings = {
+            Lua = {
               runtime = {
                 version = 'LuaJIT',
-                path = vim.split(package.path, ';'),
               },
               workspace = {
                 checkThirdParty = false,
                 library = {
                   vim.env.VIMRUNTIME,
-                  vim.fn.stdpath('data') .. '/lazy',
                   '${3rd}/luv/library',
                   '${3rd}/busted/library',
                 },
               },
-            })
-          end,
-          settings = {
-            Lua = {
               format = {
                 enable = false,
               },
