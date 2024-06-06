@@ -9,9 +9,10 @@ return {
       'williamboman/mason-lspconfig.nvim',
     },
     opts = function()
-      local vue_typescript_plugin = require('mason-registry').get_package('vue-language-server'):get_install_path()
-        .. '/node_modules/@vue/language-server'
-
+      -- stylua: ignore
+      local vue_typescript_plugin = require('mason-registry')
+        .get_package('vue-language-server')
+        :get_install_path() .. '/node_modules/@vue/language-server'
       local angular_typescript_plugin = require('mason-registry')
         .get_package('angular-language-server')
         :get_install_path() .. '/node_modules/@angular/language-server'
