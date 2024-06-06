@@ -259,6 +259,7 @@ return {
         pattern = {
           ['.*/kitty/.+%.conf'] = 'bash',
           ['%.env%.[%w_.-]+'] = 'dotenv',
+          ['.*gitlab%-ci.*'] = 'yaml.gitlab',
         },
       })
       vim.treesitter.language.register('markdown', 'mdx')
@@ -300,7 +301,7 @@ return {
 
       ft('lua'):fmt(formatter.stylua)
 
-      ft('go'):fmt(formatter.gofmt):lint(linter.golangci_lint)
+      ft('go'):fmt(formatter.gofmt)
 
       ft('sh'):fmt(formatter.shfmt):lint(linter.shellcheck)
 
@@ -308,11 +309,9 @@ return {
 
       ft('rust'):fmt(formatter.rustfmt)
 
-      ft('toml'):fmt(formatter.dprint)
+      ft('typescript,javascript,typescriptreact,javascriptreact,vue'):fmt(formatter.prettier)
 
-      ft('typescript,javascript,typescriptreact,javascriptreact,vue'):fmt(formatter.prettier):lint(linter.eslint)
-
-      ft('css,scss'):fmt(formatter.prettier):lint(linter.stylelint)
+      ft('css,scss'):fmt(formatter.prettier)
 
       ft('html,markdown,json,jsonc,yaml'):fmt(formatter.prettier)
 
