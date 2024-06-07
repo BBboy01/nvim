@@ -68,16 +68,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd('FileType', {
-  group = group,
-  pattern = { '*.txt', '*.tex', '*.typ', 'gitcommit', 'markdown' },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
-
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   group = group,
