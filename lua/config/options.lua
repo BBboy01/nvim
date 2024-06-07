@@ -15,8 +15,8 @@ opt.pumblend = 10 -- Popup blend
 opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
-opt.spelllang = { "en" }
-opt.spelloptions:append("noplainbuffer")
+opt.spelllang = { 'en' }
+opt.spelloptions:append('noplainbuffer')
 opt.undofile = true -- Save undo history
 opt.undolevels = 10000
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
