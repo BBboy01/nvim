@@ -12,13 +12,20 @@ opt.showmode = false -- Don't show the mode, since it's already in status line
 opt.pumheight = 15 -- Maximum number of entries in a popup
 opt.pumblend = 10 -- Popup blend
 
+opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.spelllang = { "en" }
+opt.spelloptions:append("noplainbuffer")
 opt.undofile = true -- Save undo history
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
 opt.swapfile = false
-opt.fileencoding = 'utf-8'
+opt.winminwidth = 5 -- Minimum window width
 
 opt.backup = false
 opt.writebackup = false
+opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.expandtab = true -- Use spaces instead of tabs
@@ -57,11 +64,8 @@ opt.termguicolors = true -- True color support
 
 opt.mouse = '' -- Disable mouse action
 
-opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+opt.grepformat = '%f:%l:%c:%m'
+opt.grepprg = 'rg --vimgrep'
 
-opt.formatoptions = 'jcroqlnt' -- tcqj
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically.
-opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
+opt.clipboard = 'unnamedplus' -- Sync with system clipboard
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
