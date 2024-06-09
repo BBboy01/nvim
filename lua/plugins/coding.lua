@@ -2,6 +2,7 @@ return {
   {
     'folke/lazydev.nvim',
     ft = 'lua', -- only load on lua files
+    cmd = 'LazyDev',
     opts = {},
   },
 
@@ -264,6 +265,7 @@ return {
           ['.*gitlab%-ci.*'] = 'yaml.gitlab',
         },
       })
+      vim.treesitter.language.register('angular', 'html')
       vim.treesitter.language.register('markdown', 'mdx')
     end,
   },
