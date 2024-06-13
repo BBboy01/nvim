@@ -71,7 +71,7 @@ return {
           golangci_lint_ls = {},
           pylsp = {},
           sqls = {},
-          nginx_language_server = { enabled = false },
+          nginx_language_server = {},
           gitlab_ci_ls = {},
           tsserver = { enabled = false },
           vtsls = {

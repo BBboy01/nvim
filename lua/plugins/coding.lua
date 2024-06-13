@@ -157,6 +157,9 @@ return {
       cmp.setup(opts)
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
+        completion = {
+          completeopt = 'menu,menuone,preview,noselect',
+        },
         sources = cmp.config.sources({
           { name = 'path' },
           { name = 'cmdline' },
