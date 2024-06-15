@@ -25,7 +25,6 @@ return {
           end)
         end,
       },
-      'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
     keys = {
@@ -102,32 +101,11 @@ return {
         end,
         desc = 'Lists Function names, variables, from Treesitter',
       },
-      {
-        'sf',
-        function()
-          local function telescope_buffer_dir()
-            return vim.fn.expand('%:p:h')
-          end
-
-          require('telescope').extensions.file_browser.file_browser({
-            path = '%:p:h',
-            cwd = telescope_buffer_dir(),
-            respect_gitignore = false,
-            hidden = true,
-            grouped = true,
-            previewer = false,
-            initial_mode = 'normal',
-            layout_config = { height = 40 },
-          })
-        end,
-        desc = 'Open File Browser with the path of the current buffer',
-      },
     },
     config = function(_, opts)
       local telescope = require('telescope')
       local actions = require('telescope.actions')
       local lga_actions = require('telescope-live-grep-args.actions')
-      local fb_actions = require('telescope').extensions.file_browser.actions
 
       opts.defaults = {
         prompt_prefix = ' ',
@@ -170,16 +148,6 @@ return {
         },
       }
       opts.extensions = {
-        file_browser = {
-          theme = 'dropdown',
-          -- disables netrw and use telescope-file-browser in its place
-          hijack_netrw = true,
-          mappings = {
-            ['n'] = {
-              ['N'] = fb_actions.create,
-            },
-          },
-        },
         live_grep_args = {
           auto_quoting = true, -- enable/disable auto-quoting
           -- define mappings, e.g.
@@ -193,7 +161,6 @@ return {
       }
       telescope.setup(opts)
       require('telescope').load_extension('fzf')
-      require('telescope').load_extension('file_browser')
       require('telescope').load_extension('live_grep_args')
     end,
   },
@@ -310,6 +277,40 @@ return {
     keys = {
       { ']]', desc = 'Next Reference' },
       { '[[', desc = 'Prev Reference' },
+    },
+  },
+
+  {
+    'stevearc/oil.nvim',
+    keys = {
+      { 'sf', '<CMD>Oil --float<CR>', desc = 'Open File Browser with the path of the current buffer' },
+    },
+    opts = {
+      default_file_explorer = true,
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      view_options = {
+        show_hidden = true,
+        natural_order = true,
+        is_always_hidden = function(name, _)
+          return name == '..' or name == '.git'
+        end,
+      },
+      float = {
+        padding = 2,
+        max_width = 90,
+        max_height = 0,
+      },
+      win_options = {
+        wrap = true,
+        winblend = 0,
+      },
+      keymaps = {
+        ['<C-c>'] = false,
+        ['<C-l>'] = false,
+        ['<C-r>'] = 'actions.refresh',
+        ['q'] = 'actions.close',
+      },
     },
   },
 
