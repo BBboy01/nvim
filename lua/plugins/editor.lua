@@ -246,6 +246,10 @@ return {
   {
     'RRethy/vim-illuminate',
     event = 'BufRead',
+    keys = {
+      { ']]', desc = 'Next Reference' },
+      { '[[', desc = 'Prev Reference' },
+    },
     opts = {
       delay = 200,
       large_file_cutoff = 2000,
@@ -274,10 +278,6 @@ return {
         end,
       })
     end,
-    keys = {
-      { ']]', desc = 'Next Reference' },
-      { '[[', desc = 'Prev Reference' },
-    },
   },
 
   {
@@ -313,6 +313,9 @@ return {
   -- nvim-tree
   {
     'kyazdani42/nvim-tree.lua',
+    keys = {
+      { '<Space>e', '<Cmd>NvimTreeToggle<CR>', 'Toggle file struct tree' },
+    },
     opts = {
       hijack_netrw = false,
       sort = {
@@ -364,9 +367,6 @@ return {
         debounce_delay = 50,
         icons = { hint = '', info = '', warning = '', error = '' },
       },
-    },
-    keys = {
-      { '<Space>e', '<Cmd>NvimTreeToggle<CR>', 'Toggle file struct tree' },
     },
   },
 }
