@@ -178,7 +178,7 @@ return {
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')
     end,
-    cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
+    cmd = { 'TSUpdate', 'TSInstall' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -242,10 +242,10 @@ return {
       textobjects = {
         move = {
           enable = true,
-          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer' },
-          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer' },
-          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer' },
-          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer' },
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
         },
         select = {
           enable = true,
