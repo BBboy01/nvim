@@ -295,7 +295,8 @@ return {
         end,
       },
       float = {
-        max_width = 90,
+        max_width = 100,
+        preview_split = 'right',
       },
       win_options = {
         wrap = true,
