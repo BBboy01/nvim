@@ -282,6 +282,7 @@ return {
 
   {
     'stevearc/oil.nvim',
+    lazy = false,
     keys = {
       { 'sf', '<CMD>Oil --float<CR>', desc = 'Open File Browser with the path of the current buffer' },
     },
