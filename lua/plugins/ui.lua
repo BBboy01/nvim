@@ -319,6 +319,11 @@ return {
           ['cmp.entry.get_documentation'] = true,
         },
       },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+      },
       routes = {
         {
           filter = {
@@ -331,12 +336,6 @@ return {
           },
           view = 'mini',
         },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
       },
     },
   },
