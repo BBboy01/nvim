@@ -16,7 +16,7 @@ return {
     },
     { 'gd', '<Cmd>Lspsaga goto_definition<CR>', desc = 'Goto cursorword definition' },
     { 'gt', '<Cmd>Lspsaga goto_type_definition<CR>', desc = 'Goto cursorword type definition' },
-    { 'gh', '<Cmd>Lspsaga hover_doc<CR>', desc = 'Show cursorword doc' },
+    { 'K', '<Cmd>Lspsaga hover_doc<CR>', desc = 'Show cursorword doc' },
     { 'gr', '<Cmd>Lspsaga finder<CR>', desc = 'Show cursorword finder' },
     { 'gP', '<Cmd>Lspsaga peek_type_definition<CR>', desc = 'Peek cursorword type definition' },
     { 'gp', '<Cmd>Lspsaga peek_definition<CR>', desc = 'Peek cursorword definition' },
