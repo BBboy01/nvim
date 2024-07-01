@@ -135,12 +135,12 @@ return {
           },
         }),
         formatting = {
-          format = function(_, item)
+          format = function(entry, item)
             local icons = require('config').icons.kinds
             if icons[item.kind] then
               item.kind = icons[item.kind] .. item.kind
             end
-            return item
+            return require('nvim-highlight-colors').format(entry, item)
           end,
         },
         experimental = {
