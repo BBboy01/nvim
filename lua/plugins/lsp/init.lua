@@ -6,7 +6,7 @@ return {
     event = 'BufReadPre',
     dependencies = {
       'mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      { 'williamboman/mason-lspconfig.nvim', config = function() end },
     },
     opts = function()
       -- stylua: ignore
