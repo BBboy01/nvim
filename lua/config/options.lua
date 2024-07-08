@@ -26,7 +26,7 @@ opt.writebackup = false
 opt.backupskip = '/tmp/*,/private/tmp/*'
 opt.inccommand = 'nosplit' -- Preview incremental substitute
 opt.virtualedit = 'block' -- Select whatever in visual block mode
-opt.jumpoptions = "view"
+opt.jumpoptions = 'view'
 opt.path:append({ '**' }) -- Finding files - Search down into subfolders
 opt.wildignore:append({ '*/node_modules/*' })
 opt.wildmode = 'longest:full,full' -- Command-line completion mode
