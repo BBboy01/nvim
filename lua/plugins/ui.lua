@@ -78,7 +78,6 @@ return {
     config = function()
       local gls = require('galaxyline').section
       local icon = require('config')
-      local devicons = require('nvim-web-devicons')
       local colors = require('solarized-osaka.colors').default
 
       local function get_current_file_name()
@@ -179,9 +178,6 @@ return {
 
       gls.left[3] = {
         GitIcon = {
-          provider = function()
-            return ' ' .. devicons.get_icon('git') .. ' '
-          end,
           condition = require('galaxyline.provider_vcs').check_git_workspace,
           highlight = { colors.yellow },
         },
@@ -344,7 +340,32 @@ return {
   { 'MunifTanjim/nui.nvim', lazy = true },
 
   -- icons
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  {
+    'echasnovski/mini.icons',
+    lazy = true,
+    opts = {
+      filetype = {
+        dotenv = { glyph = '', hl = 'MiniIconsYellow' },
+      },
+      file = {
+        ['.eslintrc.js'] = { glyph = '󰱺', hl = 'MiniIconsYellow' },
+        ['.node-version'] = { glyph = '', hl = 'MiniIconsGreen' },
+        ['.prettierrc'] = { glyph = '', hl = 'MiniIconsPurple' },
+        ['.yarnrc.yml'] = { glyph = '', hl = 'MiniIconsBlue' },
+        ['eslint.config.js'] = { glyph = '󰱺', hl = 'MiniIconsYellow' },
+        ['package.json'] = { glyph = '', hl = 'MiniIconsGreen' },
+        ['tsconfig.json'] = { glyph = '', hl = 'MiniIconsAzure' },
+        ['tsconfig.build.json'] = { glyph = '', hl = 'MiniIconsAzure' },
+        ['yarn.lock'] = { glyph = '', hl = 'MiniIconsBlue' },
+      },
+    },
+    init = function()
+      package.preload['nvim-web-devicons'] = function()
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
+      end
+    end,
+  },
 
   -- rainbow bracket
   {
