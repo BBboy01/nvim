@@ -177,12 +177,6 @@ return {
       }
 
       gls.left[3] = {
-        GitIcon = {
-          condition = require('galaxyline.provider_vcs').check_git_workspace,
-          highlight = { colors.yellow },
-        },
-      }
-      gls.left[4] = {
         GitBranch = {
           separator = '   ',
           provider = 'GitBranch',
@@ -191,14 +185,14 @@ return {
         },
       }
 
-      gls.left[5] = {
+      gls.left[4] = {
         FileIcon = {
           provider = 'FileIcon',
           condition = buffer_not_empty,
           highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color },
         },
       }
-      gls.left[6] = {
+      gls.left[5] = {
         FileName = {
           separator = ' ',
           provider = { get_current_file_name, 'FileSize', 'FileEncode' },
@@ -207,7 +201,7 @@ return {
         },
       }
 
-      gls.left[7] = {
+      gls.left[6] = {
         TrailingWhiteSpace = {
           provider = trailing_whitespace,
           icon = '   ',
@@ -215,7 +209,7 @@ return {
         },
       }
 
-      gls.left[8] = {
+      gls.left[7] = {
         DiffAdd = {
           provider = 'DiffAdd',
           condition = checkwidth,
@@ -223,7 +217,7 @@ return {
           highlight = { colors.green },
         },
       }
-      gls.left[9] = {
+      gls.left[8] = {
         DiffModified = {
           provider = 'DiffModified',
           condition = checkwidth,
@@ -231,7 +225,7 @@ return {
           highlight = { colors.orange },
         },
       }
-      gls.left[10] = {
+      gls.left[9] = {
         DiffRemove = {
           provider = 'DiffRemove',
           condition = checkwidth,
@@ -240,28 +234,28 @@ return {
         },
       }
 
-      gls.left[11] = {
+      gls.left[10] = {
         DiagnosticError = {
           provider = 'DiagnosticError',
           icon = icon.icons.diagnostics.Error,
           highlight = { colors.red },
         },
       }
-      gls.left[12] = {
+      gls.left[11] = {
         DiagnosticWarn = {
           provider = 'DiagnosticWarn',
           icon = icon.icons.diagnostics.Warn,
           highlight = { colors.yellow },
         },
       }
-      gls.left[13] = {
+      gls.left[12] = {
         DiagnosticHint = {
           provider = 'DiagnosticHint',
           icon = icon.icons.diagnostics.Hint,
           highlight = { colors.cyan },
         },
       }
-      gls.left[14] = {
+      gls.left[13] = {
         DiagnosticInfo = {
           provider = 'DiagnosticInfo',
           icon = icon.icons.diagnostics.Info,
