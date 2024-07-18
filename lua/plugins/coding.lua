@@ -243,6 +243,7 @@ return {
         'gotmpl',
         'sql',
         'graphql',
+        'nginx',
       },
       textobjects = {
         move = {
