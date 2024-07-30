@@ -416,14 +416,15 @@ return {
           -- stylua: ignore
           center = {
             { action = function()
-              require('telescope.builtin').find_files({
-                no_ignore = false,
-                hidden = true,
-              })
+              require('fzf-lua').files()
             end, desc = " Find file", icon = " ", key = "f" },
             { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
-            { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
-            { action = "Telescope live_grep_args", desc = " Find text", icon = " ", key = "g" },
+            { action = function()
+              require('fzf-lua').oldfiles()
+            end, desc = " Recent files", icon = " ", key = "r" },
+            { action = function ()
+              require('fzf-lua').grep_project()
+            end, desc = " Find text", icon = " ", key = "g" },
             { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
             { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "l" },
             { action = "qa", desc = " Quit", icon = " ", key = "q" },
