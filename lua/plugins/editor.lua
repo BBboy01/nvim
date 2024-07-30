@@ -1,5 +1,3 @@
-local Util = require('util')
-
 return {
   'LunarVim/bigfile.nvim',
 
@@ -12,156 +10,128 @@ return {
   },
 
   {
-    'nvim-telescope/telescope.nvim',
-    cmd = 'Telescope',
-    version = false,
-    dependencies = {
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        config = function()
-          Util.on_load('telescope.nvim', function()
-            require('telescope').load_extension('fzf')
-          end)
-        end,
-      },
-      'nvim-telescope/telescope-live-grep-args.nvim',
-    },
+    'ibhagwan/fzf-lua',
+    cmd = 'FzfLua',
     keys = {
       {
         '<C-p>',
-        function()
-          require('telescope.builtin').find_files({
-            no_ignore = false,
-            hidden = true,
-          })
-        end,
+        '<Cmd>FzfLua files<CR>',
         desc = 'Lists files in your current working directory, respects .gitignore',
       },
       {
         '<Leader>r',
-        function()
-          require('telescope').extensions.live_grep_args.live_grep_args()
-        end,
-        desc = 'Search for a string in your current working directory and get results live as you type, respects .gitignore',
+        '<Cmd>FzfLua live_grep<CR>',
+        desc = 'Search for a regexp in your current working directory and get results live as you type, respects .gitignore',
       },
       {
         '<Leader>s',
-        function()
-          require('telescope.builtin').current_buffer_fuzzy_find({ fuzzy = false, case_mode = 'ignore_case' })
-        end,
+        '<Cmd>FzfLua lgrep_curbuf<CR>',
         desc = 'Search from current buffer',
       },
       {
         '<Leader>b',
-        function()
-          require('telescope.builtin').builtin.buffers()
-        end,
+        '<Cmd>FzfLua buffers<CR>',
         desc = 'Lists open buffers',
       },
       {
         '<Leader>t',
-        function()
-          require('telescope.builtin').help_tags()
-        end,
+        '<Cmd>FzfLua helptags<CR>',
         desc = 'Lists available help tags and opens a new window with the relevant help info on <cr>',
       },
       {
         '\\\\',
-        function()
-          require('telescope.builtin').resume()
-        end,
-        desc = 'Resume the previous telescope picker',
+        '<Cmd>FzfLua resume<CR>',
+        desc = 'Resume the previous fzf-lua picker',
       },
       {
         '<Leader>dl',
-        function()
-          require('telescope.builtin').diagnostics({ bufnr = 0 })
-        end,
+        '<Cmd>FzfLua diagnostics_document<CR>',
         desc = 'Lists Diagnostics for current buffer',
       },
       {
-        '<Leader>da',
-        function()
-          require('telescope.builtin').diagnostics()
-        end,
-        desc = 'Lists Diagnostics for all open buffers or a specific buffer',
+        '<Leader>dL',
+        '<Cmd>FzfLua diagnostics_workspace<CR>',
+        desc = 'Lists Diagnostics for workspace',
       },
       {
         '<Leader>?',
-        function()
-          require('telescope.builtin').oldfiles()
-        end,
+        '<Cmd>FzfLua oldfiles<CR>',
         desc = 'Lists recently opened files',
       },
       {
         'ss',
-        function()
-          require('telescope.builtin').treesitter()
-        end,
+        '<Cmd>FzfLua lsp_document_symbols<CR>',
         desc = 'Lists Function names, variables, from Treesitter',
       },
     },
-    config = function(_, opts)
-      local telescope = require('telescope')
-      local actions = require('telescope.actions')
-      local lga_actions = require('telescope-live-grep-args.actions')
+    config = function()
+      local config = require('fzf-lua.config')
+      local actions = require('fzf-lua.actions')
+      local img_previewer = { 'chafa', '{file}', '--format=symbols' }
 
-      opts.defaults = {
-        prompt_prefix = ' ',
-        selection_caret = ' ',
-        -- open files in the first window that is an actual file.
-        -- use the current window if no other window is available.
-        get_selection_window = function()
-          local wins = vim.api.nvim_list_wins()
-          table.insert(wins, 1, vim.api.nvim_get_current_win())
-          for _, win in ipairs(wins) do
-            local buf = vim.api.nvim_win_get_buf(win)
-            if vim.bo[buf].buftype == '' then
-              return win
-            end
-          end
-          return 0
-        end,
-        wrap_results = true,
-        layout_strategy = 'horizontal',
-        layout_config = { prompt_position = 'top' },
-        sorting_strategy = 'ascending',
-        winblend = 0,
-        mappings = {
-          i = {
-            ['<C-f>'] = actions.preview_scrolling_down,
-            ['<C-b>'] = actions.preview_scrolling_up,
-          },
-          n = {
-            ['q'] = actions.close,
+      config.defaults.keymap.fzf['ctrl-u'] = 'half-page-up'
+      config.defaults.keymap.fzf['ctrl-d'] = 'half-page-down'
+      config.defaults.keymap.fzf['ctrl-x'] = 'jump'
+      config.defaults.keymap.fzf['ctrl-f'] = 'preview-page-down'
+      config.defaults.keymap.fzf['ctrl-b'] = 'preview-page-up'
+      config.defaults.keymap.builtin['<c-f>'] = 'preview-page-down'
+      config.defaults.keymap.builtin['<c-b>'] = 'preview-page-up'
+
+      require('fzf-lua').setup({
+        fzf_colors = true,
+        defaults = {
+          formatter = 'path.dirname_first',
+        },
+        files = {
+          cwd_prompt = false,
+          actions = {
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
           },
         },
-      }
-      opts.pickers = {
-        diagnostics = {
-          theme = 'ivy',
-          initial_mode = 'normal',
-          layout_config = {
-            preview_cutoff = 9999,
+        grep = {
+          actions = {
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
           },
         },
-      }
-      opts.extensions = {
-        live_grep_args = {
-          auto_quoting = true, -- enable/disable auto-quoting
-          -- define mappings, e.g.
-          mappings = { -- extend mappings
-            i = {
-              ['<C-k>'] = lga_actions.quote_prompt(),
-              ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+        previewers = {
+          builtin = {
+            extensions = {
+              ['png'] = img_previewer,
+              ['jpg'] = img_previewer,
+              ['jpeg'] = img_previewer,
+              ['gif'] = img_previewer,
+              ['webp'] = img_previewer,
             },
+            ueberzug_scaler = 'fit_contain',
           },
         },
-      }
-      telescope.setup(opts)
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('live_grep_args')
+        ui_select = function(fzf_opts, items)
+          return vim.tbl_deep_extend('force', fzf_opts, {
+            prompt = ' ',
+            winopts = {
+              title = ' ' .. vim.trim((fzf_opts.prompt or 'Select'):gsub('%s*:%s*$', '')) .. ' ',
+              title_pos = 'center',
+            },
+          }, {
+            winopts = {
+              width = 0.5,
+              -- height is number of items, with a max of 80% screen height
+              height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
+            },
+          })
+        end,
+        winopts = {
+          width = 0.8,
+          height = 0.8,
+          row = 0.5,
+          col = 0.5,
+          preview = {
+            scrollchars = { '┃', '' },
+          },
+        },
+      })
     end,
   },
 
@@ -170,24 +140,24 @@ return {
     branch = 'harpoon2',
     keys = function()
       local harpoon = require('harpoon')
-      local conf = require('telescope.config').values
+      -- local conf = require('telescope.config').values
 
-      local function toggle_telescope(harpoon_files)
-        local file_paths = {}
-        for _, item in ipairs(harpoon_files.items) do
-          table.insert(file_paths, item.value)
-        end
-        require('telescope.pickers')
-          .new({}, {
-            prompt_title = 'Harpoon',
-            finder = require('telescope.finders').new_table({
-              results = file_paths,
-            }),
-            previewer = conf.file_previewer({}),
-            sorter = conf.generic_sorter({}),
-          })
-          :find()
-      end
+      -- local function toggle_telescope(harpoon_files)
+      --   local file_paths = {}
+      --   for _, item in ipairs(harpoon_files.items) do
+      --     table.insert(file_paths, item.value)
+      --   end
+      --   require('telescope.pickers')
+      --     .new({}, {
+      --       prompt_title = 'Harpoon',
+      --       finder = require('telescope.finders').new_table({
+      --         results = file_paths,
+      --       }),
+      --       previewer = conf.file_previewer({}),
+      --       sorter = conf.generic_sorter({}),
+      --     })
+      --     :find()
+      -- end
 
       local keys = {
         {
@@ -218,13 +188,13 @@ return {
           end,
           desc = 'Harpoon list',
         },
-        {
-          '<leader>H',
-          function()
-            toggle_telescope(harpoon:list())
-          end,
-          desc = 'Harpoon list telescope',
-        },
+        -- {
+        --   '<leader>H',
+        --   function()
+        --     toggle_telescope(harpoon:list())
+        --   end,
+        --   desc = 'Harpoon list telescope',
+        -- },
       }
 
       for i = 1, 5 do
