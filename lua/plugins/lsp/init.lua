@@ -1,5 +1,3 @@
-local config = require('config')
-
 return {
   {
     'neovim/nvim-lspconfig',
@@ -16,6 +14,7 @@ return {
       local angular_typescript_plugin = require('mason-registry')
         .get_package('angular-language-server')
         :get_install_path() .. '/node_modules/@angular/language-server'
+      local config = require('config')
 
       return {
         ---@type lsp.ClientCapabilities
