@@ -137,10 +137,7 @@ return {
         formatting = {
           format = function(entry, item)
             local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
-            local icons = require('config').icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
+            item.kind = require('mini.icons').get('lsp', item.kind) .. ' ' .. item.kind
             if color_item.abbr_hl_group then
               item.kind_hl_group = color_item.abbr_hl_group
               item.kind = color_item.abbr
