@@ -446,7 +446,7 @@ return {
                 require('fzf-lua').files()
               end,
               desc = ' Config',
-              icons = ' ',
+              icon = ' ',
               key = 'c',
             },
             { action = 'Lazy', desc = ' Lazy', icon = '󰒲 ', key = 'l' },
