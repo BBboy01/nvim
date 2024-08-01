@@ -413,21 +413,44 @@ return {
         },
         config = {
           header = vim.split(logo, '\n'),
-          -- stylua: ignore
           center = {
-            { action = function()
-              require('fzf-lua').files()
-            end, desc = " Find file", icon = " ", key = "f" },
-            { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
-            { action = function()
-              require('fzf-lua').oldfiles()
-            end, desc = " Recent files", icon = " ", key = "r" },
-            { action = function ()
-              require('fzf-lua').grep_project()
-            end, desc = " Find text", icon = " ", key = "g" },
-            { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
-            { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "l" },
-            { action = "qa", desc = " Quit", icon = " ", key = "q" },
+            {
+              action = function()
+                require('fzf-lua').files()
+              end,
+              desc = ' Find file',
+              icon = ' ',
+              key = 'f',
+            },
+            { action = 'ene | startinsert', desc = ' New file', icon = ' ', key = 'n' },
+            {
+              action = function()
+                require('fzf-lua').oldfiles()
+              end,
+              desc = ' Recent files',
+              icon = ' ',
+              key = 'r',
+            },
+            {
+              action = function()
+                require('fzf-lua').grep_project()
+              end,
+              desc = ' Find text',
+              icon = ' ',
+              key = 'g',
+            },
+            { action = 'lua require("persistence").load()', desc = ' Restore Session', icon = ' ', key = 's' },
+            {
+              action = function()
+                vim.cmd.lcd(vim.env.XDG_CONFIG_HOME .. '/nvim')
+                require('fzf-lua').files()
+              end,
+              desc = ' Config',
+              icons = ' ',
+              key = 'c',
+            },
+            { action = 'Lazy', desc = ' Lazy', icon = '󰒲 ', key = 'l' },
+            { action = 'qa', desc = ' Quit', icon = ' ', key = 'q' },
           },
           footer = function()
             local stats = require('lazy').stats()
