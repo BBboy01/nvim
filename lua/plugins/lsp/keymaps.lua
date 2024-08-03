@@ -11,11 +11,10 @@ function M.get()
   if M._keys then
     return M._keys
   end
-  -- stylua: ignore
   M._keys = {
-    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    { "gi", '<Cmd>FzfLua lsp_implementations<CR>', desc = "Goto Implementation" },
-    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
+    { 'gi', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Goto Implementation' },
+    { 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
   }
   return M._keys
 end
