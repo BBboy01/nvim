@@ -312,7 +312,6 @@ return {
 
   {
     'nvimdev/guard.nvim',
-    commit = 'b066152fe06122b047a6b3ce427a19d8b6e628ce',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvimdev/guard-collection',
