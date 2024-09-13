@@ -6,8 +6,6 @@ return {
     { '<leader>dp', '<Cmd>Lspsaga diagnostic_jump_next<CR>', desc = 'Next diagnostic at current buffer' },
     { '<leader>dn', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', desc = 'Prev diagnostic at current buffer' },
     { '<leader>o', '<Cmd>Lspsaga outline<CR>', desc = 'Show outline of current buffer' },
-    { '<Leader>ci', '<Cmd>Lspsaga incoming_calls<CR>', desc = 'Show incoming calls' },
-    { '<Leader>co', '<Cmd>Lspsaga outgoing_calls<CR>', desc = 'Show outgoing calls' },
     { 'gd', '<Cmd>Lspsaga goto_definition<CR>', desc = 'Goto cursorword definition' },
     { 'gt', '<Cmd>Lspsaga goto_type_definition<CR>', desc = 'Goto cursorword type definition' },
     { 'K', '<Cmd>Lspsaga hover_doc<CR>', desc = 'Show cursorword doc' },
