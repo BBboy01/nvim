@@ -19,6 +19,16 @@ return {
         desc = 'Lists files in your current working directory, respects .gitignore',
       },
       {
+        '<Leader>c',
+        '<Cmd>FzfLua commands<CR>',
+        desc = 'Lists commands',
+      },
+      {
+        '<Leader>C',
+        '<Cmd>FzfLua command_history<CR>',
+        desc = 'Lists command history',
+      },
+      {
         '<Leader>r',
         '<Cmd>FzfLua live_grep<CR>',
         desc = 'Search for a regexp in your current working directory and get results live as you type, respects .gitignore',
@@ -26,6 +36,11 @@ return {
       {
         '<Leader>s',
         '<Cmd>FzfLua lgrep_curbuf<CR>',
+        desc = 'Search from current buffer regexp',
+      },
+      {
+        '<Leader>S',
+        '<Cmd>FzfLua blines<CR>',
         desc = 'Search from current buffer',
       },
       {
@@ -35,8 +50,8 @@ return {
       },
       {
         '<Leader>t',
-        '<Cmd>FzfLua helptags<CR>',
-        desc = 'Lists available help tags and opens a new window with the relevant help info on <cr>',
+        '<Cmd>FzfLua tabs<CR>',
+        desc = 'Lists open tabs',
       },
       {
         '\\\\',
