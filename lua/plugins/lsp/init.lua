@@ -50,7 +50,20 @@ return {
           cssls = {},
           emmet_language_server = {},
           css_variables = {},
-          eslint = {},
+          eslint = {
+            filetypes = {
+              'javascript',
+              'javascriptreact',
+              'javascript.jsx',
+              'typescript',
+              'typescriptreact',
+              'typescript.tsx',
+              'vue',
+              'svelte',
+              'astro',
+              'html',
+            },
+          },
           stylelint_lsp = {
             filetypes = {
               'css',
