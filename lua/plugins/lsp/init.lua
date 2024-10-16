@@ -86,7 +86,7 @@ return {
           sqls = {},
           nginx_language_server = {},
           gitlab_ci_ls = {},
-          tsserver = { enabled = false },
+          ts_ls = { enabled = false },
           vtsls = {
             filetypes = {
               'javascript',
@@ -107,7 +107,7 @@ return {
                     enableServerSideFuzzyMatch = true,
                   },
                 },
-                tsserver = {
+                ts_ls = {
                   globalPlugins = {
                     {
                       name = '@angular/language-server',
@@ -252,13 +252,12 @@ return {
       }
     end,
     setup = {
-      tsserver = function()
+      ts_ls = function()
         return true
       end,
       angularls = function()
         vim.api.nvim_create_autocmd('LspAttach', {
           callback = function(args)
-            local buffer = args.buf ---@type number
             local client = vim.lsp.get_client_by_id(args.data.client_id)
             if client then
               if client.name == 'angularls' then
