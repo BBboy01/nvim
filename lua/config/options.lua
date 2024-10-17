@@ -68,7 +68,6 @@ opt.smoothscroll = true
 opt.scrolloff = 2 -- Lines of context
 opt.sidescrolloff = 8 -- Columns of context
 opt.cmdheight = 0 -- Hide cmd line until in use
-opt.showmode = false -- Hide vim mode status line
 opt.list = true -- Show some invisible characters (tabs...
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
 opt.fillchars = { foldopen = '', foldclose = '', fold = ' ', foldsep = ' ', diff = '╱', eob = ' ' }
