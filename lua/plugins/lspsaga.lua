@@ -19,21 +19,8 @@ return {
     outline = {
       layout = 'float',
     },
-    finder = {
-      jump_to = 'p',
-      edit = { 'o', '<CR>' },
-      vsplit = 'v',
-      split = 's',
-      tabe = 't',
-      quit = { 'q', '<ESC>' },
-    },
-    definition = {
-      edit = '<C-c>o',
-      vsplit = '<C-c>v',
-      split = '<C-c>s',
-      tabe = '<C-c>t',
-      quit = 'q',
-      close = '<Esc>',
+    rename = {
+      in_select = false,
     },
   },
 }
