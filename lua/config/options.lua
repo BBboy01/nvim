@@ -16,7 +16,6 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.spelllang = { 'en' }
-opt.spelloptions:append('noplainbuffer')
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
 opt.winminwidth = 5 -- Minimum window width
 
