@@ -133,7 +133,6 @@ return {
             },
           },
           angularls = {
-            ---@diagnostic disable-next-line: assign-type-mismatch
             root_dir = function(...)
               return require('lspconfig.util').root_pattern('angular.json', 'nx.json')(...)
             end,
