@@ -213,11 +213,6 @@ return {
             },
           },
           lua_ls = {
-            on_init = function(client)
-              if not vim.uv.fs_stat(client.workspace_folders[1].name .. '/lazy-lock.json') then
-                return
-              end
-            end,
             settings = {
               Lua = {
                 runtime = {
@@ -225,11 +220,6 @@ return {
                 },
                 workspace = {
                   checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                    '${3rd}/luv/library',
-                    '${3rd}/busted/library',
-                  },
                 },
                 format = {
                   enable = false,

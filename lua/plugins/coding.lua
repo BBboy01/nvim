@@ -1,9 +1,14 @@
 return {
   {
     'folke/lazydev.nvim',
-    ft = 'lua', -- only load on lua files
+    ft = 'lua',
     cmd = 'LazyDev',
-    opts = {},
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        '${3rd}/busted/library',
+      },
+    },
   },
 
   {
