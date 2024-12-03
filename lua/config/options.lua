@@ -57,6 +57,7 @@ opt.termguicolors = true -- True color support
 
 -- UI
 opt.number = true -- Print line number
+opt.relativenumber = true -- Print relative line number
 opt.ruler = false -- Disable the default ruler
 opt.wrap = false -- No wrap lines
 opt.cursorline = true -- Enable highlighting of the current line
