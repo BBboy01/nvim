@@ -44,7 +44,6 @@ return {
             },
           },
         },
-        ---@type table<string, lspconfig.Config>
         servers = {
           html = {},
           cssls = {},
@@ -304,6 +303,7 @@ return {
         end
       end
       require('mason-lspconfig').setup({
+        automatic_installation = true,
         ensure_installed = ensure_installed,
         handlers = { setup },
       })
