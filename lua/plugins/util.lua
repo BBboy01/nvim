@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   -- Session management. This saves your session in the background,
   -- keeping track of open buffers, window arrangement, and more.

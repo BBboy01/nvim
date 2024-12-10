@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   -- tabs, which include filetype icons and close buttons.
   {
