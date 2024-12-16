@@ -267,6 +267,19 @@ return {
   },
 
   {
+    'aaronik/treewalker.nvim',
+    opts = {
+      highlight = true,
+    },
+    keys = {
+      { '<C-j>', '<Cmd>Treewalker Down<CR>' },
+      { '<C-k>', '<Cmd>Treewalker Up<CR>' },
+      { '<C-h>', '<Cmd>Treewalker Left<CR>' },
+      { '<C-l>', '<Cmd>Treewalker Right<CR>' },
+    },
+  },
+
+  {
     'stevearc/oil.nvim',
     lazy = false,
     keys = {
