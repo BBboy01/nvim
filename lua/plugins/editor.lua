@@ -276,6 +276,8 @@ return {
       { '<C-k>', '<Cmd>Treewalker Up<CR>' },
       { '<C-h>', '<Cmd>Treewalker Left<CR>' },
       { '<C-l>', '<Cmd>Treewalker Right<CR>' },
+      { '<C-S-j>', '<Cmd>Treewalker SwapDown<CR>' },
+      { '<C-S-k>', '<Cmd>Treewalker SwapUp<CR>' },
     },
   },
 
