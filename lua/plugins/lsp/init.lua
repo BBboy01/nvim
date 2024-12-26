@@ -112,7 +112,7 @@ return {
                     {
                       name = '@angular/language-server',
                       location = angular_typescript_plugin,
-                      enableForWorkspaceTypeScriptVersions = false,
+                      enableForWorkspaceTypeScriptVersions = true,
                     },
                     {
                       name = '@vue/typescript-plugin',
@@ -140,13 +140,9 @@ return {
           volar = {
             init_options = {
               vue = {
-                hybridMode = true,
+                hybridMode = false,
               },
             },
-            ---@diagnostic disable-next-line: assign-type-mismatch
-            root_dir = function(...)
-              return require('lspconfig.util').root_pattern('vue.config.json', 'package.json')(...)
-            end,
           },
           jsonls = {
             on_new_config = function(new_config)
