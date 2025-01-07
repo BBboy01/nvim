@@ -247,6 +247,7 @@ return {
         'sql',
         'graphql',
         'nginx',
+        'glsl',
       },
       textobjects = {
         move = {

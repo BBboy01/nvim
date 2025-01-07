@@ -86,6 +86,7 @@ return {
           sqls = {},
           nginx_language_server = {},
           gitlab_ci_ls = {},
+          glsl_analyzer = {},
           ts_ls = { enabled = false },
           vtsls = {
             filetypes = {
@@ -339,6 +340,7 @@ return {
         'eslint-lsp',
         'html-lsp',
         'css-lsp',
+        'glsl_analyzer',
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
