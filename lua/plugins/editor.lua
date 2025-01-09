@@ -278,8 +278,8 @@ return {
       { '<C-l>', '<Cmd>Treewalker Right<CR>' },
       { '<C-S-j>', '<Cmd>Treewalker SwapDown<CR>' },
       { '<C-S-k>', '<Cmd>Treewalker SwapUp<CR>' },
-      { '<C-S-h>', '<Cmd>TSTextobjectSwapPrevious @parameter.inner<CR>' },
-      { '<C-S-l>', '<Cmd>TSTextobjectSwapNext @parameter.inner<CR>' },
+      { '<C-S-h>', '<Cmd>Treewalker SwapLeft<CR>' },
+      { '<C-S-l>', '<Cmd>Treewalker SwapRight<CR>' },
     },
   },
 
