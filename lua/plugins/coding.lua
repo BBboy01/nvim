@@ -8,6 +8,7 @@ return {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         '${3rd}/busted/library',
+        { path = '~/personal/nvim/yazi', words = { 'ya' } },
       },
     },
   },
@@ -22,20 +23,9 @@ return {
       history = true,
       delete_check_events = 'TextChanged',
     },
-    config = function(ops)
-      local snip = require('luasnip')
-
-      snip.setup(ops)
-
-      snip.filetype_extend('javascriptreact', { 'javascript' })
-      snip.filetype_extend('typescript', { 'javascript' })
-      snip.filetype_extend('typescriptreact', { 'javascript' })
-      snip.filetype_extend('typescriptreact', { 'javascriptreact' })
-
-      require('luasnip.loaders.from_lua').lazy_load({
-        paths = { vim.fn.stdpath('config') .. '/lua/snippets' },
-      })
+    config = function()
       require('luasnip.loaders.from_vscode').lazy_load()
+      require('luasnip.loaders.from_lua').lazy_load({ paths = { vim.fn.stdpath('config') .. '/lua/snippets' } })
     end,
   },
 
