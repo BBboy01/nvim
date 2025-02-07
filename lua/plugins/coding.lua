@@ -52,10 +52,9 @@ return {
         ['B'] = { input = { '%b{}', '^.().*().$' }, output = { left = '{', right = '}' } },
       },
       mappings = {
-        add = 'sa', -- Add surrounding in Normal and Visual modes
-        delete = 'sd', -- Delete surrounding
-        replace = 'sr', -- Replace surrounding
-        update_n_lines = 'sn', -- Update `n_lines`
+        add = 'as', -- Add surrounding in Normal and Visual modes
+        delete = 'ds', -- Delete surrounding
+        replace = 'cs', -- Replace surrounding
         highlight = '', -- remove this internal keymap
         find = '', -- remove this internal keymap
       },
