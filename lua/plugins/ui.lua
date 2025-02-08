@@ -9,6 +9,7 @@ return {
       { 'tn', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
       { 'tp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
       { 'to', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
+      { 'ts', '<Cmd>BufferLinePick<CR>', desc = 'Pick buffers' },
     },
     ---@type bufferline.UserConfig
     opts = {
