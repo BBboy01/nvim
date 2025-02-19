@@ -36,7 +36,7 @@ return {
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
       local opts = require('lazy.core.plugin').values(plugin, 'opts', false)
       local mappings = {
-        { opts.mappings.add, desc = 'Add surrounding', mode = { 'n', 'v' } },
+        { opts.mappings.add, desc = 'Add surrounding' },
         { opts.mappings.delete, desc = 'Delete surrounding' },
         { opts.mappings.replace, desc = 'Replace surrounding' },
         { opts.mappings.update_n_lines, desc = 'Update `MiniSurround.config.n_lines`' },
@@ -52,11 +52,12 @@ return {
         ['B'] = { input = { '%b{}', '^.().*().$' }, output = { left = '{', right = '}' } },
       },
       mappings = {
-        add = 'as', -- Add surrounding in Normal and Visual modes
-        delete = 'ds', -- Delete surrounding
-        replace = 'cs', -- Replace surrounding
-        highlight = '', -- remove this internal keymap
-        find = '', -- remove this internal keymap
+        add = 'sa',
+        delete = 'sd',
+        replace = 'sr',
+        highlight = '',
+        find = '',
+        find_left = '',
       },
     },
   },
