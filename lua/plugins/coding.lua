@@ -8,7 +8,7 @@ return {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         '${3rd}/busted/library',
-        { path = '~/personal/nvim/yazi', words = { 'ya' } },
+        { path = '~/personal/nvim/yazi', words = { 'ya', 'ps', 'fs', 'Command' } },
       },
     },
   },
@@ -335,7 +335,6 @@ return {
 
   {
     'nvimdev/guard.nvim',
-    commit = 'b066152fe06122b047a6b3ce427a19d8b6e628ce',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvimdev/guard-collection',
@@ -343,11 +342,17 @@ return {
     keys = {
       {
         '<Leader>f',
-        '<cmd>GuardFmt<cr>',
+        '<cmd>Guard fmt<cr>',
         desc = 'Format current buffer',
       },
     },
     config = function()
+      vim.g.guard_config = {
+        fmt_on_save = false,
+        save_on_fmt = false,
+        lsp_as_default_formatter = true,
+      }
+
       local ft = require('guard.filetype')
       local formatter = require('guard-collection.formatter')
       local linter = require('guard-collection.linter')
@@ -367,12 +372,6 @@ return {
       ft('css,scss'):fmt(formatter.prettier)
 
       ft('html,markdown,json,jsonc,yaml'):fmt(formatter.prettier)
-
-      require('guard').setup({
-        fmt_on_save = false,
-        save_on_fmt = false,
-        lsp_as_default_formatter = true,
-      })
     end,
   },
 
