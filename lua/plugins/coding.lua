@@ -8,7 +8,7 @@ return {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         '${3rd}/busted/library',
-        { path = '~/personal/nvim/yazi', words = { 'ya', 'ps', 'fs', 'Command' } },
+        { path = '~/personal/nvim/yazi', words = { 'ya', 'ui', 'ps', 'fs', 'Command' } },
       },
     },
   },
@@ -349,8 +349,9 @@ return {
     config = function()
       vim.g.guard_config = {
         fmt_on_save = false,
-        save_on_fmt = false,
         lsp_as_default_formatter = true,
+        save_on_fmt = false,
+        auto_lint = false,
       }
 
       local ft = require('guard.filetype')
