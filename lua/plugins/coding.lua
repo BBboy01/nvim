@@ -146,7 +146,7 @@ return {
         },
       }
     end,
-    --@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
+    ---@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
     config = function(_, opts)
       local cmp = require('cmp')
       for _, source in ipairs(opts.sources) do
