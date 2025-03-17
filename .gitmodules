@@ -1,0 +1,3 @@
+[submodule ".luals/addons/yazi"]
+	path = .luals/addons/yazi
+	url = https://github.com/BBboy01/yazi-type.git
