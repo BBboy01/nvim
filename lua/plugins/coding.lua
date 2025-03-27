@@ -14,6 +14,11 @@ return {
   },
 
   {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+  },
+
+  {
     'L3MON4D3/LuaSnip',
     lazy = true,
     dependencies = {
