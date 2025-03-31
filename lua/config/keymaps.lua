@@ -43,10 +43,6 @@ map('n', '<A-l>', '<C-w>>', { desc = 'Increase window width' })
 map('n', '<A-k>', '<C-w>+', { desc = 'Increase window height' })
 map('n', '<A-j>', '<C-w>-', { desc = 'Decrease window height' })
 
--- Save & Close buffer
-map('n', 'sw', '<Cmd>wq<CR>', { desc = 'Save and Close current buffer' })
-map({ 'i', 'x', 'n', 's' }, '<C-s>', '<Cmd>w<CR><Esc>', { desc = 'Save current buffer' })
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next Search Result' })
 map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Search Result' })
