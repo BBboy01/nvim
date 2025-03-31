@@ -250,9 +250,6 @@ return {
           goto_next_start = {
             [']f'] = '@function.outer',
             [']c'] = '@class.outer',
-            [']a'] = '@assignment.rhs',
-            [']r'] = '@return.outer',
-            [']l'] = '@statement.outer',
           },
           goto_next_end = {
             [']F'] = '@function.inner',
@@ -262,9 +259,6 @@ return {
           goto_previous_start = {
             ['[f'] = '@function.outer',
             ['[c'] = '@class.outer',
-            ['[a'] = '@assignment.lhs',
-            ['[r'] = '@return.outer',
-            ['[l'] = '@statement.outer',
           },
           goto_previous_end = {
             ['[F'] = '@function.inner',
@@ -281,10 +275,6 @@ return {
             ['ic'] = '@class.inner',
             ['ar'] = '@return.outer',
             ['ir'] = '@return.inner',
-            ['al'] = '@statement.outer',
-            ['il'] = '@statement.inner',
-            ['iL'] = '@assignment.lhs',
-            ['iR'] = '@assignment.rhs',
           },
         },
       },
@@ -318,7 +308,6 @@ return {
           ['.*gitlab%-ci.*'] = 'yaml.gitlab',
         },
       })
-      vim.treesitter.language.register('angular', 'html')
       vim.treesitter.language.register('markdown', 'mdx')
     end,
   },
