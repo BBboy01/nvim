@@ -1,6 +1,8 @@
 vim.g.mapleader = ';'
 vim.g.maplocalleader = ';'
 
+vim.o.winborder = 'none'
+
 local opt = vim.opt
 
 -- Editing
