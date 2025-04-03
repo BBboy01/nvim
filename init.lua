@@ -7,7 +7,7 @@ require('config.lazy')
 
 if vim.g.neovide then
   vim.api.nvim_set_hl(0, 'Normal', { bg = '#001E27' })
-  vim.g.neovide_transparency = 0.92
+  vim.g.neovide_opacity = 0.92
   vim.g.neovide_window_blurred = true
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_input_macos_option_is_meta = 'only_left'
