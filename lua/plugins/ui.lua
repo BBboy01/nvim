@@ -91,7 +91,7 @@ return {
           component_separators = '',
           section_separators = '',
           theme = {
-            normal = { c = { fg = colors.fg, bg = '' } },
+            normal = { c = { fg = colors.fg, bg = 'NONE', ctermbg = 'NONE' } },
           },
         },
         sections = {
@@ -129,7 +129,7 @@ return {
               end,
             },
             { 'branch', color = { fg = colors.yellow } },
-            { 'filetype', icon_only = true, padding = { left = 1, right = 0 }, color = { bg = '' } },
+            { 'filetype', icon_only = true, padding = { left = 1, right = 0 } },
             {
               function()
                 local file = vim.fn.expand('%:f')
@@ -138,10 +138,9 @@ return {
                 end
                 return file
               end,
-              color = { bg = '' },
             },
-            { 'filesize', color = { bg = '' } },
-            { 'encoding', color = { bg = '' } },
+            { 'filesize' },
+            { 'encoding' },
             {
               'diagnostics',
               symbols = {
