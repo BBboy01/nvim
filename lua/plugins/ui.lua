@@ -91,7 +91,7 @@ return {
           component_separators = '',
           section_separators = '',
           theme = {
-            normal = { c = { fg = colors.fg, bg = 'NONE', ctermbg = 'NONE' } },
+            normal = { c = { fg = colors.fg, bg = 'NONE' } },
           },
         },
         sections = {
