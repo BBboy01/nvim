@@ -68,107 +68,106 @@ return {
   },
 
   {
-    'hrsh7th/nvim-cmp',
-    version = false,
-    event = 'InsertEnter',
+    'saghen/blink.cmp',
     dependencies = {
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
+      'xzbdmw/colorful-menu.nvim',
       {
         'saecki/crates.nvim',
         event = { 'BufRead Cargo.toml' },
         opts = {
-          completion = {
-            cmp = { enabled = true },
+          lsp = {
+            enabled = true,
+            actions = true,
+            completion = true,
+            hover = true,
+          },
+        },
+        config = function(_, opts)
+          require('crates').setup(opts)
+        end,
+      },
+    },
+    version = '*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        ['<C-k>'] = { 'show' },
+        ['<C-l>'] = { 'snippet_forward', 'fallback' },
+        ['<C-h>'] = { 'snippet_backward', 'fallback' },
+      },
+      completion = {
+        menu = {
+          draw = {
+            columns = { { 'label' }, { 'kind_icon', 'kind', gap = 1 } },
+            components = {
+              label = {
+                text = function(ctx)
+                  return require('colorful-menu').blink_components_text(ctx)
+                end,
+                highlight = function(ctx)
+                  return require('colorful-menu').blink_components_highlight(ctx)
+                end,
+              },
+              kind_icon = {
+                text = function(ctx)
+                  local icon = require('mini.icons').get('lsp', ctx.kind)
+                  if ctx.item.source_name == 'LSP' then
+                    local color_item =
+                      require('nvim-highlight-colors').format(ctx.item.documentation, { kind = ctx.kind })
+                    if color_item and color_item.abbr ~= '' then
+                      icon = color_item.abbr
+                    end
+                  end
+                  return icon .. ctx.icon_gap
+                end,
+                highlight = function(ctx)
+                  local highlight = 'BlinkCmpKind' .. ctx.kind
+                  if ctx.item.source_name == 'LSP' then
+                    local color_item =
+                      require('nvim-highlight-colors').format(ctx.item.documentation, { kind = ctx.kind })
+                    if color_item and color_item.abbr_hl_group then
+                      highlight = color_item.abbr_hl_group
+                    end
+                  end
+                  return highlight
+                end,
+              },
+            },
+          },
+        },
+        documentation = { auto_show = true },
+        list = { selection = { auto_insert = false } },
+        ghost_text = { enabled = true },
+      },
+      cmdline = {
+        keymap = {
+          ['<C-k>'] = { 'show' },
+        },
+        completion = {
+          list = {
+            selection = {
+              auto_insert = false,
+            },
+          },
+          menu = { auto_show = true },
+        },
+      },
+      snippets = { preset = 'luasnip' },
+      sources = {
+        default = { 'lazydev', 'lsp', 'buffer', 'snippets', 'path' },
+        providers = {
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
           },
         },
       },
     },
-    opts = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-      return {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        completion = {
-          completeopt = 'menu,menuone,preview,noselect',
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          ['<C-q>'] = cmp.mapping.close(),
-          ['<C-k>'] = cmp.mapping.complete({}),
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
-        }),
-        sources = cmp.config.sources({
-          { name = 'crates' },
-          { name = 'nvim_lsp' },
-          { name = 'buffer', keyword_length = 3 },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          {
-            name = 'lazydev',
-            group_index = 0, -- skip loading LuaLS completions
-          },
-        }),
-        formatting = {
-          format = function(entry, item)
-            local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
-            item.kind = require('mini.icons').get('lsp', item.kind) .. ' ' .. item.kind
-            if color_item.abbr_hl_group then
-              item.kind_hl_group = color_item.abbr_hl_group
-              item.kind = color_item.abbr
-            end
-            return item
-          end,
-        },
-        experimental = {
-          ghost_text = true,
-        },
-      }
-    end,
-    ---@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
-    config = function(_, opts)
-      local cmp = require('cmp')
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
-      cmp.setup(opts)
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        completion = {
-          completeopt = 'menu,menuone,preview,noselect',
-        },
-        sources = cmp.config.sources({
-          { name = 'path' },
-          { name = 'cmdline' },
-        }),
-      })
-    end,
+    opts_extend = { 'sources.default' },
   },
 
   -- treesitter
