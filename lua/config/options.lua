@@ -1,7 +1,7 @@
 vim.g.mapleader = ';'
 vim.g.maplocalleader = ';'
 
-vim.o.winborder = 'none'
+vim.o.winborder = 'rounded'
 
 local opt = vim.opt
 
