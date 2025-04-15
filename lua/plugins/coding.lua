@@ -352,7 +352,7 @@ return {
       local linter = require('guard-collection.linter')
 
       ft('lua'):fmt(formatter.stylua)
-      ft('go'):fmt(formatter.gofmt)
+      ft('go'):fmt(formatter.gofumpt)
       ft('sh'):fmt(formatter.shfmt):lint(linter.shellcheck)
       ft('fish'):fmt(formatter.fish_indent)
       ft('rust'):fmt(formatter.rustfmt)
