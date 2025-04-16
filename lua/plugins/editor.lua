@@ -80,6 +80,7 @@ return {
         desc = 'Lists Function names, variables, from Treesitter',
       },
       { 'gi', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
+      { 'gD', '<Cmd>FzfLua lsp_declarations<CR>', desc = 'Grep Declarations' },
     },
     config = function()
       local config = require('fzf-lua.config')
