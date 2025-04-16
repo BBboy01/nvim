@@ -79,6 +79,7 @@ return {
         '<Cmd>FzfLua lsp_document_symbols<CR>',
         desc = 'Lists Function names, variables, from Treesitter',
       },
+      { 'gi', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
     },
     config = function()
       local config = require('fzf-lua.config')

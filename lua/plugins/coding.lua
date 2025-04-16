@@ -95,8 +95,6 @@ return {
     opts = {
       keymap = {
         ['<C-k>'] = { 'show' },
-        ['<C-l>'] = { 'snippet_forward', 'fallback' },
-        ['<C-h>'] = { 'snippet_backward', 'fallback' },
       },
       completion = {
         menu = {
