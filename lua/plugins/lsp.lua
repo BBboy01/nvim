@@ -260,17 +260,6 @@ return {
       end,
     },
     config = function(_, opts)
-      -- setup keymaps
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(args)
-          local buffer = args.buf ---@type number
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client then
-            return require('plugins.lsp.keymaps').on_attach(client, buffer)
-          end
-        end,
-      })
-
       -- setup diagnostics signs
       opts.diagnostics.virtual_text.prefix = function(diagnostic)
         return opts.diagnostics.signs.text[diagnostic.severity]
@@ -292,6 +281,8 @@ return {
           capabilities = vim.deepcopy(capabilities),
         }, servers[server] or {})
         require('lspconfig')[server].setup(server_opts)
+        -- vim.lsp.enable(server, server_opts.enabled)
+        -- vim.lsp.config(server, server_opts)
       end
 
       local ensure_installed = {} ---@type string[]
