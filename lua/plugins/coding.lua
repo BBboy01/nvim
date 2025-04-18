@@ -247,6 +247,7 @@ return {
           goto_next_start = {
             [']f'] = '@function.outer',
             [']c'] = '@class.outer',
+            [']r'] = '@return.outer',
           },
           goto_next_end = {
             [']F'] = '@function.inner',
@@ -256,6 +257,7 @@ return {
           goto_previous_start = {
             ['[f'] = '@function.outer',
             ['[c'] = '@class.outer',
+            ['[r'] = '@return.outer',
           },
           goto_previous_end = {
             ['[F'] = '@function.inner',
