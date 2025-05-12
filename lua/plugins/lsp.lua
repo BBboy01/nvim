@@ -4,17 +4,10 @@ return {
     'neovim/nvim-lspconfig',
     event = 'BufReadPre',
     dependencies = {
-      'mason.nvim',
-      { 'williamboman/mason-lspconfig.nvim', config = function() end },
+      'mason-org/mason.nvim',
+      'mason-org/mason-lspconfig.nvim',
     },
     opts = function()
-      -- stylua: ignore
-      local vue_typescript_plugin = require('mason-registry')
-        .get_package('vue-language-server')
-        :get_install_path() .. '/node_modules/@vue/language-server'
-      local angular_typescript_plugin = require('mason-registry')
-        .get_package('angular-language-server')
-        :get_install_path() .. '/node_modules/@angular/language-server'
       local config = require('config')
 
       return {
@@ -62,18 +55,10 @@ return {
               'svelte',
               'astro',
               'html',
+              'htmlangular',
             },
           },
-          stylelint_lsp = {
-            filetypes = {
-              'css',
-              'less',
-              'scss',
-              'sugarss',
-              'vue',
-              'wxss',
-            },
-          },
+          stylelint_lsp = {},
           tailwindcss = {},
           bashls = {},
           dockerls = {},
@@ -87,7 +72,7 @@ return {
           nginx_language_server = {},
           gitlab_ci_ls = {},
           glsl_analyzer = {},
-          ts_ls = { enabled = false },
+          ts_ls = {},
           vtsls = {
             filetypes = {
               'javascript',
@@ -112,12 +97,14 @@ return {
                   globalPlugins = {
                     {
                       name = '@angular/language-server',
-                      location = angular_typescript_plugin,
+                      location = vim.fn.expand(
+                        '$MASON/packages/angular-language-server/node_modules/@angular/language-server'
+                      ),
                       enableForWorkspaceTypeScriptVersions = true,
                     },
                     {
                       name = '@vue/typescript-plugin',
-                      location = vue_typescript_plugin,
+                      location = vim.fn.expand('$MASON/packages/vue-language-server/node_modules/@vue/language-server'),
                       languages = { 'vue' },
                       configNamespace = 'typescript',
                       enableForWorkspaceTypeScriptVersions = true,
@@ -133,11 +120,7 @@ return {
               },
             },
           },
-          angularls = {
-            root_dir = function(...)
-              return require('lspconfig.util').root_pattern('angular.json', 'nx.json')(...)
-            end,
-          },
+          angularls = {},
           volar = {
             init_options = {
               vue = {
@@ -266,41 +249,25 @@ return {
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      -- setup lsp by mason-lspconfig
-      local servers = opts.servers
-      local capabilities = vim.tbl_deep_extend(
-        'force',
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        require('blink.cmp').get_lsp_capabilities(),
-        opts.capabilities
-      )
-
-      local function setup(server)
-        local server_opts = vim.tbl_deep_extend('force', {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
-        require('lspconfig')[server].setup(server_opts)
-        -- vim.lsp.enable(server, server_opts.enabled)
-        -- vim.lsp.config(server, server_opts)
-      end
-
       local ensure_installed = {} ---@type string[]
-      for server, server_opts in pairs(servers) do
+      for server, server_opts in pairs(opts.servers) do
         if server_opts.enabled ~= false then
           ensure_installed[#ensure_installed + 1] = server
         end
       end
       require('mason-lspconfig').setup({
-        automatic_installation = true,
+        automatic_enable = {
+          exclude = {
+            'ts_ls',
+          },
+        },
         ensure_installed = ensure_installed,
-        handlers = { setup },
       })
     end,
   },
 
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     cmd = 'Mason',
     build = ':MasonUpdate',
     opts = {
