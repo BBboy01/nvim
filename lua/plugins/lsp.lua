@@ -221,9 +221,6 @@ return {
       }
     end,
     setup = {
-      ts_ls = function()
-        return true
-      end,
       angularls = function()
         vim.api.nvim_create_autocmd('LspAttach', {
           callback = function(args)
