@@ -246,19 +246,19 @@ return {
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      local ensure_installed = {} ---@type string[]
-      for server, server_opts in pairs(opts.servers) do
-        if server_opts.enabled ~= false then
-          ensure_installed[#ensure_installed + 1] = server
-        end
-      end
       require('mason-lspconfig').setup({
         automatic_enable = {
           exclude = {
             'ts_ls',
           },
         },
-        ensure_installed = ensure_installed,
+        ensure_installed = vim
+          .iter(opts.servers)
+          :map(function(server, server_opts)
+            vim.lsp.config(server, server_opts)
+            return server
+          end)
+          :totable(),
       })
     end,
   },
