@@ -72,6 +72,7 @@ return {
           nginx_language_server = {},
           gitlab_ci_ls = {},
           glsl_analyzer = {},
+          fish_lsp = {},
           ts_ls = {},
           vtsls = {
             filetypes = {
@@ -296,6 +297,7 @@ return {
         'html-lsp',
         'css-lsp',
         'glsl_analyzer',
+        'fish-lsp',
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
