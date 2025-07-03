@@ -94,7 +94,7 @@ return {
                     enableServerSideFuzzyMatch = true,
                   },
                 },
-                ts_ls = {
+                tsserver = {
                   globalPlugins = {
                     {
                       name = '@angular/language-server',
