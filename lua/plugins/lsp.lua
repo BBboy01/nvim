@@ -43,21 +43,7 @@ return {
           cssls = {},
           emmet_language_server = {},
           css_variables = {},
-          eslint = {
-            filetypes = {
-              'javascript',
-              'javascriptreact',
-              'javascript.jsx',
-              'typescript',
-              'typescriptreact',
-              'typescript.tsx',
-              'vue',
-              'svelte',
-              'astro',
-              'html',
-              'htmlangular',
-            },
-          },
+          eslint = {},
           stylelint_lsp = {},
           tailwindcss = {},
           bashls = {},
@@ -123,11 +109,36 @@ return {
           },
           angularls = {},
           vue_ls = {
-            init_options = {
-              vue = {
-                hybridMode = false,
-              },
-            },
+            on_init = function(client)
+              client.handlers['tsserver/request'] = function(_, result, context)
+                local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+                if #clients == 0 then
+                  vim.notify(
+                    'Could not found `vtsls` lsp client, vue_lsp would not work without it.',
+                    vim.log.levels.ERROR
+                  )
+                  return
+                end
+                local ts_client = clients[1]
+
+                local param = unpack(result)
+                local id, command, payload = unpack(param)
+                ts_client:exec_cmd({
+                  title = 'vue forward request',
+                  command = 'typescript.tsserverRequest',
+                  arguments = {
+                    command,
+                    payload,
+                  },
+                }, { bufnr = context.bufnr }, function(_, r)
+                  local response_data = { { id, (r or {}).body } }
+                  client:notify('tsserver/response', response_data)
+                end)
+              end
+            end,
+            on_attach = function(client, _)
+              client.server_capabilities.documentFormattingProvider = nil
+            end,
           },
           jsonls = {
             on_new_config = function(new_config)
