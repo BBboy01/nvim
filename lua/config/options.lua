@@ -1,9 +1,9 @@
 vim.g.mapleader = ';'
 vim.g.maplocalleader = ';'
 
-vim.o.winborder = 'rounded'
-
 local opt = vim.opt
+
+opt.winborder = 'rounded'
 
 -- Editing
 opt.mouse = '' -- Disable mouse action
@@ -24,13 +24,13 @@ opt.winminwidth = 5 -- Minimum window width
 opt.expandtab = true -- Use spaces instead of tabs
 opt.backup = false
 opt.writebackup = false
-opt.backupskip = '/tmp/*,/private/tmp/*'
+opt.backupskip = { '/tmp/*', '/private/tmp/*' }
 opt.inccommand = 'nosplit' -- Preview incremental substitute
 opt.virtualedit = 'block' -- Select whatever in visual block mode
 opt.jumpoptions = 'view'
 opt.path:append({ '**' }) -- Finding files - Search down into subfolders
 opt.wildignore:append({ '*/node_modules/*' })
-opt.wildmode = 'longest:full,full' -- Command-line completion mode
+opt.wildmode = { 'longest:full', 'full' } -- Command-line completion mode
 
 -- Searching
 opt.ignorecase = true -- Ignore case
@@ -66,7 +66,7 @@ opt.cursorline = true -- Enable highlighting of the current line
 opt.signcolumn = 'yes' -- Always show the signcolumn
 opt.showmode = false -- Don't show the mode, since it's already in status line
 opt.pumheight = 15 -- Maximum number of entries in a popup
-opt.completeopt = 'menu,menuone,noinsert,fuzzy,popup,noselect' -- Popup settings
+opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup', 'noselect' } -- Popup settings
 opt.pumblend = 10 -- Popup blend
 opt.smoothscroll = true
 opt.scrolloff = 2 -- Lines of context
