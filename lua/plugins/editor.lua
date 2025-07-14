@@ -158,61 +158,80 @@ return {
     branch = 'harpoon2',
     keys = function()
       local harpoon = require('harpoon')
-      -- local conf = require('telescope.config').values
-
-      -- local function toggle_telescope(harpoon_files)
-      --   local file_paths = {}
-      --   for _, item in ipairs(harpoon_files.items) do
-      --     table.insert(file_paths, item.value)
-      --   end
-      --   require('telescope.pickers')
-      --     .new({}, {
-      --       prompt_title = 'Harpoon',
-      --       finder = require('telescope.finders').new_table({
-      --         results = file_paths,
-      --       }),
-      --       previewer = conf.file_previewer({}),
-      --       sorter = conf.generic_sorter({}),
-      --     })
-      --     :find()
-      -- end
-
+      local list = harpoon:list()
       local keys = {
         {
           '<A-n>',
           function()
-            harpoon:list():next()
+            list:next()
           end,
           desc = 'Harpoon next buffer',
         },
         {
           '<A-p>',
           function()
-            harpoon:list():prev()
+            list:prev()
           end,
           desc = 'Harpoon prev buffer',
         },
         {
           '<A-a>',
           function()
-            harpoon:list():add()
+            list:add()
           end,
           desc = 'Harpoon add current buffer',
         },
         {
           '<leader>h',
           function()
-            harpoon.ui:toggle_quick_menu(harpoon:list())
+            harpoon.ui:toggle_quick_menu(list)
           end,
           desc = 'Harpoon list',
         },
-        -- {
-        --   '<leader>H',
-        --   function()
-        --     toggle_telescope(harpoon:list())
-        --   end,
-        --   desc = 'Harpoon list telescope',
-        -- },
+        {
+          '<leader>H',
+          function()
+            local fzf = require('fzf-lua')
+            local items = vim
+              .iter(list.items)
+              :filter(function(item)
+                return item and item.value and item.value ~= ''
+              end)
+              :enumerate()
+              :map(function(i, item)
+                if item and item.value and item.value ~= '' then
+                  return string.format('%d: %s', i, item.value)
+                end
+              end)
+              :totable()
+            fzf.fzf_exec(items, {
+              prompt = 'Harpoon Files> ',
+              winopts = {
+                width = 0.4,
+                height = 0.4,
+              },
+              fzf_opts = {
+                ['--preview'] = "bat --style=numbers --color=always $(echo {} | sed 's/^\\([0-9]\\+\\): //')",
+              },
+              actions = {
+                ['default'] = function(selected)
+                  local idx = tonumber(selected[1]:match('^(%d+):'))
+                  if idx then
+                    list:select(idx)
+                  end
+                end,
+                ['ctrl-d'] = function(selected)
+                  local idx = tonumber(selected[1]:match('^(%d+):'))
+                  if idx then
+                    local item = list:get(idx)
+                    list:remove(item)
+                  end
+                end,
+              },
+            })
+          end,
+          'Harpoon list live grep',
+        },
       }
 
       for i = 1, 5 do
