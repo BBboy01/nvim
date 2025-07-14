@@ -184,7 +184,7 @@ return {
         {
           '<leader>h',
           function()
-            harpoon.ui:toggle_quick_menu(list)
+            harpoon.ui:toggle_quick_menu(list, { border = vim.o.winborder })
           end,
           desc = 'Harpoon list',
         },
