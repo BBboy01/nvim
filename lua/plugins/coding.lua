@@ -163,8 +163,7 @@ return {
     version = false,
     build = ':TSUpdate',
     event = 'BufRead',
-    init = function(plugin)
-      require('lazy.core.loader').add_to_rtp(plugin)
+    init = function()
       require('nvim-treesitter.query_predicates')
     end,
     cmd = { 'TSUpdate', 'TSInstall' },
@@ -293,7 +292,7 @@ return {
         pattern = {
           ['.*/kitty/.+%.conf'] = 'bash',
           ['%.env%.[%w_.-]+'] = 'dotenv',
-          ['.*gitlab%-ci.*'] = 'yaml.gitlab',
+          ['.*gitlab%-ci%.ya?ml'] = 'yaml.gitlab',
         },
       })
       vim.treesitter.language.register('markdown', 'mdx')
