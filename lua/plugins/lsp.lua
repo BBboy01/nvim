@@ -84,19 +84,25 @@ return {
                   globalPlugins = {
                     {
                       name = '@angular/language-server',
-                      location = vim.fn.expand(
-                        '$MASON/packages/angular-language-server/node_modules/@angular/language-server'
-                      ),
+                      location = vim.fn.stdpath('data')
+                        .. '/mason/packages/angular-language-server/node_modules/@angular/language-server',
                       enableForWorkspaceTypeScriptVersions = true,
                     },
                     {
                       name = '@vue/typescript-plugin',
-                      location = vim.fn.expand('$MASON/packages/vue-language-server/node_modules/@vue/language-server'),
+                      location = vim.fn.stdpath('data')
+                        .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
                       languages = { 'vue' },
                       configNamespace = 'typescript',
                       enableForWorkspaceTypeScriptVersions = true,
                     },
                   },
+                },
+              },
+              javascript = {
+                updateImportsOnFileMove = { enabled = 'always' },
+                suggest = {
+                  completeFunctionCalls = true,
                 },
               },
               typescript = {
@@ -109,33 +115,6 @@ return {
           },
           angularls = {},
           vue_ls = {
-            on_init = function(client)
-              client.handlers['tsserver/request'] = function(_, result, context)
-                local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
-                if #clients == 0 then
-                  vim.notify(
-                    'Could not found `vtsls` lsp client, vue_lsp would not work without it.',
-                    vim.log.levels.ERROR
-                  )
-                  return
-                end
-                local ts_client = clients[1]
-
-                local param = unpack(result)
-                local id, command, payload = unpack(param)
-                ts_client:exec_cmd({
-                  title = 'vue forward request',
-                  command = 'typescript.tsserverRequest',
-                  arguments = {
-                    command,
-                    payload,
-                  },
-                }, { bufnr = context.bufnr }, function(_, r)
-                  local response_data = { { id, (r or {}).body } }
-                  client:notify('tsserver/response', response_data)
-                end)
-              end
-            end,
             on_attach = function(client, _)
               client.server_capabilities.documentFormattingProvider = nil
             end,
@@ -232,27 +211,7 @@ return {
         },
       }
     end,
-    setup = {
-      angularls = function()
-        vim.api.nvim_create_autocmd('LspAttach', {
-          callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client then
-              if client.name == 'angularls' then
-                --HACK: disable angular renaming capability due to duplicate rename popping up
-                client.server_capabilities.renameProvider = false
-              end
-            end
-          end,
-        })
-      end,
-      vtsls = function(_, opts)
-        opts.settings.javascript =
-          vim.tbl_deep_extend('force', {}, opts.settings.typescript, opts.settings.javascript or {})
-      end,
-    },
     config = function(_, opts)
-      -- setup diagnostics signs
       opts.diagnostics.virtual_text.prefix = function(diagnostic)
         return opts.diagnostics.signs.text[diagnostic.severity]
       end
