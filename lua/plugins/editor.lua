@@ -20,11 +20,6 @@ return {
         desc = 'Lists files in your current working directory, respects .gitignore',
       },
       {
-        '<Leader>c',
-        '<Cmd>FzfLua commands<CR>',
-        desc = 'Lists commands',
-      },
-      {
         '<Leader>C',
         '<Cmd>FzfLua command_history<CR>',
         desc = 'Lists command history',
@@ -75,11 +70,11 @@ return {
         desc = 'Lists recently opened files',
       },
       {
-        'ss',
+        'gO',
         '<Cmd>FzfLua lsp_document_symbols<CR>',
         desc = 'Lists Function names, variables, from Treesitter',
       },
-      { 'gi', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
+      { 'gri', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
       { 'gD', '<Cmd>FzfLua lsp_declarations<CR>', desc = 'Grep Declarations' },
     },
     config = function()
