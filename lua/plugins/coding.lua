@@ -29,6 +29,11 @@ return {
       delete_check_events = 'TextChanged',
     },
     config = function()
+      local ls = require('luasnip')
+      ls.filetype_extend('javascript', { 'jsdoc' })
+      ls.filetype_extend('typescript', { 'javascript', 'tsdoc' })
+      ls.filetype_extend('vue', { 'javascript' })
+
       require('luasnip.loaders.from_vscode').lazy_load()
       require('luasnip.loaders.from_lua').lazy_load({ paths = { vim.fn.stdpath('config') .. '/lua/snippets' } })
     end,
