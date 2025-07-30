@@ -6,9 +6,9 @@ return {
     event = 'VeryLazy',
     keys = {
       { 'te', '<Cmd>tabedit<CR>', desc = 'Create a new tab' },
-      { 'tn', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
-      { 'tp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
-      { 'to', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
+      { 'gt', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { 'gT', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
+      { 'to', '<Cmd>tabonly<CR>', desc = 'Delete other buffers' },
       { 'ts', '<Cmd>BufferLinePick<CR>', desc = 'Pick buffers' },
     },
     ---@type bufferline.UserConfig
