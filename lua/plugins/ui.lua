@@ -132,11 +132,7 @@ return {
             { 'filetype', icon_only = true, padding = { left = 1, right = 0 } },
             {
               function()
-                local file = vim.fn.expand('%:f')
-                if vim.fn.empty(file) == 1 then
-                  return ''
-                end
-                return file
+                return vim.fn.fnamemodify(vim.fn.expand('%'), ':~:.')
               end,
             },
             { 'filesize' },
