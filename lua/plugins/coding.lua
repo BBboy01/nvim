@@ -8,7 +8,6 @@ return {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         '${3rd}/busted/library',
-        { path = '.luals/addons/yazi', words = { 'ya', 'ui', 'ps', 'fs', 'Command' } },
       },
     },
   },
