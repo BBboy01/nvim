@@ -4,6 +4,7 @@ return {
     'neovim/nvim-lspconfig',
     event = 'BufReadPre',
     dependencies = {
+      'b0o/schemastore.nvim',
       'mason-org/mason.nvim',
       'mason-org/mason-lspconfig.nvim',
     },
@@ -120,24 +121,14 @@ return {
             end,
           },
           jsonls = {
-            on_new_config = function(new_config)
-              new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-              vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
-            end,
             settings = {
               json = {
                 validate = { enable = true },
+                schemas = require('schemastore').json.schemas(),
               },
             },
           },
           yamlls = {
-            on_new_config = function(new_config)
-              new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-                'force',
-                new_config.settings.yaml.schemas or {},
-                require('schemastore').yaml.schemas()
-              )
-            end,
             settings = {
               redhat = { telemetry = { enabled = false } },
               yaml = {
@@ -147,12 +138,10 @@ return {
                 },
                 validate = true,
                 schemaStore = {
-                  -- Must disable built-in schemaStore support to use
-                  -- schemas from SchemaStore.nvim plugin
                   enable = false,
-                  -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                   url = '',
                 },
+                schemas = require('schemastore').yaml.schemas(),
               },
             },
           },
@@ -186,24 +175,9 @@ return {
           lua_ls = {
             settings = {
               Lua = {
-                runtime = {
-                  version = 'LuaJIT',
-                },
+                runtime = { version = 'LuaJIT' },
                 workspace = {
                   checkThirdParty = false,
-                },
-                format = {
-                  enable = false,
-                },
-                diagnostics = {
-                  globals = { 'vim' },
-                },
-                completion = {
-                  callSnippet = 'Replace',
-                  keywordSnippet = 'Disable',
-                },
-                doc = {
-                  privateName = { '^_' },
                 },
               },
             },
