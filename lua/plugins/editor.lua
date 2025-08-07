@@ -3,6 +3,12 @@ return {
   'LunarVim/bigfile.nvim',
 
   {
+    'danymat/neogen',
+    config = true,
+    cmd = { 'Neogen' },
+  },
+
+  {
     'brenoprata10/nvim-highlight-colors',
     event = 'BufReadPre',
     opts = {
