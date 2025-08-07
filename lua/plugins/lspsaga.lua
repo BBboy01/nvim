@@ -3,7 +3,10 @@ return {
   'nvimdev/lspsaga.nvim',
   event = 'LspAttach',
   keys = {
-    { '<leader>dc', '<Cmd>Lspsaga show_line_diagnostics<CR>', desc = 'Show current line diagnostic' },
+    { '<C-w><C-d>', '<Cmd>Lspsaga show_line_diagnostics<CR>', desc = 'Show current line diagnostic' },
+    { '<C-w>d', '<Cmd>Lspsaga show_line_diagnostics<CR>', desc = 'Show current line diagnostic' },
+    { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>', desc = 'Show current line diagnostic' },
+    { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', desc = 'Show current line diagnostic' },
     {
       '[e',
       function()
