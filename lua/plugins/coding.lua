@@ -35,6 +35,7 @@ return {
 
   {
     'echasnovski/mini.surround',
+    lazy = false,
     keys = function(_, keys)
       -- Populate the keys based on the user's options
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
