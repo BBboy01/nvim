@@ -13,27 +13,6 @@ return {
   },
 
   {
-    'L3MON4D3/LuaSnip',
-    lazy = true,
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-    },
-    opts = {
-      history = true,
-      delete_check_events = 'TextChanged',
-    },
-    config = function()
-      local ls = require('luasnip')
-      ls.filetype_extend('javascript', { 'jsdoc' })
-      ls.filetype_extend('typescript', { 'javascript', 'tsdoc' })
-      ls.filetype_extend('vue', { 'javascript' })
-
-      require('luasnip.loaders.from_vscode').lazy_load()
-      require('luasnip.loaders.from_lua').lazy_load({ paths = { vim.fn.stdpath('config') .. '/lua/snippets' } })
-    end,
-  },
-
-  {
     'echasnovski/mini.surround',
     lazy = false,
     keys = function(_, keys)
@@ -70,9 +49,27 @@ return {
   {
     'saghen/blink.cmp',
     dependencies = {
-      'L3MON4D3/LuaSnip',
-      'rafamadriz/friendly-snippets',
       'xzbdmw/colorful-menu.nvim',
+      {
+        'L3MON4D3/LuaSnip',
+        lazy = true,
+        event = {'BufEnter'},
+        dependencies = {
+          'rafamadriz/friendly-snippets',
+        },
+        opts = {
+          history = true,
+          delete_check_events = 'TextChanged',
+        },
+        config = function()
+          local ls = require('luasnip')
+          ls.filetype_extend('javascript', { 'jsdoc' })
+          ls.filetype_extend('typescript', { 'javascript', 'tsdoc' })
+          ls.filetype_extend('vue', { 'javascript' })
+          require('luasnip.loaders.from_vscode').lazy_load()
+          require('luasnip.loaders.from_lua').lazy_load({ paths = { vim.fn.stdpath('config') .. '/lua/snippets' } })
+        end,
+      },
       {
         'saecki/crates.nvim',
         event = { 'BufRead Cargo.toml' },
