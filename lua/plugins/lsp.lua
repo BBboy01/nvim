@@ -130,12 +130,7 @@ return {
           },
           yamlls = {
             settings = {
-              redhat = { telemetry = { enabled = false } },
               yaml = {
-                keyOrdering = false,
-                format = {
-                  enable = true,
-                },
                 validate = true,
                 schemaStore = {
                   enable = false,
