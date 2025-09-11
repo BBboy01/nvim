@@ -53,7 +53,7 @@ return {
       {
         'L3MON4D3/LuaSnip',
         lazy = true,
-        event = {'BufEnter'},
+        event = { 'BufEnter' },
         dependencies = {
           'rafamadriz/friendly-snippets',
         },
