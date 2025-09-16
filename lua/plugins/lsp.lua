@@ -39,6 +39,7 @@ return {
             },
           },
         },
+        ---@type table<string, vim.lsp.Config>
         servers = {
           html = {},
           cssls = {},
