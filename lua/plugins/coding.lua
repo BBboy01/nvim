@@ -154,19 +154,14 @@ return {
     opts_extend = { 'sources.default' },
   },
 
-  -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     version = false,
     build = ':TSUpdate',
-    event = 'BufRead',
-    init = function()
-      require('nvim-treesitter.query_predicates')
-    end,
-    cmd = { 'TSUpdate', 'TSInstall' },
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
+    branch = 'main',
+    lazy = false,
+    cmd = { 'TSUpdate', 'TSInstall', 'TSLog', 'TSUninstall' },
+    opts_extend = { 'ensure_installed' },
     ---@type TSConfig
     ---@diagnostic disable-next-line: missing-fields
     opts = {
@@ -226,63 +221,34 @@ return {
         'nginx',
         'glsl',
       },
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = {
-            [']f'] = '@function.outer',
-            [']c'] = '@class.outer',
-            [']r'] = '@return.outer',
-          },
-          goto_next_end = {
-            [']F'] = '@function.inner',
-            [']C'] = '@class.inner',
-            [']R'] = '@return.inner',
-          },
-          goto_previous_start = {
-            ['[f'] = '@function.outer',
-            ['[c'] = '@class.outer',
-            ['[r'] = '@return.outer',
-          },
-          goto_previous_end = {
-            ['[F'] = '@function.inner',
-            ['[C'] = '@class.inner',
-            ['[R'] = '@return.inner',
-          },
-        },
-        select = {
-          enable = true,
-          keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-            ['ar'] = '@return.outer',
-            ['ir'] = '@return.inner',
-          },
-        },
-      },
-      highlight = {
-        enable = true,
-        disable = function(_, buf)
-          if vim.api.nvim_buf_line_count(buf) > 3000 then
-            return true
-          end
-
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
-      },
     },
     config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
+      local TS = require('nvim-treesitter')
+      local installed = TS.get_installed('parsers')
+
+      local install = vim.tbl_filter(function(lang)
+        return not vim.tbl_contains(installed, lang)
+      end, opts.ensure_installed)
+      if #install > 0 then
+        TS.install(install, { summary = true }):await(function()
+          print('parsers install done')
+        end)
+      end
+      TS.setup(opts)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('hyber_treesitter', {}),
+        callback = function(ev)
+          local lang = vim.treesitter.language.get_lang(ev.match)
+          if lang == nil or (not vim.tbl_contains(installed, lang)) then
+            return
+          end
+
+          vim.treesitter.start()
+        end,
+      })
+
       vim.filetype.add({
-        extension = {
-          mdx = 'mdx',
-        },
         filename = {
           ['.env'] = 'dotenv',
         },
@@ -292,7 +258,61 @@ return {
           ['.*gitlab%-ci%.ya?ml'] = 'yaml.gitlab',
         },
       })
-      vim.treesitter.language.register('markdown', 'mdx')
+    end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    event = 'VeryLazy',
+    opts = {
+      move = {
+        set_jumps = true,
+        keys = {
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+        },
+      },
+    },
+    config = function(_, opts)
+      local TS = require('nvim-treesitter-textobjects')
+      TS.setup(opts)
+      local installed = require('nvim-treesitter').get_installed('parsers')
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('hyber_treesitter_textobjects', { clear = true }),
+        callback = function(ev)
+          local lang = vim.treesitter.language.get_lang(ev.match)
+          if lang == nil or (not vim.tbl_contains(installed, lang)) then
+            return
+          end
+          if vim.treesitter.query.get(lang, 'textobjects') == nil then
+            return
+          end
+          ---@type table<string, table<string, string>>
+          local moves = vim.tbl_get(opts, 'move', 'keys')
+
+          for method, keymaps in pairs(moves) do
+            for key, query in pairs(keymaps) do
+              local desc = query:gsub('@', ''):gsub('%..*', '')
+              desc = desc:sub(1, 1):upper() .. desc:sub(2)
+              desc = (key:sub(1, 1) == '[' and 'Prev ' or 'Next ') .. desc
+              desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and ' End' or ' Start')
+              if not (vim.wo.diff and key:find('[cC]')) then
+                vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+                  require('nvim-treesitter-textobjects.move')[method](query, 'textobjects')
+                end, {
+                  buffer = ev.buf,
+                  desc = desc,
+                  silent = true,
+                })
+              end
+            end
+          end
+        end,
+      })
     end,
   },
 
