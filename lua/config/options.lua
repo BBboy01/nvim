@@ -40,6 +40,7 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.shiftround = true -- Round indent
 opt.smartindent = true -- Insert indents automatically
+opt.indentexpr = 'v:lua.LazyVim.treesitter.indentexpr()'
 
 -- Folding
 opt.foldlevel = 99
