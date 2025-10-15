@@ -275,6 +275,14 @@ return {
           goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
         },
       },
+      select = {
+        keys = {
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+        },
+      },
     },
     config = function(_, opts)
       local TS = require('nvim-treesitter-textobjects')
@@ -293,22 +301,29 @@ return {
           end
           ---@type table<string, table<string, string>>
           local moves = vim.tbl_get(opts, 'move', 'keys')
+          local selects = vim.tbl_get(opts, 'select', 'keys')
 
           for method, keymaps in pairs(moves) do
             for key, query in pairs(keymaps) do
-              local desc = query:gsub('@', ''):gsub('%..*', '')
-              desc = desc:sub(1, 1):upper() .. desc:sub(2)
-              desc = (key:sub(1, 1) == '[' and 'Prev ' or 'Next ') .. desc
-              desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and ' End' or ' Start')
-              if not (vim.wo.diff and key:find('[cC]')) then
+              if not vim.wo.diff then
                 vim.keymap.set({ 'n', 'x', 'o' }, key, function()
                   require('nvim-treesitter-textobjects.move')[method](query, 'textobjects')
                 end, {
                   buffer = ev.buf,
-                  desc = desc,
                   silent = true,
                 })
               end
+            end
+          end
+
+          for key, query in pairs(selects) do
+            if not vim.wo.diff then
+              vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+                require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
+              end, {
+                buffer = ev.buf,
+                silent = true,
+              })
             end
           end
         end,
