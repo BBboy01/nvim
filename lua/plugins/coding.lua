@@ -318,7 +318,7 @@ return {
 
           for key, query in pairs(selects) do
             if not vim.wo.diff then
-              vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+              vim.keymap.set({ 'x', 'o' }, key, function()
                 require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
               end, {
                 buffer = ev.buf,
