@@ -289,45 +289,51 @@ return {
       TS.setup(opts)
       local installed = require('nvim-treesitter').get_installed('parsers')
 
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('hyber_treesitter_textobjects', { clear = true }),
-        callback = function(ev)
-          local lang = vim.treesitter.language.get_lang(ev.match)
-          if lang == nil or (not vim.tbl_contains(installed, lang)) then
-            return
-          end
-          if vim.treesitter.query.get(lang, 'textobjects') == nil then
-            return
-          end
-          ---@type table<string, table<string, string>>
-          local moves = vim.tbl_get(opts, 'move', 'keys')
-          local selects = vim.tbl_get(opts, 'select', 'keys')
+      ---@param buf integer
+      local attach = function(buf)
+        local ft = vim.bo[buf].filetype
+        local lang = vim.treesitter.language.get_lang(ft)
+        if lang == nil or (not vim.tbl_contains(installed, lang)) then
+          return
+        end
+        if vim.treesitter.query.get(lang, 'textobjects') == nil then
+          return
+        end
+        local moves = vim.tbl_get(opts, 'move', 'keys') ---@type table<string, table<string, string>>
+        local selects = vim.tbl_get(opts, 'select', 'keys') ---@type table<string, string>
 
-          for method, keymaps in pairs(moves) do
-            for key, query in pairs(keymaps) do
-              if not vim.wo.diff then
-                vim.keymap.set({ 'n', 'x', 'o' }, key, function()
-                  require('nvim-treesitter-textobjects.move')[method](query, 'textobjects')
-                end, {
-                  buffer = ev.buf,
-                  silent = true,
-                })
-              end
-            end
-          end
-
-          for key, query in pairs(selects) do
+        for method, keymaps in pairs(moves) do
+          for key, query in pairs(keymaps) do
             if not vim.wo.diff then
-              vim.keymap.set({ 'x', 'o' }, key, function()
-                require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
+              vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+                require('nvim-treesitter-textobjects.move')[method](query, 'textobjects')
               end, {
-                buffer = ev.buf,
+                buffer = buf,
                 silent = true,
               })
             end
           end
+        end
+
+        for key, query in pairs(selects) do
+          if not vim.wo.diff then
+            vim.keymap.set({ 'x', 'o' }, key, function()
+              require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
+            end, {
+              buffer = buf,
+              silent = true,
+            })
+          end
+        end
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('hyber_treesitter_textobjects', { clear = true }),
+        callback = function(ev)
+          attach(ev.buf)
         end,
       })
+      vim.tbl_map(attach, vim.api.nvim_list_bufs())
     end,
   },
 
