@@ -348,7 +348,7 @@ return {
     'kdheepak/lazygit.nvim',
     cmd = { 'LazyGit' },
     keys = {
-      { ' g', '<cmd>LazyGit<cr>', desc = 'Open lazy git' },
+      { '<space>g', '<cmd>LazyGit<cr>', desc = 'Open lazy git' },
     },
   },
 
