@@ -244,7 +244,7 @@ return {
             return
           end
 
-          vim.treesitter.start()
+          pcall(vim.treesitter.start, ev.buf)
         end,
       })
 
