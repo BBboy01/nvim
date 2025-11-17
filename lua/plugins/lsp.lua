@@ -3,7 +3,6 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = 'BufReadPre',
-    commit = 'c8c9420b7676caf14e1e1d96caed204a81ba860f',
     dependencies = {
       'b0o/schemastore.nvim',
       'mason-org/mason.nvim',
