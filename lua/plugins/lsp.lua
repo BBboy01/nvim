@@ -62,6 +62,7 @@ return {
           glsl_analyzer = {},
           fish_lsp = {},
           ts_ls = {},
+          tsgo = {},
           vtsls = {
             filetypes = {
               'javascript',
@@ -111,6 +112,9 @@ return {
                 updateImportsOnFileMove = { enabled = 'always' },
                 suggest = {
                   completeFunctionCalls = true,
+                },
+                experimental = {
+                  useTsgo = true,
                 },
               },
             },
