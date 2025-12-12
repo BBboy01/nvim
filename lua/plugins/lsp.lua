@@ -65,12 +65,6 @@ return {
           tsgo = {},
           vtsls = {
             filetypes = {
-              'javascript',
-              'javascriptreact',
-              'javascript.jsx',
-              'typescript',
-              'typescriptreact',
-              'typescript.tsx',
               'vue',
             },
             settings = {
@@ -112,9 +106,6 @@ return {
                 updateImportsOnFileMove = { enabled = 'always' },
                 suggest = {
                   completeFunctionCalls = true,
-                },
-                experimental = {
-                  useTsgo = true,
                 },
               },
             },
