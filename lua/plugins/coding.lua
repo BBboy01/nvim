@@ -186,7 +186,6 @@ return {
         'toml',
         'json',
         'json5',
-        'jsonc',
         'mermaid',
         'lua',
         'luap',
