@@ -1,7 +1,5 @@
 ---@type LazySpec
 return {
-  'LunarVim/bigfile.nvim',
-
   {
     'danymat/neogen',
     config = true,
@@ -290,6 +288,7 @@ return {
 
   {
     'aaronik/treewalker.nvim',
+    lazy = true,
     opts = {
       highlight = true,
     },
@@ -307,7 +306,7 @@ return {
 
   {
     'stevearc/oil.nvim',
-    lazy = false,
+    lazy = true,
     keys = {
       { 'sf', '<CMD>Oil --float<CR>', desc = 'Open File Browser with the path of the current buffer' },
     },
