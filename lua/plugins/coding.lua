@@ -14,7 +14,7 @@ return {
 
   {
     'nvim-mini/mini.surround',
-    lazy = false,
+    event = 'BufRead',
     keys = function(_, keys)
       -- Populate the keys based on the user's options
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -48,12 +48,13 @@ return {
 
   {
     'saghen/blink.cmp',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'xzbdmw/colorful-menu.nvim',
       {
         'L3MON4D3/LuaSnip',
         lazy = true,
-        event = { 'BufEnter' },
+        event = 'InsertEnter',
         dependencies = {
           'rafamadriz/friendly-snippets',
         },
@@ -72,7 +73,7 @@ return {
       },
       {
         'saecki/crates.nvim',
-        event = { 'BufRead Cargo.toml' },
+        event = 'BufRead Cargo.toml',
         opts = {
           lsp = {
             enabled = true,
@@ -159,7 +160,7 @@ return {
     version = false,
     build = ':TSUpdate',
     branch = 'main',
-    lazy = false,
+    event = 'VeryLazy',
     cmd = { 'TSUpdate', 'TSInstall', 'TSLog', 'TSUninstall' },
     opts_extend = { 'ensure_installed' },
     ---@type TSConfig
@@ -389,7 +390,7 @@ return {
 
   {
     'laytan/cloak.nvim',
-    event = 'BufEnter',
+    event = 'BufRead',
     opts = {
       enabled = true,
       cloak_character = '*',
