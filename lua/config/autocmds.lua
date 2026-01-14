@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup('hyber', {})
+local group = vim.api.nvim_create_augroup('hyber', { clear = true })
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
@@ -77,6 +77,87 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
+  end,
+})
+
+-- Disable most features for bigfile
+local opts = {
+  notify = true, -- show notification when big file detected
+  size = 1.5 * 1024 * 1024, -- 1.5MB
+  line_length = 1000, -- average line length (useful for minified files)
+  -- Enable or disable features when big file detected
+  ---@param ctx {buf: number, ft:string}
+  setup = function(ctx)
+    if vim.fn.exists(':NoMatchParen') ~= 0 then
+      vim.cmd([[NoMatchParen]])
+    end
+    for k, v in pairs({ foldmethod = 'manual', statuscolumn = '', conceallevel = 0 }) do
+      if k == 'winhighlight' and type(v) == 'table' then
+        local parts = {} ---@type string[]
+        for kk, vv in pairs(v) do
+          if vv ~= '' then
+            parts[#parts + 1] = ('%s:%s'):format(kk, vv)
+          end
+        end
+        v = table.concat(parts, ',')
+      end
+      vim.api.nvim_set_option_value(k, v, { scope = 'local', win = 0 })
+    end
+    vim.b.completion = false
+    vim.b.minianimate_disable = true
+    vim.b.minihipatterns_disable = true
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(ctx.buf) then
+        vim.bo[ctx.buf].syntax = ctx.ft
+      end
+    end)
+  end,
+}
+vim.filetype.add({
+  pattern = {
+    ['.*'] = {
+      function(path, buf)
+        if not path or not buf or vim.bo[buf].filetype == 'bigfile' then
+          return
+        end
+        if path ~= vim.fs.normalize(vim.api.nvim_buf_get_name(buf)) then
+          return
+        end
+        local size = vim.fn.getfsize(path)
+        if size <= 0 then
+          return
+        end
+        if size > opts.size then
+          return 'bigfile'
+        end
+        local lines = vim.api.nvim_buf_line_count(buf)
+        return (size - lines) / lines > opts.line_length and 'bigfile' or nil
+      end,
+    },
+  },
+})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = group,
+  pattern = 'bigfile',
+  callback = function(ev)
+    if opts.notify then
+      local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ':p:~:.')
+      vim.api.nvim_echo({
+        { ' Big File ', 'DiagnosticVirtualTextWarn' },
+        { 'Big file detected ' },
+        { path, 'DiagnosticVirtualTextInfo' },
+        { '. ' },
+        { 'Some Neovim features have been ' },
+        { 'disabled', 'WarningMsg' },
+        { '.' },
+      }, true, {})
+    end
+    vim.api.nvim_buf_call(ev.buf, function()
+      opts.setup({
+        buf = ev.buf,
+        ft = vim.filetype.match({ buf = ev.buf }) or '',
+      })
+    end)
   end,
 })
 
