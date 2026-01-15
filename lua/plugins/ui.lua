@@ -1,5 +1,14 @@
 ---@type LazySpec
 return {
+  {
+    'craftzdog/solarized-osaka.nvim',
+    config = function()
+      vim.cmd.colorscheme('solarized-osaka')
+      vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'NONE' })
+      vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'NONE' })
+    end,
+  },
+
   -- tabs, which include filetype icons and close buttons.
   {
     'akinsho/bufferline.nvim',
