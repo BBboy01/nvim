@@ -3,11 +3,7 @@ local map = vim.keymap.set
 map('n', 'x', '"_x')
 
 map({ 'i', 'n' }, '<Esc>', '<Cmd>noh<CR><Esc>', { desc = 'Escape and clear hlsearch' })
-map('n', '<leader>l', '<Cmd>set hlsearch!<CR>', {
-  noremap = true,
-  silent = true,
-  desc = 'Toggle matched highlight status',
-})
+map('n', '<leader>l', '<Cmd>set hlsearch!<CR>', { noremap = true, desc = 'Toggle matched highlight status' })
 
 -- paste but not yank
 map('x', 'p', [["_dP]])
@@ -52,7 +48,7 @@ map('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result
 map('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
 
 -- quit
-map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+map('n', '<leader>qq', '<Cmd>qa<cr>', { desc = 'Quit all' })
 
 -- Add undo break-points
 map('i', ',', ',<c-g>u')
