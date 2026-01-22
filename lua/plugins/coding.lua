@@ -348,7 +348,7 @@ return {
     'kdheepak/lazygit.nvim',
     cmd = { 'LazyGit' },
     keys = {
-      { '<space>g', '<cmd>LazyGit<cr>', desc = 'Open lazy git' },
+      { '<space>g', '<Cmd>LazyGit<cr>', desc = 'Open lazy git' },
     },
   },
 
@@ -361,7 +361,7 @@ return {
     keys = {
       {
         '<Leader>f',
-        '<cmd>Guard fmt<cr>',
+        '<Cmd>Guard fmt<cr>',
         desc = 'Format current buffer',
       },
     },
