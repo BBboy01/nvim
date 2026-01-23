@@ -52,7 +52,7 @@ return {
 
   {
     'lewis6991/gitsigns.nvim',
-    event = 'VeryLazy',
+    event = 'BufRead',
     keys = {
       {
         '<leader>gb',
@@ -220,12 +220,11 @@ return {
   },
 
   -- ui components
-  { 'MunifTanjim/nui.nvim', lazy = true },
+  { 'MunifTanjim/nui.nvim' },
 
   -- icons
   {
     'nvim-mini/mini.icons',
-    lazy = true,
     opts = {
       filetype = {
         dotenv = { glyph = '', hl = 'MiniIconsYellow' },
@@ -253,7 +252,6 @@ return {
   -- rainbow bracket
   {
     'HiPhish/rainbow-delimiters.nvim',
-    lazy = true,
     event = 'BufRead',
     config = function()
       local rainbow_delimiters = require('rainbow-delimiters')

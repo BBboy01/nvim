@@ -53,7 +53,6 @@ return {
       'xzbdmw/colorful-menu.nvim',
       {
         'L3MON4D3/LuaSnip',
-        lazy = true,
         event = 'InsertEnter',
         dependencies = {
           'rafamadriz/friendly-snippets',
@@ -340,7 +339,7 @@ return {
   -- Automatically add closing tags for HTML and JSX
   {
     'windwp/nvim-ts-autotag',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'InsertEnter',
     opts = {},
   },
 
@@ -354,7 +353,6 @@ return {
 
   {
     'nvimdev/guard.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvimdev/guard-collection',
     },
