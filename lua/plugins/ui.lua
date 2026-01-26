@@ -231,10 +231,12 @@ return {
       },
       file = {
         ['.eslintrc.js'] = { glyph = '󰱺', hl = 'MiniIconsYellow' },
+        ['eslint.config.mjs'] = { glyph = '󰱺', hl = 'MiniIconsYellow' },
         ['.node-version'] = { glyph = '', hl = 'MiniIconsGreen' },
         ['.prettierrc'] = { glyph = '', hl = 'MiniIconsPurple' },
+        ['prettierrc.config.js'] = { glyph = '', hl = 'MiniIconsPurple' },
+        ['prettierrc.config.mjs'] = { glyph = '', hl = 'MiniIconsPurple' },
         ['.yarnrc.yml'] = { glyph = '', hl = 'MiniIconsBlue' },
-        ['eslint.config.js'] = { glyph = '󰱺', hl = 'MiniIconsYellow' },
         ['package.json'] = { glyph = '', hl = 'MiniIconsGreen' },
         ['tsconfig.json'] = { glyph = '', hl = 'MiniIconsAzure' },
         ['tsconfig.build.json'] = { glyph = '', hl = 'MiniIconsAzure' },
