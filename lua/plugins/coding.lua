@@ -159,7 +159,7 @@ return {
     version = false,
     build = ':TSUpdate',
     branch = 'main',
-    event = 'VeryLazy',
+    lazy = false,
     cmd = { 'TSUpdate', 'TSInstall', 'TSLog', 'TSUninstall' },
     opts_extend = { 'ensure_installed' },
     ---@type TSConfig
