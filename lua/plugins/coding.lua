@@ -175,6 +175,7 @@ return {
         'printf',
         'bash',
         'fish',
+        'just',
         'make',
         'cmake',
         'tmux',

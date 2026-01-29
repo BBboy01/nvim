@@ -60,6 +60,7 @@ return {
           nginx_language_server = {},
           gitlab_ci_ls = {},
           glsl_analyzer = {},
+          just = {},
           fish_lsp = {},
           ts_ls = {},
           tsgo = {},
@@ -233,6 +234,7 @@ return {
         'css-lsp',
         'glsl_analyzer',
         'fish-lsp',
+        'just-lsp',
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
