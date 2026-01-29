@@ -73,6 +73,6 @@ return {
     return vim.lsp.rpc.start(cmd, dispatchers)
   end,
 
-  filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx', 'htmlangular' },
+  filetypes = { 'typescript', 'typescriptreact', 'htmlangular' },
   root_markers = { 'angular.json', 'nx.json' },
 }
