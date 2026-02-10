@@ -305,7 +305,7 @@ return {
           center = {
             {
               action = function()
-                require('fzf-lua').files()
+                require('oil').open_float()
               end,
               desc = ' Find file',
               icon = ' ',
