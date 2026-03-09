@@ -19,15 +19,32 @@ return {
     cmd = 'FzfLua',
     keys = {
       {
-        '<C-p>',
-        '<Cmd>FzfLua files<CR>',
-        desc = 'Lists files in your current working directory, respects .gitignore',
+        '\\\\',
+        '<Cmd>FzfLua resume<CR>',
+        desc = 'Resume the previous fzf-lua picker',
       },
       {
         '<Leader>C',
         '<Cmd>FzfLua command_history<CR>',
         desc = 'Lists command history',
       },
+      -- find
+      {
+        '<C-p>',
+        '<Cmd>FzfLua files<CR>',
+        desc = 'Lists files in your current working directory, respects .gitignore',
+      },
+      {
+        '<Leader>t',
+        '<Cmd>FzfLua tabs<CR>',
+        desc = 'Lists open tabs',
+      },
+      {
+        '<Leader>?',
+        '<Cmd>FzfLua oldfiles<CR>',
+        desc = 'Lists recently opened files',
+      },
+      -- search
       {
         '<Leader>r',
         '<Cmd>FzfLua live_grep<CR>',
@@ -44,21 +61,6 @@ return {
         desc = 'Search from current buffer',
       },
       {
-        '<Leader>b',
-        '<Cmd>FzfLua buffers<CR>',
-        desc = 'Lists open buffers',
-      },
-      {
-        '<Leader>t',
-        '<Cmd>FzfLua tabs<CR>',
-        desc = 'Lists open tabs',
-      },
-      {
-        '\\\\',
-        '<Cmd>FzfLua resume<CR>',
-        desc = 'Resume the previous fzf-lua picker',
-      },
-      {
         '<Leader>dl',
         '<Cmd>FzfLua diagnostics_document<CR>',
         desc = 'Lists Diagnostics for current buffer',
@@ -68,11 +70,7 @@ return {
         '<Cmd>FzfLua diagnostics_workspace<CR>',
         desc = 'Lists Diagnostics for workspace',
       },
-      {
-        '<Leader>?',
-        '<Cmd>FzfLua oldfiles<CR>',
-        desc = 'Lists recently opened files',
-      },
+      -- lsp
       {
         'gO',
         '<Cmd>FzfLua lsp_document_symbols<CR>',
@@ -80,6 +78,11 @@ return {
       },
       { 'gri', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
       { 'gD', '<Cmd>FzfLua lsp_declarations<CR>', desc = 'Grep Declarations' },
+      -- git
+      { '<Leader>gd', '<Cmd>FzfLua git_diff<CR>', desc = 'Git Diff (files)' },
+      { '<leader>gc', '<cmd>FzfLua git_commits<CR>', desc = 'Commits' },
+      { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = 'Status' },
+      { '<leader>gS', '<cmd>FzfLua git_stash<cr>', desc = 'Git Stash' },
     },
     config = function()
       local config = require('fzf-lua.config')
