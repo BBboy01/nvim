@@ -195,6 +195,9 @@ return {
             vim.lsp.config(server, server_opts)
             return server
           end)
+          :filter(function(server)
+            return not server == 'stylelint_lsp'
+          end)
           :totable(),
       })
     end,
