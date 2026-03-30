@@ -46,7 +46,14 @@ return {
           emmet_language_server = {},
           css_variables = {},
           eslint = {},
-          stylelint_lsp = {},
+          stylelint_lsp = {
+            settings = {
+              stylelint = {
+                snippet = { 'css', 'postcss', 'scss' },
+                validate = { 'css', 'postcss', 'scss' },
+              },
+            },
+          },
           tailwindcss = {},
           bashls = {},
           dockerls = {},
