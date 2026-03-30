@@ -228,7 +228,7 @@ return {
         'tailwindcss-language-server',
         'css-variables-language-server',
         'emmet-language-server',
-        'stylelint-lsp',
+        'stylelint-language-server',
         'eslint-lsp',
         'html-lsp',
         'css-lsp',
