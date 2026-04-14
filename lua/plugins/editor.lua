@@ -79,10 +79,8 @@ return {
       { 'gri', '<Cmd>FzfLua lsp_implementations<CR>', desc = 'Grep Implementations' },
       { 'gD', '<Cmd>FzfLua lsp_declarations<CR>', desc = 'Grep Declarations' },
       -- git
-      { '<Leader>gd', '<Cmd>FzfLua git_diff<CR>', desc = 'Git Diff (files)' },
       { '<leader>gc', '<cmd>FzfLua git_commits<CR>', desc = 'Commits' },
       { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = 'Status' },
-      { '<leader>gS', '<cmd>FzfLua git_stash<cr>', desc = 'Git Stash' },
     },
     config = function()
       local config = require('fzf-lua.config')
