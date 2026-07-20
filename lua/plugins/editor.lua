@@ -6,6 +6,7 @@ return {
     cmd = { 'Neogen' },
   },
 
+  -- almost can remove since nvim 0.12 has builtin live color preview, but for some cases lsp are no documentColor supports it's still need
   {
     'brenoprata10/nvim-highlight-colors',
     event = 'BufReadPre',
