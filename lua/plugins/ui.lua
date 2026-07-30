@@ -66,7 +66,7 @@ return {
       { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
       { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', 'Preview hunk' },
       { '<leader>gd', '<Cmd>Gitsigns diffthis<CR>', 'Diff this' },
-      { '<leader>gS', '<Cmd>Gitsigns stage_buffer<CR>', 'Stage buffer' },
+      { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', 'Stage buffer' },
       { '<leader>gR', '<Cmd>Gitsigns reset_buffer<CR>', 'Undo stage buffer' },
     },
     opts = {
