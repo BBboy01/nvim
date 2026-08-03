@@ -178,7 +178,6 @@ return {
         'just',
         'make',
         'cmake',
-        'tmux',
         'dot',
         'http',
         'dockerfile',
