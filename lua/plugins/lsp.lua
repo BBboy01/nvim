@@ -69,8 +69,7 @@ return {
           glsl_analyzer = {},
           just = {},
           fish_lsp = {},
-          ts_ls = {},
-          tsgo = {},
+          tsc = {},
           vtsls = {
             filetypes = {
               'vue',
@@ -232,7 +231,7 @@ return {
         'sqls',
         'json-lsp',
         'vtsls',
-        'typescript-language-server',
+        'tsc',
         'angular-language-server',
         'vue-language-server',
         'tailwindcss-language-server',
