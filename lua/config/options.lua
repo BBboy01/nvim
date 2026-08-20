@@ -3,43 +3,40 @@ vim.g.maplocalleader = ';'
 
 local opt = vim.opt
 
--- Editing
-opt.mouse = '' -- Disable mouse action
-opt.laststatus = 3 -- Global statusline
-
-opt.grepformat = '%f:%l:%c:%m'
-opt.grepprg = 'rg --vimgrep'
-
-opt.clipboard = 'unnamedplus' -- Sync with system clipboard
-opt.confirm = true -- Confirm to save changes before exiting modified buffer
-
-opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
+-- General
+opt.mouse = ''
+opt.clipboard = 'unnamedplus'
+opt.confirm = true
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
-opt.spelllang = { 'en' }
-opt.updatetime = 200 -- Save swap file and trigger CursorHold
-opt.winminwidth = 5 -- Minimum window width
+opt.timeoutlen = 500
+opt.updatetime = 200
 
-opt.expandtab = true -- Use spaces instead of tabs
-opt.backup = false
-opt.writebackup = false
-opt.backupskip = { '/tmp/*', '/private/tmp/*' }
-opt.inccommand = 'nosplit' -- Preview incremental substitute
-opt.virtualedit = 'block' -- Select whatever in visual block mode
+-- Editing
+opt.selection = 'old' -- Keep v$ characterwise so it does not include the line break
+opt.virtualedit = 'block'
 opt.jumpoptions = 'view'
-opt.path:append({ '**' }) -- Finding files - Search down into subfolders
+
+-- Indentation
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.shiftround = true
+opt.smartindent = true
+
+-- Search and completion
+opt.ignorecase = true
+opt.smartcase = true
+opt.path:append({ '**' })
 opt.wildignore:append({ '*/node_modules/*' })
-opt.wildmode = { 'longest:full', 'full' } -- Command-line completion mode
+opt.wildmode = { 'longest:full', 'full' }
+opt.completeopt = { 'menu', 'menuone', 'fuzzy', 'popup', 'noinsert', 'noselect' }
 
--- Searching
-opt.ignorecase = true -- Ignore case
-opt.smartcase = true -- Don't ignore case with capitals
-opt.infercase = true
-
--- Indent
-opt.shiftwidth = 2 -- Size of an indent
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.shiftround = true -- Round indent
-opt.smartindent = true -- Insert indents automatically
+-- Files and history
+opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
+opt.writebackup = false
+opt.swapfile = false
+opt.undofile = true
+opt.undolevels = 10000
 
 -- Folding
 opt.foldlevel = 99
@@ -47,30 +44,22 @@ opt.foldmethod = 'expr'
 opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 opt.foldtext = ''
 
--- Cache/Log file
-opt.swapfile = false
-opt.undofile = true -- Save undo history
-opt.undolevels = 10000
-
--- Rendering
-opt.termguicolors = true -- True color support
-
 -- UI
-opt.number = true -- Print line number
-opt.relativenumber = true -- Print relative line number
+opt.laststatus = 3
+opt.winminwidth = 5
+opt.termguicolors = true
+opt.number = true
+opt.relativenumber = true
 opt.winborder = 'rounded'
-opt.ruler = false -- Disable the default ruler
-opt.wrap = false -- No wrap lines
-opt.cursorline = true -- Enable highlighting of the current line
-opt.signcolumn = 'yes' -- Always show the signcolumn
-opt.showmode = false -- Don't show the mode, since it's already in status line
-opt.pumheight = 15 -- Maximum number of entries in a popup
-opt.completeopt = { 'menu', 'menuone', 'fuzzy', 'popup', 'noinsert', 'noselect' } -- Popup settings
-opt.pumblend = 10 -- Popup blend
+opt.ruler = false
+opt.wrap = false
+opt.cursorline = true
+opt.signcolumn = 'yes'
+opt.showmode = false
 opt.smoothscroll = true
-opt.scrolloff = 2 -- Lines of context
-opt.sidescrolloff = 8 -- Columns of context
-opt.cmdheight = 0 -- Hide cmd line until in use
-opt.list = true -- Show some invisible characters (tabs...
-opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' } -- Sets how neovim will display certain whitespace in the editor
+opt.scrolloff = 2
+opt.sidescrolloff = 8
+opt.cmdheight = 0
+opt.list = true
+opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.fillchars = { foldopen = '', foldclose = '', fold = ' ', foldsep = ' ', diff = '╱', eob = ' ' }
