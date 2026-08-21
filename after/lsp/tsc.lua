@@ -39,30 +39,6 @@ end
 
 ---@type vim.lsp.Config
 return {
-  settings = {
-    ['js/ts'] = {
-      inlayHints = {
-        parameterNames = {
-          enabled = 'literals',
-          suppressWhenArgumentMatchesName = true,
-        },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        enumMemberValues = { enabled = true },
-      },
-      referencesCodeLens = {
-        enabled = true,
-        showOnAllFunctions = true,
-      },
-      implementationsCodeLens = {
-        enabled = true,
-        showOnInterfaceMethods = true,
-        showOnAllClassMethods = true,
-      },
-    },
-  },
   cmd = function(dispatchers, config)
     local cmd = bin_cache[(config or {}).root_dir] or 'tsc'
     return vim.lsp.rpc.start({ cmd, '--lsp', '--stdio' }, dispatchers)
