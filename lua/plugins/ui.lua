@@ -60,14 +60,14 @@ return {
         function()
           require('gitsigns').blame_line({ full = true })
         end,
-        'Blame current line',
+        desc = 'Blame current line',
       },
-      { '<leader>g[', '<Cmd>Gitsigns prev_hunk<CR>', 'Prev hunk' },
-      { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', 'Next hunk' },
-      { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', 'Preview hunk' },
-      { '<leader>gd', '<Cmd>Gitsigns diffthis<CR>', 'Diff this' },
-      { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', 'Stage buffer' },
-      { '<leader>gR', '<Cmd>Gitsigns reset_buffer<CR>', 'Undo stage buffer' },
+      { '<leader>g[', '<Cmd>Gitsigns prev_hunk<CR>', desc = 'Previous hunk' },
+      { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', desc = 'Next hunk' },
+      { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', desc = 'Preview hunk' },
+      { '<leader>gd', '<Cmd>Gitsigns diffthis<CR>', desc = 'Diff this' },
+      { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', desc = 'Reset hunk' },
+      { '<leader>gR', '<Cmd>Gitsigns reset_buffer<CR>', desc = 'Reset buffer' },
     },
     opts = {
       signs = {

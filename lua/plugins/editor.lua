@@ -231,7 +231,7 @@ return {
               },
             })
           end,
-          'Harpoon list live grep',
+          desc = 'Harpoon list picker',
         },
       }
 
