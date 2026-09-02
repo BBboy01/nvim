@@ -1,12 +1,10 @@
-local fs, fn, uv = vim.fs, vim.fn, vim.uv
-
 local function get_angular_core_version(root_dir)
-  local package_json = fs.joinpath(root_dir, 'package.json')
-  if not uv.fs_stat(package_json) then
+  local package_json = vim.fs.joinpath(root_dir, 'package.json')
+  if not vim.uv.fs_stat(package_json) then
     return ''
   end
 
-  local ok, content = pcall(fn.readblob, package_json)
+  local ok, content = pcall(vim.fn.readblob, package_json)
   if not ok or not content then
     return ''
   end
@@ -28,19 +26,19 @@ end
 --         - ngserver
 --   - typescript
 local function get_global_ls_path()
-  local ngserver_exe = fn.exepath('ngserver')
+  local ngserver_exe = vim.fn.exepath('ngserver')
   if #ngserver_exe == 0 then
     return nil
   end
 
-  local realpath = uv.fs_realpath(ngserver_exe) or ngserver_exe
-  local extension_path = fs.normalize(fs.joinpath(fs.dirname(realpath), '../../..'))
+  local realpath = vim.uv.fs_realpath(ngserver_exe) or ngserver_exe
+  local extension_path = vim.fs.normalize(vim.fs.joinpath(vim.fs.dirname(realpath), '../../..'))
   return extension_path
 end
 
 local function get_local_ls_path(root_dir)
-  local extension_path = fs.joinpath(root_dir, 'node_modules')
-  if uv.fs_stat(extension_path) then
+  local extension_path = vim.fs.joinpath(root_dir, 'node_modules')
+  if vim.uv.fs_stat(extension_path) then
     return extension_path
   end
   return nil
@@ -51,7 +49,7 @@ local global_ls_path = get_global_ls_path()
 ---@type vim.lsp.Config
 return {
   cmd = function(dispatchers, config)
-    local root_dir = (config and config.root_dir) or fn.getcwd()
+    local root_dir = (config and config.root_dir) or vim.fn.getcwd()
     local local_ls_path = get_local_ls_path(root_dir)
     local extension_path = { global_ls_path, local_ls_path }
 
@@ -59,7 +57,7 @@ return {
     local ng_probe_dirs = vim
       .iter(extension_path)
       :map(function(p)
-        return fs.joinpath(p, '@angular/language-server/node_modules')
+        return vim.fs.joinpath(p, '@angular/language-server/node_modules')
       end)
       :join(',')
 
