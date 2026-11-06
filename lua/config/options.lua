@@ -15,6 +15,7 @@ opt.updatetime = 200
 opt.selection = 'old' -- Keep v$ characterwise so it does not include the line break
 opt.virtualedit = 'block'
 opt.jumpoptions = 'view'
+opt.iskeyword:append('-')
 
 -- Indentation
 opt.expandtab = true
