@@ -18,9 +18,9 @@ opt.jumpoptions = 'view'
 opt.iskeyword:append('-')
 
 -- Indentation
+opt.shiftwidth = 2 -- Indent width
+opt.tabstop = 2 -- Tab width
 opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
 opt.shiftround = true
 opt.smartindent = true
 
@@ -28,8 +28,8 @@ opt.smartindent = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.path:append({ '**' })
-opt.wildignore:append({ '*/node_modules/*' })
 opt.wildmode = { 'longest:full', 'full' }
+opt.wildignore:append({ '*/node_modules/*' })
 opt.completeopt = { 'menu', 'menuone', 'fuzzy', 'popup', 'noinsert', 'noselect' }
 
 -- Files and history
@@ -56,9 +56,8 @@ opt.ruler = false
 opt.wrap = false
 opt.cursorline = true
 opt.signcolumn = 'yes'
-opt.showmode = false
 opt.smoothscroll = true
-opt.scrolloff = 2
+opt.scrolloff = 10
 opt.sidescrolloff = 8
 opt.cmdheight = 0
 opt.list = true
