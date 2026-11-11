@@ -28,7 +28,6 @@ opt.smartindent = true -- Apply simple language-aware indentation rules.
 -- Search and command-line completion
 opt.ignorecase = true -- Ignore case in searches by default.
 opt.smartcase = true -- Respect case when the search contains uppercase letters.
-opt.path:append({ '**' }) -- Search recursively when resolving file names.
 opt.wildmode = { 'longest:full', 'full' } -- Complete the longest common prefix first.
 opt.wildignore:append({ '*/node_modules/*' })
 opt.completeopt = { 'menu', 'menuone', 'fuzzy', 'popup', 'noinsert', 'noselect' }
