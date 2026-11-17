@@ -31,7 +31,7 @@ return {
         diagnostics = 'nvim_lsp',
         always_show_bufferline = false,
         diagnostics_indicator = function(_, _, diag)
-          local icons = require('config').icons.diagnostics
+          local icons = require('config.icons').diagnostics
           local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
             .. (diag.warning and icons.Warn .. diag.warning or '')
           return vim.trim(ret)
@@ -51,36 +51,6 @@ return {
     end,
   },
 
-  {
-    'lewis6991/gitsigns.nvim',
-    event = 'BufRead',
-    keys = {
-      {
-        '<leader>gb',
-        function()
-          require('gitsigns').blame_line({ full = true })
-        end,
-        desc = 'Blame current line',
-      },
-      { '<leader>g[', '<Cmd>Gitsigns prev_hunk<CR>', desc = 'Previous hunk' },
-      { '<leader>g]', '<Cmd>Gitsigns next_hunk<CR>', desc = 'Next hunk' },
-      { '<leader>gp', '<Cmd>Gitsigns preview_hunk<CR>', desc = 'Preview hunk' },
-      { '<leader>gd', '<Cmd>Gitsigns diffthis<CR>', desc = 'Diff this' },
-      { '<leader>gr', '<Cmd>Gitsigns reset_hunk<CR>', desc = 'Reset hunk' },
-      { '<leader>gR', '<Cmd>Gitsigns reset_buffer<CR>', desc = 'Reset buffer' },
-    },
-    opts = {
-      signs = {
-        add = { text = '┃' },
-        change = { text = '┃' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked = { text = '┃' },
-      },
-    },
-  },
-
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
@@ -89,7 +59,7 @@ return {
       local lualine_require = require('lualine_require')
       lualine_require.require = require
 
-      local icons = require('config').icons
+      local icons = require('config.icons')
       local colors = require('solarized-osaka.colors').default
 
       local opts = {
@@ -249,32 +219,13 @@ return {
     end,
   },
 
-  -- rainbow bracket
+  -- almost can remove since nvim 0.12 has builtin live color preview, but for some cases lsp are no documentColor supports it's still need
   {
-    'HiPhish/rainbow-delimiters.nvim',
-    event = 'BufRead',
-    config = function()
-      local rainbow_delimiters = require('rainbow-delimiters')
-      vim.g.rainbow_delimiters = {
-        strategy = {
-          [''] = rainbow_delimiters.strategy['global'],
-          vim = rainbow_delimiters.strategy['local'],
-        },
-        query = {
-          [''] = 'rainbow-delimiters',
-          lua = 'rainbow-blocks',
-        },
-        highlight = {
-          'RainbowDelimiterBlue',
-          'RainbowDelimiterYellow',
-          'RainbowDelimiterCyan',
-          'RainbowDelimiterViolet',
-          'RainbowDelimiterRed',
-          'RainbowDelimiterOrange',
-          'RainbowDelimiterGreen',
-        },
-      }
-    end,
+    'brenoprata10/nvim-highlight-colors',
+    event = 'BufReadPre',
+    opts = {
+      exclude = { 'lazy', 'mason' },
+    },
   },
 
   {

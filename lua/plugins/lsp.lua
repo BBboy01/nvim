@@ -9,7 +9,7 @@ return {
       'mason-org/mason-lspconfig.nvim',
     },
     opts = function()
-      local config = require('config')
+      local icons = require('config.icons')
 
       return {
         ---@type lsp.ClientCapabilities
@@ -32,10 +32,10 @@ return {
           severity_sort = true,
           signs = {
             text = {
-              [vim.diagnostic.severity.ERROR] = config.icons.diagnostics.Error,
-              [vim.diagnostic.severity.WARN] = config.icons.diagnostics.Warn,
-              [vim.diagnostic.severity.INFO] = config.icons.diagnostics.Info,
-              [vim.diagnostic.severity.HINT] = config.icons.diagnostics.Hint,
+              [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+              [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+              [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+              [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
             },
           },
         },
@@ -273,5 +273,47 @@ return {
         ensure_installed()
       end
     end,
+  },
+
+  {
+    'nvimdev/lspsaga.nvim',
+    event = 'LspAttach',
+    keys = {
+      { '<C-w><C-d>', '<Cmd>Lspsaga show_line_diagnostics<CR>', desc = 'Show current line diagnostic' },
+      { '<C-w>d', '<Cmd>Lspsaga show_line_diagnostics<CR>', desc = 'Show current line diagnostic' },
+      { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>', desc = 'Show current line diagnostic' },
+      { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', desc = 'Show current line diagnostic' },
+      {
+        '[e',
+        function()
+          require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+        end,
+        desc = 'Prev error diagnostic at current buffer',
+      },
+      {
+        ']e',
+        function()
+          require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })
+        end,
+        desc = 'Next error diagnostic at current buffer',
+      },
+      { '<leader>o', '<Cmd>Lspsaga outline<CR>', desc = 'Show outline of current buffer' },
+      { 'gd', '<Cmd>Lspsaga goto_definition<CR>', desc = 'Goto cursorword definition' },
+      { 'grt', '<Cmd>Lspsaga goto_type_definition<CR>', desc = 'Goto cursorword type definition' },
+      { 'K', '<Cmd>Lspsaga hover_doc<CR>', desc = 'Show cursorword doc' },
+      { 'grr', '<Cmd>Lspsaga finder<CR>', desc = 'Show cursorword finder' },
+      { 'gP', '<Cmd>Lspsaga peek_type_definition<CR>', desc = 'Peek cursorword type definition' },
+      { 'gp', '<Cmd>Lspsaga peek_definition<CR>', desc = 'Peek cursorword definition' },
+      { 'gra', '<Cmd>Lspsaga code_action<CR>', desc = 'Show code action' },
+      { 'grn', '<Cmd>Lspsaga rename<CR>', desc = 'Rename cursorword' },
+    },
+    opts = {
+      outline = {
+        layout = 'float',
+      },
+      rename = {
+        in_select = false,
+      },
+    },
   },
 }
